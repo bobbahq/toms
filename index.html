@@ -129,7 +129,6 @@
       resize: none;
       box-sizing: border-box;
       overflow: hidden;
-      touch-action: none;
     }
 
     .mini-player button {
@@ -164,7 +163,7 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* MOBILE default positions */
+    /* Default mobile positions */
     #atmos {
       bottom: 110px;
       left: 50%;
@@ -177,15 +176,10 @@
       transform: translateX(-15%) rotate(3deg);
     }
 
-    /* DESKTOP overrides */
+    /* Clear transform on desktop for JS override */
     @media (min-width: 768px) {
-      #atmos {
-        bottom: 240px;
-        left: 35%;
-      }
-      #music {
-        bottom: 260px;
-        left: 65%;
+      #atmos, #music {
+        transform: none !important;
       }
     }
   </style>
@@ -236,12 +230,11 @@
 
   <script>
     // Sleeve toggle
-    const sleeve = document.getElementById('sleeve');
-    sleeve.addEventListener('click', () => {
-      sleeve.classList.toggle('expanded');
+    document.getElementById('sleeve').addEventListener('click', () => {
+      document.getElementById('sleeve').classList.toggle('expanded');
     });
 
-    // Background rotation
+    // Background slideshow
     const slides = document.querySelectorAll('.background-slide');
     let current = 0;
     setInterval(() => {
@@ -250,7 +243,7 @@
       slides[current].classList.add('visible');
     }, 15000);
 
-    // Exclusive audio control
+    // Exclusive playback
     const atmosAudio = document.getElementById('atmosAudio');
     const musicAudio = document.getElementById('musicAudio');
 
@@ -306,33 +299,25 @@
 
     loadTrack(musicIndex);
 
-    // Make both mini players draggable
-    function makeDraggable(id) {
+    // Randomize player positions on desktop
+    function setRandomPosition(id, baseX, baseY) {
       const el = document.getElementById(id);
-      let isDragging = false, offsetX, offsetY;
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
 
-      el.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - el.offsetLeft;
-        offsetY = e.clientY - el.offsetTop;
-        el.style.cursor = 'grabbing';
-      });
-
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-        el.style.cursor = 'move';
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          el.style.left = (e.clientX - offsetX) + 'px';
-          el.style.top = (e.clientY - offsetY) + 'px';
-        }
-      });
+      if (screenWidth >= 768) {
+        const x = baseX + (Math.random() * 100 - 50);
+        const y = baseY + (Math.random() * 100 - 50);
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+      }
     }
 
-    makeDraggable('atmos');
-    makeDraggable('music');
+    // Example: center region randomized
+    window.onload = () => {
+      setRandomPosition('atmos', window.innerWidth / 2 - 200, window.innerHeight / 2 + 60);
+      setRandomPosition('music', window.innerWidth / 2 + 100, window.innerHeight / 2 - 20);
+    };
   </script>
 </body>
 </html>
