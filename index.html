@@ -20,39 +20,36 @@
     }
 
     img.logo {
-      max-width: 300px;
+      max-width: 240px;
       height: auto;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .player-container {
-      background: #111;
-      border: 1px solid #333;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 420px;
+      background: linear-gradient(
+        135deg,
+        #2c2c2c,
+        #3e3e3e,
+        #2b2b2b
+      );
+      border: 1px solid #444;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 300px;
       width: 100%;
-    }
-
-    .player-container p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      color: #ccc;
+      box-shadow: inset 0 0 6px #000;
     }
 
     audio {
       width: 100%;
-      border-radius: 6px;
-      background-color: #222;
+      border-radius: 4px;
+      background-color: #1a1a1a;
     }
   </style>
 </head>
 <body>
   <img src="logo.png" alt="Tom's logo" class="logo" />
   <div class="player-container">
-    <p>Now playing: Bluest Flame</p>
     <audio controls>
       <source src="bf-toms-1.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
