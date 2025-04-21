@@ -58,6 +58,21 @@
       align-items: center;
       color: white;
       transition: transform 0.5s ease; /* Smooth movement */
+      position: relative;
+    }
+
+    /* Room Info and Description - Initially above the logo */
+    .room-info, .description {
+      font-size: 1.2rem;
+      margin-bottom: 10px; /* Space between room info and logo */
+      text-align: center;
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.5s ease;
+    }
+
+    .sleeve.active .room-info,
+    .sleeve.active .description {
+      opacity: 1; /* Fade in the content when expanded */
     }
 
     /* Logo (inside the sleeve and properly fitted) */
@@ -65,16 +80,9 @@
       width: 100%;
       display: block;
       margin: 0 auto;
-      margin-bottom: 20px;
+      margin-top: 20px;
       max-height: 60px;
       object-fit: contain;
-    }
-
-    /* Room Info and Description - Initially hidden */
-    .room-info, .description {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      text-align: center;
     }
 
     /* Room Icon */
@@ -162,10 +170,7 @@
 
     <!-- Sleeve Content (Logo and Room Info) -->
     <div class="sleeve-content">
-      <!-- TOMS Logo -->
-      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
-
-      <!-- Room Icon and Info (Visible when expanded) -->
+      <!-- Room Info and Description (Initially above the logo) -->
       <a href="https://www.habbo.es/room/124338349" target="_blank">
         <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
       </a>
@@ -173,11 +178,12 @@
         <span>[18+] Tom's</span>
         <span>Owner: JS</span>
       </div>
-
-      <!-- Club Description -->
       <div class="description">
         Step into a world of vibrant diversity and celebration of individuality. Tom's room is a sanctuary where **everyone is welcome** to be themselves, connect with like-minded souls, and enjoy an electrifying atmosphere. Whether you're here to vibe with great music or meet new friends, you'll always find a place at Tom's.
       </div>
+
+      <!-- TOMS Logo -->
+      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
     </div>
   </div>
 
@@ -199,15 +205,19 @@
       const sleeve = document.querySelector('.sleeve');
       const button = document.querySelector('.toggle-button');
       const sleeveContent = document.querySelector('.sleeve-content');
+      const roomInfo = document.querySelector('.room-info');
+      const description = document.querySelector('.description');
 
       sleeve.classList.toggle('active');
       button.innerHTML = sleeve.classList.contains('active') ? '&#x2191;' : '&#x2193;'; // Change arrow direction
 
       // When sleeve is expanded, the content moves down together as a group
       if (sleeve.classList.contains('active')) {
-        sleeveContent.style.transform = "translateY(50px)";  // Move content down
+        roomInfo.style.transition = "top 0.5s ease";
+        description.style.transition = "top 0.5s ease";
       } else {
-        sleeveContent.style.transform = "translateY(0)";  // Reset position when collapsed
+        roomInfo.style.transition = "none";
+        description.style.transition = "none";
       }
     }
   </script>
