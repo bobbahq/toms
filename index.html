@@ -216,6 +216,7 @@
     let isDragging = false, offsetX, offsetY;
 
     miniPlayer.addEventListener('mousedown', function(e) {
+      if (e.target.tagName === 'BUTTON') return; // Prevent dragging when clicking the button
       isDragging = true;
       offsetX = e.clientX - miniPlayer.offsetLeft;
       offsetY = e.clientY - miniPlayer.offsetTop;
