@@ -21,9 +21,9 @@
     .sleeve {
       position: fixed;
       top: 50%; /* Vertically centered */
-      left: -300px; /* Initially hidden off-screen */
-      width: 60%;
-      height: 300px; /* Adjusted height to match the sleeve's side ratio */
+      left: 0;
+      width: 300px;
+      height: 100%; /* Full height */
       background-color: #000;
       border-top-right-radius: 25px;
       border-bottom-right-radius: 25px;
@@ -32,14 +32,12 @@
       z-index: 10;
       transform: translateY(-50%); /* To perfectly center it vertically */
       transform-origin: top left;
-      transform: rotate(90deg); /* Rotate everything inside */
     }
 
     .sleeve.active {
       left: 0; /* Show the sleeve when active */
     }
 
-    /* Logo */
     .logo {
       width: 180px;
       margin-bottom: 20px;
@@ -64,27 +62,17 @@
       margin: 0 10px;
     }
 
-    /* Room Info and Icon */
-    .room-info {
-      display: flex;
-      flex-direction: column; /* Text will be stacked vertically */
-      color: white;
-      font-size: 1.2rem;
-      margin-top: 10px;
-      margin-left: 10px;
-    }
-
-    .room-info span {
-      margin-bottom: 5px;
-    }
-
-    /* Room Icon */
-    .room-icon {
-      width: 60px;
-      height: 60px;
+    .room-link {
       display: block;
-      cursor: pointer;
-      image-rendering: pixelated; /* Ensures pixel art sharpness */
+      color: #ff0066;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .room-link:hover {
+      text-decoration: underline;
     }
 
     /* Toggle Button (X for closing sleeve and ☰ for opening) */
@@ -98,6 +86,28 @@
       border: none;
       cursor: pointer;
       z-index: 20;
+    }
+
+    /* Room Icon and Text */
+    .room-info {
+      display: flex;
+      align-items: center; /* Align horizontally */
+      color: white;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .room-info span {
+      margin-left: 10px;
+    }
+
+    /* Room Icon */
+    .room-icon {
+      width: 60px;
+      height: 60px;
+      display: block;
+      cursor: pointer;
+      image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
 
     /* Powered by Bobba.fm */
