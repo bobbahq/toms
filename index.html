@@ -105,7 +105,7 @@
       max-width: 320px;
     }
     #atmos {
-      width: 120px;
+      width: 100px;
       bottom: 110px;
       left: 50%;
       transform: translateX(-90%) rotate(-4deg);
@@ -181,17 +181,17 @@
 
   <div class="mini-player" id="atmos">
     <div class="label" id="atmosLabel"></div>
-    <button class="btn-play" onclick="playAtmos()">PLAY</button>
-    <button class="btn-pause" onclick="pauseAtmos()">PAUSE</button>
+    <button class="btn-play" onclick="playAtmos()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
   </div>
 
   <div class="mini-player" id="music">
     <div class="label" id="musicLabel"></div>
     <div class="now-playing" id="nowPlaying">Press PLAY to PLAY</div>
-    <button class="btn-play" onclick="playMusic()">PLAY</button>
-    <button class="btn-pause" onclick="pauseMusic()">PAUSE</button>
-    <button class="btn-skip" onclick="nextTrack()">SKIP</button>
+    <button class="btn-play" onclick="playMusic()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseMusic()">|| PAUSE</button>
+    <button class="btn-skip" onclick="nextTrack()">>> SKIP</button>
     <audio id="musicAudio" preload="auto"></audio>
   </div>
 
