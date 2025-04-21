@@ -117,41 +117,50 @@
 
     .mini-player {
       position: fixed;
-      bottom: 40px;
-      right: 30px;
       background: black;
       padding: 10px 16px;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       font-family: 'VT323', monospace;
-      z-index: 1001;
-      cursor: move;
+      color: white;
+      font-size: 18px;
       user-select: none;
-      pointer-events: auto;
+      z-index: 1001;
       resize: none;
-      width: auto;
-      height: auto;
-      min-width: unset;
-      min-height: unset;
-      max-width: unset;
-      max-height: unset;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
-    .ascii-button {
+    .mini-player button {
       background: none;
       border: none;
       color: white;
-      font-size: 22px;
       font-family: 'VT323', monospace;
+      font-size: 18px;
+      margin: 0 4px;
       cursor: pointer;
-      padding: 0;
     }
 
-    .ascii-button:hover {
-      text-shadow: 0 0 8px white;
+    .mini-player button:hover {
+      text-shadow: 0 0 6px white;
     }
 
-    audio {
-      display: none;
+    .mini-player .label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .now-playing {
+      margin: 4px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 200px;
+      animation: scroll-text 8s linear infinite;
+    }
+
+    @keyframes scroll-text {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
@@ -181,11 +190,25 @@
     powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
   </div>
 
-  <!-- Mini player -->
-  <div id="miniPlayer" class="mini-player">
-    <button id="miniPlayBtn" class="ascii-button">&gt; PLAY</button>
+  <!-- ATMOS Mini Player -->
+  <div class="mini-player" style="bottom: 100px; left: 40%; transform: rotate(-4deg);">
+    <div class="label">ATMOS</div>
+    <button onclick="document.getElementById('atmosAudio').play()">> PLAY</button>
+    <button onclick="document.getElementById('atmosAudio').pause(); document.getElementById('atmosAudio').currentTime = 0;">■ STOP</button>
+    <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
   </div>
-  <audio id="miniAudio" src="./bf-toms-1.mp3" preload="auto"></audio>
+
+  <!-- MUSIC Mini Player -->
+  <div class="mini-player" style="bottom: 40px; left: 52%; transform: rotate(3deg);">
+    <div class="label">MUSIC</div>
+    <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
+    <button onclick="prevTrack()">⏮</button>
+    <button onclick="playMusic()">> PLAY</button>
+    <button onclick="pauseMusic()">|| PAUSE</button>
+    <button onclick="nextTrack()">⏭</button>
+    <button onclick="stopMusic()">■ STOP</button>
+    <audio id="musicAudio" preload="auto"></audio>
+  </div>
 
   <script>
     // Sleeve toggle
@@ -203,45 +226,50 @@
       slides[current].classList.add('visible');
     }, 15000);
 
-    // Mini player functionality
-    const miniAudio = document.getElementById('miniAudio');
-    const miniBtn = document.getElementById('miniPlayBtn');
-    let miniPlaying = false;
+    // MUSIC Player functionality
+    const musicTracks = [
+      { title: "Track 1", file: "track1.mp3" },
+      { title: "Track 2", file: "track2.mp3" },
+      { title: "Track 3", file: "track3.mp3" }
+    ];
 
-    miniBtn.addEventListener('click', () => {
-      if (miniPlaying) {
-        miniAudio.pause();
-        miniBtn.textContent = '> PLAY';
-      } else {
-        miniAudio.play();
-        miniBtn.textContent = '|| PAUSE';
-      }
-      miniPlaying = !miniPlaying;
-    });
+    let musicIndex = 0;
+    const musicAudio = document.getElementById("musicAudio");
+    const nowPlaying = document.getElementById("nowPlaying");
 
-    // Make mini player draggable (ignoring button clicks)
-    const miniPlayer = document.getElementById('miniPlayer');
-    let isDragging = false, offsetX, offsetY;
+    function loadTrack(index) {
+      const track = musicTracks[index];
+      musicAudio.src = track.file;
+      nowPlaying.textContent = "Now Playing: " + track.title;
+    }
 
-    miniPlayer.addEventListener('mousedown', function(e) {
-      if (e.target.tagName === 'BUTTON') return;
-      isDragging = true;
-      offsetX = e.clientX - miniPlayer.offsetLeft;
-      offsetY = e.clientY - miniPlayer.offsetTop;
-      miniPlayer.style.cursor = 'grabbing';
-    });
+    function playMusic() {
+      musicAudio.play();
+    }
 
-    document.addEventListener('mouseup', function() {
-      isDragging = false;
-      miniPlayer.style.cursor = 'move';
-    });
+    function pauseMusic() {
+      musicAudio.pause();
+    }
 
-    document.addEventListener('mousemove', function(e) {
-      if (isDragging) {
-        miniPlayer.style.left = (e.clientX - offsetX) + 'px';
-        miniPlayer.style.top = (e.clientY - offsetY) + 'px';
-      }
-    });
+    function stopMusic() {
+      musicAudio.pause();
+      musicAudio.currentTime = 0;
+    }
+
+    function nextTrack() {
+      musicIndex = (musicIndex + 1) % musicTracks.length;
+      loadTrack(musicIndex);
+      playMusic();
+    }
+
+    function prevTrack() {
+      musicIndex = (musicIndex - 1 + musicTracks.length) % musicTracks.length;
+      loadTrack(musicIndex);
+      playMusic();
+    }
+
+    // Load the initial track
+    loadTrack(musicIndex);
   </script>
 </body>
 </html>
