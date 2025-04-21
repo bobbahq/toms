@@ -22,19 +22,21 @@
 
     .top-tab {
       position: fixed;
-      top: 20px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 300px;
-      height: 60px;
+      height: 30px;
       background: black;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 12px;
       transition: height 0.3s ease;
       z-index: 1000;
       cursor: pointer;
+      overflow: hidden;
     }
 
     .top-tab.expanded {
@@ -44,6 +46,7 @@
     .top-tab img {
       max-height: 80%;
       max-width: 90%;
+      display: block;
     }
 
     .music-player {
@@ -63,7 +66,7 @@
 </head>
 <body>
   <div class="top-tab" id="tab">
-    <img src="./logo.png" alt="Tom's logo" />
+    <img src="logo.png" alt="Tom's logo" onerror="this.style.display='none'" />
   </div>
 
   <div class="music-player">
