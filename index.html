@@ -12,9 +12,11 @@
       padding: 0;
       font-family: 'VT323', monospace;
       overflow: hidden;
+      height: 100vh;
+      position: relative;
       background: url('tom_of_finland.jpeg') no-repeat center center fixed;
       background-size: cover;
-      height: 100vh;
+      animation: panZoom 60s infinite alternate ease-in-out; /* Background pan and zoom effect */
     }
 
     /* Sleeve Styles */
@@ -37,18 +39,7 @@
       left: 0; /* Show the sleeve when active */
     }
 
-    /* Rotate the content inside the sleeve */
-    .sleeve-content {
-      transform: rotate(-90deg); /* Rotate the content */
-      transform-origin: top left;
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px; /* Adjust width */
-      height: 100%; /* Full height of the sleeve */
-    }
-
+    /* Logo */
     .logo {
       width: 180px;
       margin-bottom: 20px;
@@ -57,7 +48,7 @@
       margin-right: auto;
     }
 
-    /* Room Icon and Text */
+    /* Room Info */
     .room-info {
       display: flex;
       align-items: center; /* Align horizontally */
@@ -79,17 +70,20 @@
       image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
 
-    /* Toggle Button (X for closing sleeve and ☰ for opening) */
-    .toggle-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    /* Audio Controls */
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .audio-controls button {
       font-size: 2rem;
-      color: white;
-      background-color: transparent;
+      background: transparent;
       border: none;
+      color: white;
       cursor: pointer;
-      z-index: 20;
+      margin: 0 10px;
     }
 
     /* Powered by Bobba.fm */
@@ -125,14 +119,37 @@
       text-decoration: underline;
     }
 
-    /* Audio Player Floating Outside the Sleeve */
-    .audio-player {
-      position: fixed;
-      bottom: 20px; /* Floating at the bottom */
-      left: 50%;
-      transform: translateX(-50%);
+    /* Description Styles */
+    .description {
+      font-size: 1rem;
+      color: white;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    /* Toggle Button (X for closing sleeve and ☰ for opening) */
+    .toggle-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 2rem;
+      color: white;
       background-color: transparent;
-      z-index: 15;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    /* Animation for Background Pan and Zoom */
+    @keyframes panZoom {
+      0% {
+        background-position: center;
+        transform: scale(1);
+      }
+      100% {
+        background-position: 10% 10%;
+        transform: scale(1.1);
+      }
     }
 
   </style>
@@ -156,6 +173,17 @@
         <span>[18+] Tom's</span>
         <span>Owner: JS</span>
       </div>
+
+      <!-- Club Description -->
+      <div class="description">
+        Welcome to Tom's Club. A place for **exclusive vibes**, great music, and good company. Whether you're here to relax, chat, or enjoy our curated playlist, we've got something for everyone.
+      </div>
+
+      <!-- Audio Player (Play/Pause only) -->
+      <div class="audio-controls">
+        <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
+        <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
+      </div>
     </div>
   </div>
 
@@ -171,19 +199,25 @@
     <a href="#">Privacy</a>
   </div>
 
-  <!-- Floating Audio Player Outside the Sleeve -->
-  <div class="audio-player">
-    <audio controls>
-      <source src="bf-toms-1.mp3" type="audio/mpeg" />
-    </audio>
-  </div>
-
   <script>
     // Toggle the sleeve visibility
     function toggleSleeve() {
       document.querySelector('.sleeve').classList.toggle('active');
       const button = document.querySelector('.toggle-button');
       button.innerText = document.querySelector('.sleeve').classList.contains('active') ? '×' : '☰';
+    }
+
+    // Play/Pause toggle for audio
+    let audio = new Audio('bf-toms-1.mp3');
+    let isPlaying = false;
+
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
     }
   </script>
 </body>
