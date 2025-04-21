@@ -8,14 +8,15 @@
   <style>
     body {
       margin: 0;
-      background-color: #000;
+      background-color: #1a1a1a;
       font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+      touch-action: none;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       height: 100vh;
-      overflow: hidden;
     }
 
     .logo {
@@ -28,6 +29,17 @@
       width: 220px;
       background-color: transparent;
     }
+
+    .room-link {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: #ff0066;
+      text-decoration: none;
+    }
+
+    .room-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -38,5 +50,8 @@
   <audio controls>
     <source src="bf-toms-1.mp3" type="audio/mpeg" />
   </audio>
+
+  <!-- Link to Habbo Room -->
+  <a href="https://www.habbo.es/room/124338349" class="room-link" target="_blank">Visit Tom's Habbo Room</a>
 </body>
 </html>
