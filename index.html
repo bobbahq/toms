@@ -267,7 +267,10 @@
       randomButton.classList.add('shimmer');
     }
     setInterval(randomShimmer, 5000);
-  </script>
+  document.getElementById('sleeve').addEventListener('click', () => {
+      document.getElementById('sleeve').classList.toggle('expanded');
+    });
+</script>
 </body>
 </html>
   <div class="sleeve" id="sleeve">
@@ -288,4 +291,3 @@
   <div class="footer">
     powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
   </div>
-
