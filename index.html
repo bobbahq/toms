@@ -65,15 +65,20 @@
 
     /* Room Info and Description - Initially hidden */
     .room-info, .description {
-      display: none;
+      position: absolute;
+      top: -9999px; /* Position them off-screen initially */
+      left: 0;
+      right: 0;
       color: white;
       font-size: 1.5rem; /* Adjusted size */
       margin-top: 10px;
+      transition: top 0.5s ease;
     }
 
     .sleeve.active .room-info,
     .sleeve.active .description {
-      display: block; /* Show text when expanded */
+      position: relative;
+      top: 20px; /* Slide down into position when expanded */
     }
 
     .room-info {
@@ -209,14 +214,27 @@
     function toggleSleeve() {
       const sleeve = document.querySelector('.sleeve');
       const logo = document.querySelector('.logo');
+      const roomInfo = document.querySelector('.room-info');
+      const description = document.querySelector('.description');
+
       sleeve.classList.toggle('active');
       const button = document.querySelector('.toggle-button');
       button.innerText = sleeve.classList.contains('active') ? '×' : '☰';
-      // When the sleeve is expanded, move the logo down
+
+      // Move the logo down when the sleeve expands
       if (sleeve.classList.contains('active')) {
         logo.style.transform = "translateY(40px)";  // Move the logo down when the sleeve expands
       } else {
         logo.style.transform = "translateY(0)";  // Reset position when collapsed
+      }
+
+      // Slide down room info and description when the sleeve expands
+      if (sleeve.classList.contains('active')) {
+        roomInfo.style.top = "20px";  // Slide down room info
+        description.style.top = "40px";  // Slide down description
+      } else {
+        roomInfo.style.top = "-9999px";  // Hide room info
+        description.style.top = "-9999px";  // Hide description
       }
     }
   </script>
