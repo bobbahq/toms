@@ -19,47 +19,98 @@
       cursor: grab;
       user-select: none;
       touch-action: none;
+      border: 2px solid white;
+      border-radius: 8px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
     }
 
-    audio {
-      width: 220px;
-      height: 30px;
+    .raw-sticker {
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .tray {
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
+    .tray img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border: 2px solid white;
+      border-radius: 6px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+      background: black;
     }
   </style>
 </head>
 <body>
-  <!-- LOGO -->
-  <img src="logo.png" class="sticker" style="top: 40px; left: 40px; width: 120px;" />
-
-  <!-- AUDIO PLAYER -->
-  <div class="sticker" style="top: 40px; right: 40px; width: 220px;">
+  <!-- Audio Player -->
+  <div class="raw-sticker" style="top: 40px; left: 40px; width: 220px;">
     <audio controls>
       <source src="bf-toms-1.mp3" type="audio/mpeg" />
     </audio>
   </div>
 
-  <!-- BOBBA STICKER -->
-  <img src="i_love_bobba2.gif" class="sticker" style="bottom: 40px; left: 40px; width: 90px;" />
+  <!-- Sticker Tray -->
+  <div class="tray">
+    <img src="trax_disco.gif" onclick="addSticker(this.src)">
+    <img src="trax_8_bit.gif" onclick="addSticker(this.src)">
+    <img src="trax_heavy.gif" onclick="addSticker(this.src)">
+    <img src="trax_electro.gif" onclick="addSticker(this.src)">
+    <img src="cassette3.gif" onclick="addSticker(this.src)">
+    <img src="sticker_bobbaskull.gif" onclick="addSticker(this.src)">
+    <img src="spill1.gif" onclick="addSticker(this.src)">
+    <img src="hw_amp_small.gif" onclick="addSticker(this.src)">
+    <img src="bankscan.gif" onclick="addSticker(this.src, true)">
+    <img src="banksbobby.gif" onclick="addSticker(this.src, true)">
+    <img src="nail3.gif" onclick="addSticker(this.src, true)">
+    <img src="chain_horizontal.gif" onclick="addSticker(this.src, true)">
+    <img src="chain_vertical.gif" onclick="addSticker(this.src, true)">
+  </div>
 
   <script>
-    const stickers = document.querySelectorAll('.sticker');
+    function addSticker(src, raw = false) {
+      const img = document.createElement('img');
+      img.src = src;
+      img.className = raw ? 'raw-sticker' : 'sticker';
+      img.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+      img.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+      img.style.width = '80px';
+      document.body.appendChild(img);
 
-    stickers.forEach(el => {
-      let isDragging = false;
-      let offsetX = 0, offsetY = 0;
+      let offsetX, offsetY, isDragging = false;
 
-      // Mouse Events
-      el.addEventListener('mousedown', (e) => {
+      img.addEventListener('touchstart', e => {
         isDragging = true;
-        offsetX = e.clientX - el.offsetLeft;
-        offsetY = e.clientY - el.offsetTop;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - img.offsetLeft;
+        offsetY = touch.clientY - img.offsetTop;
+      });
 
-        const onMouseMove = (e) => {
-          if (!isDragging) return;
-          el.style.left = `${e.clientX - offsetX}px`;
-          el.style.top = `${e.clientY - offsetY}px`;
-          el.style.right = 'auto';
-          el.style.bottom = 'auto';
-        };
+      img.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        img.style.left = `${touch.clientX - offsetX}px`;
+        img.style.top = `${touch.clientY - offsetY}px`;
+      });
 
-        const onMouseUp = () => {
+      img.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+    }
+  </script>
+</body>
+</html>
