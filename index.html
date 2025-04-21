@@ -50,7 +50,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0.75;
+      opacity: 0.85;
       background-size: cover;
       background-position: center;
       background-repeat: repeat;
@@ -87,7 +87,7 @@
     }
 
     .top-tab img {
-      height: 80px;
+      height: 100px;
       max-width: 80%;
       display: block;
     }
@@ -113,7 +113,7 @@
     <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
     <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
     <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
-    <div class="background-overlay" id="overlay" style="background-image: url('./01.png');"></div>
+    <div class="background-overlay" id="overlay"></div>
   </div>
 
   <div class="top-tab" id="tab">
@@ -142,9 +142,12 @@
     let current = 0;
     let overlayIndex = 0;
 
+    // Set initial overlay
+    overlay.style.backgroundImage = `url('${overlays[0]}')`;
+
     setInterval(() => {
       slides.forEach(slide => slide.classList.remove('visible'));
-      current = (current + 1) % (slides.length - 1); // excluding overlay div
+      current = (current + 1) % slides.length;
       slides[current].classList.add('visible');
 
       overlayIndex = (overlayIndex + 1) % overlays.length;
