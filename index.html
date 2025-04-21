@@ -3,217 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tom's · bobba.fm</title>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <title>Tom's</title>
   <style>
-    /* Basic Styles */
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'VT323', monospace;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
       overflow: hidden;
-      height: 100vh;
-      position: relative;
-      background: url('tom_of_finland.jpeg') no-repeat center center fixed;
+      font-family: sans-serif;
+      background: url('tom_of_finland.jpeg') no-repeat center center;
       background-size: cover;
     }
 
-    /* Audio Player Styles (at the bottom of the page) */
-    .audio-player {
+    .top-tab {
       position: fixed;
-      bottom: 0;
+      top: 0;
       left: 0;
-      width: 100%;
-      z-index: 15;
-      background-color: transparent;
-    }
-
-    /* Sleeve Styles (on the left side and centered vertically) */
-    .sleeve {
-      position: fixed;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%); /* Center the sleeve vertically */
-      width: 300px; /* Sleeve width */
-      height: 100px; /* Sleeve height (collapsed) */
-      background-color: #000;
-      border-top-right-radius: 25px;
-      border-bottom-right-radius: 25px;
-      padding: 20px;
-      box-sizing: border-box;
-      transition: height 0.5s ease, padding 0.5s ease;
-      z-index: 10;
-      overflow: hidden;
-    }
-
-    .sleeve.active {
-      height: 300px; /* Height when expanded */
-      padding: 40px;
-    }
-
-    /* Content Inside the Sleeve */
-    .sleeve-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: white;
-      transition: transform 0.5s ease; /* Smooth movement */
-      position: relative;
-    }
-
-    /* Logo (inside the sleeve and properly fitted) */
-    .logo {
-      width: 100%;
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 20px;
-      transition: transform 0.5s ease; /* Smooth downwards movement */
-      max-height: 60px;
-      object-fit: contain;
-    }
-
-    /* Room Info and Description - Initially hidden */
-    .room-info, .description {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      text-align: center;
-      opacity: 0; /* Initially hidden */
-      transition: opacity 0.5s ease;
-    }
-
-    .sleeve.active .room-info,
-    .sleeve.active .description {
-      opacity: 1; /* Fade in the content when expanded */
-    }
-
-    /* Room Icon */
-    .room-icon {
-      width: 60px;
+      right: 0;
       height: 60px;
-      display: block;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: height 0.3s ease;
+      z-index: 1000;
       cursor: pointer;
-      image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
 
-    /* Toggle Button (Arrow for expanding and collapsing the sleeve) */
-    .toggle-button {
+    .top-tab.expanded {
+      height: 200px;
+    }
+
+    .top-tab img {
+      max-height: 80%;
+      max-width: 90%;
+    }
+
+    .music-player {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 2rem;
-      color: white;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 20;
-    }
-
-    .toggle-button.expand {
-      transform: rotate(180deg); /* Rotate the arrow when expanded */
-    }
-
-    /* Powered by Bobba.fm */
-    .powered-by {
-      position: absolute;
-      bottom: 10px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 0.8rem;
-      color: white;
-      font-style: italic;
-      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 10px;
     }
 
-    /* Footer Links */
-    .footer {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.8rem;
-      color: white;
-      text-align: center;
+    .music-player audio {
+      width: 300px;
     }
-
-    .footer a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* Description Styles */
-    .description {
-      font-size: 1.2rem;
-      color: white;
-      margin-top: 20px;
-      text-align: center;
-      line-height: 1.6;
-    }
-
   </style>
 </head>
 <body>
-  <!-- Audio Player (Floating at the bottom) -->
-  <div class="audio-player">
-    <audio controls>
-      <source src="bf-toms-1.mp3" type="audio/mpeg" />
+  <div class="top-tab" id="tab">
+    <img src="logo.png" alt="Tom's logo" />
+  </div>
+
+  <div class="music-player">
+    <audio controls autoplay loop>
+      <source src="bf-toms-1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
   </div>
 
-  <!-- Sleeve with Content (Logo and Room Info) -->
-  <div class="sleeve">
-    <!-- Toggle Button to Open/Close the Sleeve (Arrow for expanding/collapsing) -->
-    <button class="toggle-button" onclick="toggleSleeve()">&#x2193;</button> <!-- Down Arrow -->
-
-    <!-- Sleeve Content -->
-    <div class="sleeve-content">
-      <!-- Room Info and Description (Initially above the logo) -->
-      <a href="https://www.habbo.es/room/124338349" target="_blank">
-        <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
-      </a>
-      <div class="room-info">
-        <span>[18+] Tom's</span>
-        <span>Owner: JS</span>
-      </div>
-      <div class="description">
-        Step into a world of vibrant diversity and celebration of individuality. Tom's room is a sanctuary where **everyone is welcome** to be themselves, connect with like-minded souls, and enjoy an electrifying atmosphere. Whether you're here to vibe with great music or meet new friends, you'll always find a place at Tom's.
-      </div>
-
-      <!-- TOMS Logo -->
-      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
-    </div>
-  </div>
-
-  <!-- Powered by Bobba.fm -->
-  <div class="powered-by">
-    powered by bobba fm
-  </div>
-
-  <!-- Footer Links -->
-  <div class="footer">
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-    <a href="#">Privacy</a>
-  </div>
-
   <script>
-    // Toggle the sleeve visibility
-    function toggleSleeve() {
-      const sleeve = document.querySelector('.sleeve');
-      const button = document.querySelector('.toggle-button');
-      const sleeveContent = document.querySelector('.sleeve-content');
-      const roomInfo = document.querySelector('.room-info');
-      const description = document.querySelector('.description');
+    const tab = document.getElementById('tab');
+    let expanded = false;
 
-      sleeve.classList.toggle('active');
-      button.innerHTML = sleeve.classList.contains('active') ? '&#x2191;' : '&#x2193;'; // Change arrow direction
-
-      // When sleeve is expanded, the content moves down together as a group
-    }
+    tab.addEventListener('click', () => {
+      expanded = !expanded;
+      tab.classList.toggle('expanded', expanded);
+    });
   </script>
 </body>
 </html>
