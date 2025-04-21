@@ -6,51 +6,91 @@
   <title>Tom's · bobba.fm</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
+    /* Basic Styles */
     body {
       margin: 0;
-      background-color: #000; /* Black background */
+      padding: 0;
       font-family: 'Orbitron', sans-serif;
       overflow: hidden;
-      touch-action: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      background: url('tom_of_finland.jpeg') no-repeat center center fixed;
+      background-size: cover;
       height: 100vh;
+    }
+
+    /* Sleeve Styles */
+    .sleeve {
+      position: fixed;
+      top: 0;
+      left: -300px; /* Initially hidden off-screen */
+      width: 300px;
+      height: 100%;
+      background-color: #000;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      padding: 20px;
+      transition: left 0.5s ease;
+      z-index: 10;
+    }
+
+    .sleeve.active {
+      left: 0; /* Slide in the sleeve */
     }
 
     .logo {
       width: 180px;
-      z-index: 5;
+      margin-bottom: 20px;
     }
 
     audio {
-      margin-top: 40px; /* Increased spacing */
-      width: 220px;
-      background-color: transparent;
+      width: 100%;
+      margin-bottom: 20px;
     }
 
-    .room-link img {
-      width: 100px; /* 1.25x scale */
-      height: 100px;
+    .room-link {
+      display: block;
+      color: #ff0066;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .room-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Toggle Button */
+    .toggle-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      color: white;
+      background-color: transparent;
+      border: none;
       cursor: pointer;
-      image-rendering: pixelated; /* Keeps the pixel art sharp */
-      margin-top: 30px; /* Spacing between the player and icon */
+      z-index: 20;
     }
   </style>
 </head>
 <body>
-  <!-- Centered Logo -->
-  <img src="logo.png" class="logo" alt="Tom's logo" />
+  <!-- Toggle Button to Show/Hide Sleeve -->
+  <button class="toggle-button" onclick="toggleSleeve()">☰</button>
 
-  <!-- Audio Player -->
-  <audio controls>
-    <source src="bf-toms-1.mp3" type="audio/mpeg" />
-  </audio>
+  <!-- Sleeve with Content -->
+  <div class="sleeve">
+    <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
+    <audio controls>
+      <source src="bf-toms-1.mp3" type="audio/mpeg" />
+    </audio>
+    <a href="https://www.habbo.es/room/124338349" class="room-link" target="_blank">Visit Tom's Habbo Room</a>
+  </div>
 
-  <!-- Link to Habbo Room with scaled GIF icon -->
-  <a href="https://www.habbo.es/room/124338349" class="room-link" target="_blank">
-    <img src="room_icon_3.gif" alt="Tom's Habbo Room" />
-  </a>
+  <script>
+    // Toggle the sleeve visibility
+    function toggleSleeve() {
+      document.querySelector('.sleeve').classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
