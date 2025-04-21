@@ -20,6 +20,7 @@
       overflow: hidden;
       font-family: 'VT323', monospace;
       color: white;
+      background: black;
     }
 
     .background-wrapper {
@@ -45,21 +46,6 @@
 
     .background-slide.visible {
       opacity: 1;
-    }
-
-    .music-player {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.6);
-      padding: 10px;
-      border-radius: 10px;
-    }
-
-    .music-player audio {
-      width: 300px;
-      max-width: 90vw;
     }
 
     .sleeve {
@@ -109,7 +95,7 @@
     }
 
     .logo {
-      margin-top: 17px; /* moved 3px up */
+      margin-top: 17px;
       max-width: 70%;
       height: 80px;
       object-fit: contain;
@@ -117,10 +103,10 @@
 
     .footer {
       position: absolute;
-      bottom: 5px;
+      bottom: 45px;
       width: 100%;
       text-align: center;
-      font-size: 14px;
+      font-size: 20px;
       font-family: 'VT323', monospace;
       color: white;
     }
@@ -128,6 +114,45 @@
     .footer a {
       color: white;
       text-decoration: underline;
+    }
+
+    .custom-player {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: black;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .custom-player button {
+      background: none;
+      border: none;
+      color: white;
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .custom-player button.loading {
+      opacity: 0.5;
+      cursor: wait;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 5px white; }
+      50% { text-shadow: 0 0 12px white; }
+      100% { text-shadow: 0 0 5px white; }
+    }
+
+    .custom-player button.pulse {
+      animation: pulse 1.5s infinite;
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
@@ -153,34 +178,59 @@
     </div>
   </div>
 
-  <div class="music-player">
-    <audio controls loop>
-      <source src="./bf-toms-1.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-
   <div class="footer">
     powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
   </div>
 
+  <div class="custom-player">
+    <button id="playBtn" class="loading">&gt; LOADING...</button>
+    <audio id="audioPlayer" src="./bf-toms-1.mp3" preload="auto"></audio>
+  </div>
+
   <script>
     const sleeve = document.getElementById('sleeve');
-    let expanded = false;
-
     sleeve.addEventListener('click', () => {
-      expanded = !expanded;
-      sleeve.classList.toggle('expanded', expanded);
+      sleeve.classList.toggle('expanded');
     });
 
     const slides = document.querySelectorAll('.background-slide');
     let current = 0;
-
     setInterval(() => {
       slides.forEach(slide => slide.classList.remove('visible'));
       current = (current + 1) % slides.length;
       slides[current].classList.add('visible');
     }, 15000);
+
+    const audio = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playBtn');
+    let isPlaying = false;
+
+    // Set initial loading state
+    playBtn.textContent = '> LOADING...';
+    playBtn.classList.add('loading');
+
+    // Once audio is ready
+    audio.addEventListener('canplaythrough', () => {
+      playBtn.textContent = '> PLAY';
+      playBtn.classList.remove('loading');
+      playBtn.classList.add('pulse');
+    });
+
+    playBtn.addEventListener('click', () => {
+      if (playBtn.classList.contains('loading')) return;
+
+      if (isPlaying) {
+        audio.pause();
+        playBtn.textContent = '> PLAY';
+        playBtn.classList.add('pulse');
+      } else {
+        audio.play();
+        playBtn.textContent = '> PAUSE';
+        playBtn.classList.remove('pulse');
+      }
+
+      isPlaying = !isPlaying;
+    });
   </script>
 </body>
 </html>
