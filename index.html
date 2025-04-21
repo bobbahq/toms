@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tom's · bobba.fm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+
+    img.logo {
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 40px;
+    }
+
+    audio {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+
+    .player-container {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo.png" alt="Tom's logo" class="logo" />
+  <div class="player-container">
+    <p>Now playing: Bluest Flame</p>
+    <audio controls>
+      <source src="bf-toms-1.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</body>
+</html>
