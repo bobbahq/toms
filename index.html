@@ -49,7 +49,7 @@
 
     .music-player {
       position: absolute;
-      bottom: 20px;
+      bottom: 50px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.6);
@@ -64,7 +64,7 @@
 
     .sleeve {
       position: fixed;
-      top: -190px; /* Slightly more hidden */
+      top: -190px;
       left: 50%;
       transform: translateX(-50%);
       width: 90vw;
@@ -109,10 +109,25 @@
     }
 
     .logo {
-      margin-top: 20px;
+      margin-top: 17px; /* moved 3px up */
       max-width: 70%;
       height: 80px;
       object-fit: contain;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 5px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      font-family: 'VT323', monospace;
+      color: white;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -145,6 +160,10 @@
     </audio>
   </div>
 
+  <div class="footer">
+    powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
+  </div>
+
   <script>
     const sleeve = document.getElementById('sleeve');
     let expanded = false;
@@ -154,7 +173,6 @@
       sleeve.classList.toggle('expanded', expanded);
     });
 
-    // Background rotation
     const slides = document.querySelectorAll('.background-slide');
     let current = 0;
 
