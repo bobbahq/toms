@@ -16,6 +16,7 @@
       position: relative;
       background: url('tom_of_finland.jpeg') no-repeat center center fixed;
       background-size: cover;
+      animation: panZoom 15s infinite alternate ease-in-out; /* Faster background pan and zoom */
     }
 
     /* Audio Player Styles (at the top of the page) */
@@ -34,7 +35,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 150px; /* Adjust height of the sleeve */
+      height: 150px; /* Adjusted height */
       background-color: #000;
       border-top-left-radius: 25px;
       border-top-right-radius: 25px;
@@ -49,7 +50,7 @@
       padding: 40px;
     }
 
-    /* Logo Styles */
+    /* Logo */
     .logo {
       width: 180px;
       display: block;
@@ -57,17 +58,17 @@
       margin-bottom: 20px;
     }
 
-    /* Room Info Text */
+    /* Room Info */
     .room-info {
-      display: none;
+      display: flex;
+      align-items: center; /* Align horizontally */
       color: white;
-      font-size: 1.2rem;
-      text-align: center;
+      font-size: 1.8rem; /* Larger text */
       margin-top: 10px;
     }
 
-    .sleeve.active .room-info {
-      display: block;
+    .room-info span {
+      margin-left: 10px;
     }
 
     /* Room Icon */
@@ -75,22 +76,33 @@
       width: 60px;
       height: 60px;
       display: block;
-      margin: 0 auto;
       cursor: pointer;
       image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
 
-    /* Toggle Button (X for closing sleeve and ☰ for opening) */
-    .toggle-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    /* Audio Controls */
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .audio-controls button {
       font-size: 2rem;
-      color: white;
-      background-color: transparent;
+      background: transparent;
       border: none;
+      color: white;
       cursor: pointer;
-      z-index: 20;
+      margin: 0 10px;
+    }
+
+    /* Floating Audio Player */
+    .audio-player {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
     }
 
     /* Powered by Bobba.fm */
@@ -135,6 +147,18 @@
       line-height: 1.6;
     }
 
+    /* Animation for Background Pan and Zoom */
+    @keyframes panZoom {
+      0% {
+        background-position: center;
+        transform: scale(1);
+      }
+      100% {
+        background-position: 10% 10%;
+        transform: scale(1.05);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -150,19 +174,30 @@
     <!-- Toggle Button to Close the Sleeve (X when open, ☰ when closed) -->
     <button class="toggle-button" onclick="toggleSleeve()">☰</button>
 
-    <!-- Logo -->
-    <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
+    <!-- Sleeve Content -->
+    <div class="sleeve-content">
+      <!-- TOMS Logo -->
+      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
 
-    <!-- Room Icon and Info (Visible when expanded) -->
-    <a href="https://www.habbo.es/room/124338349" target="_blank">
-      <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
-    </a>
-    <div class="room-info">
-      <span>[18+] Tom's</span>
-      <span>Owner: JS</span>
-      <p class="description">
+      <!-- Room Icon and Info -->
+      <a href="https://www.habbo.es/room/124338349" target="_blank">
+        <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
+      </a>
+      <div class="room-info">
+        <span>[18+] Tom's</span>
+        <span>Owner: JS</span>
+      </div>
+
+      <!-- Club Description -->
+      <div class="description">
         Step into a world of vibrant diversity and celebration of individuality. Tom's room is a sanctuary where **everyone is welcome** to be themselves, connect with like-minded souls, and enjoy an electrifying atmosphere. Whether you're here to vibe with great music or meet new friends, you'll always find a place at Tom's.
-      </p>
+      </div>
+
+      <!-- Audio Player (Play/Pause only) -->
+      <div class="audio-controls">
+        <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
+        <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
+      </div>
     </div>
   </div>
 
