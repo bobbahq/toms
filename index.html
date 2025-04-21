@@ -95,17 +95,14 @@
     /* Room Icon and Text */
     .room-info {
       display: flex;
-      flex-direction: column; /* Ensure text is stacked vertically */
-      align-items: flex-start;
-      text-align: left;
+      align-items: center; /* Align horizontally */
       color: white;
-      font-size: 1.5rem; /* Larger text */
+      font-size: 1.2rem;
       margin-top: 10px;
     }
 
     .room-info span {
       margin-left: 10px;
-      margin-bottom: 5px;
     }
 
     /* Room Icon */
@@ -120,14 +117,36 @@
     /* Powered by Bobba.fm */
     .powered-by {
       position: absolute;
-      bottom: 20px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1rem;
+      font-size: 0.8rem;
       color: white;
       font-style: italic;
       text-align: center;
     }
+
+    /* Footer Links */
+    .footer {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: white;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 <body>
@@ -157,7 +176,14 @@
 
   <!-- Powered by Bobba.fm -->
   <div class="powered-by">
-    Powered by Bobba.fm™
+    powered by bobba fm™
+  </div>
+
+  <!-- Footer Links -->
+  <div class="footer">
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Privacy</a>
   </div>
 
   <script>
