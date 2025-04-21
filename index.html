@@ -50,10 +50,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('./01.png') repeat;
-      mix-blend-mode: screen;
+      opacity: 0.75;
+      background-size: cover;
+      background-position: center;
+      background-repeat: repeat;
       pointer-events: none;
       z-index: 1;
+      transition: opacity 1s ease-in-out;
     }
 
     .top-tab {
@@ -84,7 +87,7 @@
     }
 
     .top-tab img {
-      height: 60px;
+      height: 80px;
       max-width: 80%;
       display: block;
     }
@@ -109,7 +112,8 @@
   <div class="background-wrapper">
     <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
     <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
-    <div class="background-overlay"></div>
+    <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
+    <div class="background-overlay" id="overlay" style="background-image: url('./01.png');"></div>
   </div>
 
   <div class="top-tab" id="tab">
@@ -126,20 +130,25 @@
   <script>
     const tab = document.getElementById('tab');
     let expanded = false;
-
     tab.addEventListener('click', () => {
       expanded = !expanded;
       tab.classList.toggle('expanded', expanded);
     });
 
     // Background rotation
-    const slides = document.querySelectorAll('.background-slide:not(.background-overlay)');
+    const slides = document.querySelectorAll('.background-slide');
+    const overlay = document.getElementById('overlay');
+    const overlays = ['./01.png', './05.png', './07.png', './14.png'];
     let current = 0;
+    let overlayIndex = 0;
 
     setInterval(() => {
-      slides[current].classList.remove('visible');
-      current = (current + 1) % slides.length;
+      slides.forEach(slide => slide.classList.remove('visible'));
+      current = (current + 1) % (slides.length - 1); // excluding overlay div
       slides[current].classList.add('visible');
+
+      overlayIndex = (overlayIndex + 1) % overlays.length;
+      overlay.style.backgroundImage = `url('${overlays[overlayIndex]}')`;
     }, 15000);
   </script>
 </body>
