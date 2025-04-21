@@ -14,25 +14,6 @@
       touch-action: none;
     }
 
-    .sticker {
-      position: absolute;
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      border-radius: 8px;
-      filter: drop-shadow(0 0 0 white) drop-shadow(0 0 6px white);
-      background: transparent;
-      width: 80px;
-    }
-
-    .raw-sticker {
-      position: absolute;
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      width: 80px;
-    }
-
     .logo {
       position: fixed;
       top: 20px;
@@ -40,6 +21,10 @@
       transform: translateX(-50%);
       width: 180px;
       z-index: 5;
+    }
+
+    .raw-sticker {
+      display: none;
     }
   </style>
 </head>
@@ -53,46 +38,5 @@
       <source src="bf-toms-1.mp3" type="audio/mpeg" />
     </audio>
   </div>
-
-  <!-- Static Stickers -->
-  <img src="trax_disco.gif" class="sticker" style="top: 160px; left: 60px;">
-  <img src="trax_8_bit.gif" class="sticker" style="top: 240px; left: 90px;">
-  <img src="trax_heavy.gif" class="sticker" style="top: 320px; left: 70px;">
-  <img src="trax_electro.gif" class="sticker" style="top: 400px; left: 100px;">
-  <img src="cassette3.gif" class="sticker" style="top: 160px; left: 300px;">
-  <img src="sticker_bobbaskull.gif" class="sticker" style="top: 240px; left: 330px;">
-  <img src="spill1.gif" class="sticker" style="top: 320px; left: 310px;">
-  <img src="hw_amp_small.gif" class="sticker" style="top: 400px; left: 340px;">
-  <img src="bankscan.gif" class="raw-sticker" style="top: 160px; left: 550px;">
-  <img src="banksbobby.gif" class="raw-sticker" style="top: 240px; left: 570px;">
-  <img src="nail3.gif" class="raw-sticker" style="top: 320px; left: 590px;">
-  <img src="chain_horizontal.gif" class="raw-sticker" style="top: 400px; left: 610px;">
-  <img src="chain_vertical.gif" class="raw-sticker" style="top: 480px; left: 630px;">
-
-  <script>
-    const stickers = document.querySelectorAll('.sticker, .raw-sticker');
-
-    stickers.forEach(img => {
-      let offsetX, offsetY, isDragging = false;
-
-      img.addEventListener('touchstart', e => {
-        isDragging = true;
-        const touch = e.touches[0];
-        offsetX = touch.clientX - img.offsetLeft;
-        offsetY = touch.clientY - img.offsetTop;
-      });
-
-      img.addEventListener('touchmove', e => {
-        if (!isDragging) return;
-        const touch = e.touches[0];
-        img.style.left = `${touch.clientX - offsetX}px`;
-        img.style.top = `${touch.clientY - offsetY}px`;
-      });
-
-      img.addEventListener('touchend', () => {
-        isDragging = false;
-      });
-    });
-  </script>
 </body>
 </html>
