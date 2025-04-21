@@ -16,7 +16,6 @@
       position: relative;
       background: url('tom_of_finland.jpeg') no-repeat center center fixed;
       background-size: cover;
-      animation: panZoom 15s infinite alternate ease-in-out; /* Faster background pan and zoom */
     }
 
     /* Audio Player Styles (at the bottom of the page) */
@@ -41,10 +40,10 @@
       border-bottom-left-radius: 25px;
       border-bottom-right-radius: 25px;
       padding: 20px;
+      box-sizing: border-box;
       transition: height 0.5s ease, padding 0.5s ease;
       z-index: 10;
-      box-sizing: border-box;
-      overflow: hidden; /* Ensure content doesn't overflow */
+      overflow: hidden;
     }
 
     .sleeve.active {
@@ -59,14 +58,12 @@
       margin: 0 auto;
       margin-bottom: 20px;
       transition: transform 0.5s ease; /* Smooth downwards movement */
-      max-height: 50px; /* Fit logo inside collapsed sleeve */
-      object-fit: contain; /* Ensure logo doesn't stretch */
     }
 
     /* Room Info and Description - Initially hidden */
     .room-info, .description {
       position: absolute;
-      top: -9999px; /* Position them off-screen initially */
+      top: -9999px; /* Initially off-screen */
       left: 0;
       right: 0;
       color: white;
@@ -78,7 +75,7 @@
     .sleeve.active .room-info,
     .sleeve.active .description {
       position: relative;
-      top: 20px; /* Slide down into position when expanded */
+      top: 20px; /* Slide down room info */
     }
 
     .room-info {
@@ -94,7 +91,7 @@
       image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
 
-    /* Toggle Button (X for closing sleeve and ☰ for opening) */
+    /* Toggle Button (Arrow for expanding and collapsing the sleeve) */
     .toggle-button {
       position: absolute;
       top: 10px;
@@ -105,6 +102,10 @@
       border: none;
       cursor: pointer;
       z-index: 20;
+    }
+
+    .toggle-button.expand {
+      transform: rotate(180deg); /* Rotate the arrow when expanded */
     }
 
     /* Powered by Bobba.fm */
@@ -149,18 +150,6 @@
       line-height: 1.6;
     }
 
-    /* Animation for Background Pan and Zoom */
-    @keyframes panZoom {
-      0% {
-        background-position: center;
-        transform: scale(1);
-      }
-      100% {
-        background-position: 10% 10%;
-        transform: scale(1.05);
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -173,8 +162,8 @@
 
   <!-- Sleeve with Content (Logo and Room Info) -->
   <div class="sleeve">
-    <!-- Toggle Button to Close the Sleeve (X when open, ☰ when closed) -->
-    <button class="toggle-button" onclick="toggleSleeve()">☰</button>
+    <!-- Toggle Button to Open/Close the Sleeve (Arrow for expanding/collapsing) -->
+    <button class="toggle-button" onclick="toggleSleeve()">&#x2193;</button> <!-- Down Arrow -->
 
     <!-- Sleeve Content -->
     <div class="sleeve-content">
@@ -213,29 +202,11 @@
     // Toggle the sleeve visibility
     function toggleSleeve() {
       const sleeve = document.querySelector('.sleeve');
-      const logo = document.querySelector('.logo');
-      const roomInfo = document.querySelector('.room-info');
-      const description = document.querySelector('.description');
-
-      sleeve.classList.toggle('active');
       const button = document.querySelector('.toggle-button');
-      button.innerText = sleeve.classList.contains('active') ? '×' : '☰';
+      sleeve.classList.toggle('active');
+      button.innerHTML = sleeve.classList.contains('active') ? '&#x2191;' : '&#x2193;'; // Change arrow direction
 
-      // Move the logo down when the sleeve expands
-      if (sleeve.classList.contains('active')) {
-        logo.style.transform = "translateY(40px)";  // Move the logo down when the sleeve expands
-      } else {
-        logo.style.transform = "translateY(0)";  // Reset position when collapsed
-      }
-
-      // Slide down room info and description when the sleeve expands
-      if (sleeve.classList.contains('active')) {
-        roomInfo.style.top = "20px";  // Slide down room info
-        description.style.top = "40px";  // Slide down description
-      } else {
-        roomInfo.style.top = "-9999px";  // Hide room info
-        description.style.top = "-9999px";  // Hide description
-      }
+      // Ensure content slides down with the sleeve
     }
   </script>
 </body>
