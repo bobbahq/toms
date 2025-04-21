@@ -19,6 +19,7 @@
       width: 100%;
       overflow: hidden;
       font-family: 'VT323', monospace;
+      color: white;
     }
 
     .background-wrapper {
@@ -60,6 +61,54 @@
       width: 300px;
       max-width: 90vw;
     }
+
+    .sleeve {
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90vw;
+      max-width: 440px;
+      background: black;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      cursor: grab;
+      z-index: 1000;
+      transition: top 0.4s ease;
+      overflow: hidden;
+    }
+
+    .sleeve.expanded {
+      top: 0;
+    }
+
+    .sleeve-content {
+      padding: 40px 30px 20px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .info-line {
+      width: 100%;
+      font-size: 20px;
+    }
+
+    .info-line span {
+      display: inline-block;
+      border-bottom: 2px solid white;
+      padding: 0 6px;
+      min-width: 150px;
+    }
+
+    .logo {
+      margin-top: 20px;
+      max-width: 70%;
+      height: 80px;
+      object-fit: contain;
+    }
   </style>
 </head>
 <body>
@@ -67,6 +116,16 @@
     <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
     <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
     <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
+  </div>
+
+  <div class="sleeve" id="sleeve">
+    <div class="sleeve-content">
+      <div class="info-line">Room name: <span>[18+] Tom's</span></div>
+      <div class="info-line">Owner: <span>JS</span></div>
+      <div class="info-line">Est.: <span>2025</span></div>
+      <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+      <img src="./logo.png" alt="Tom's logo" class="logo" />
+    </div>
   </div>
 
   <div class="music-player">
@@ -77,6 +136,14 @@
   </div>
 
   <script>
+    const sleeve = document.getElementById('sleeve');
+    let expanded = false;
+
+    sleeve.addEventListener('click', () => {
+      expanded = !expanded;
+      sleeve.classList.toggle('expanded', expanded);
+    });
+
     // Background rotation
     const slides = document.querySelectorAll('.background-slide');
     let current = 0;
