@@ -51,7 +51,7 @@
       padding: 40px;
     }
 
-    /* Logo */
+    /* Logo (hidden when collapsed) */
     .logo {
       width: 100%;
       display: block;
@@ -59,17 +59,17 @@
       margin-bottom: 20px;
     }
 
-    /* Room Info */
-    .room-info {
-      display: flex;
-      align-items: center; /* Align horizontally */
+    /* Room Info and Description - Initially hidden */
+    .room-info, .description {
+      display: none;
       color: white;
-      font-size: 1.5rem; /* Larger text */
+      font-size: 1.5rem; /* Adjusted size */
       margin-top: 10px;
     }
 
-    .room-info span {
-      margin-left: 10px;
+    .sleeve.active .room-info,
+    .sleeve.active .description {
+      display: block; /* Show text when expanded */
     }
 
     /* Room Icon */
