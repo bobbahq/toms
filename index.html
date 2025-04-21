@@ -95,15 +95,17 @@
     /* Room Icon and Text */
     .room-info {
       display: flex;
-      align-items: center;
+      flex-direction: column; /* Ensure text is stacked vertically */
+      align-items: flex-start;
       text-align: left;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.5rem; /* Larger text */
       margin-top: 10px;
     }
 
     .room-info span {
       margin-left: 10px;
+      margin-bottom: 5px;
     }
 
     /* Room Icon */
@@ -113,6 +115,18 @@
       display: block;
       cursor: pointer;
       image-rendering: pixelated; /* Ensures pixel art sharpness */
+    }
+
+    /* Powered by Bobba.fm */
+    .powered-by {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: white;
+      font-style: italic;
+      text-align: center;
     }
   </style>
 </head>
@@ -139,6 +153,11 @@
       <span>[18+] Tom's</span>
       <span>Owner: JS</span>
     </div>
+  </div>
+
+  <!-- Powered by Bobba.fm -->
+  <div class="powered-by">
+    Powered by Bobba.fm™
   </div>
 
   <script>
