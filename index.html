@@ -36,7 +36,7 @@
       left: 50%;
       transform: translateX(-50%); /* Center the sleeve */
       width: 300px; /* Sleeve width */
-      height: 100px; /* Sleeve height */
+      height: 100px; /* Sleeve height (collapsed) */
       background-color: #000;
       border-bottom-left-radius: 25px;
       border-bottom-right-radius: 25px;
@@ -51,12 +51,13 @@
       padding: 40px;
     }
 
-    /* Logo (hidden when collapsed) */
+    /* Logo (fits neatly inside the sleeve and moves when expanded) */
     .logo {
       width: 100%;
       display: block;
       margin: 0 auto;
       margin-bottom: 20px;
+      transition: transform 0.5s ease; /* Smooth downwards movement */
     }
 
     /* Room Info and Description - Initially hidden */
@@ -70,6 +71,10 @@
     .sleeve.active .room-info,
     .sleeve.active .description {
       display: block; /* Show text when expanded */
+    }
+
+    .room-info {
+      font-size: 1.2rem;
     }
 
     /* Room Icon */
@@ -202,6 +207,12 @@
       document.querySelector('.sleeve').classList.toggle('active');
       const button = document.querySelector('.toggle-button');
       button.innerText = document.querySelector('.sleeve').classList.contains('active') ? '×' : '☰';
+      const logo = document.querySelector('.logo');
+      if (document.querySelector('.sleeve').classList.contains('active')) {
+        logo.style.transform = "translateY(40px)";  // Move the logo down when the sleeve expands
+      } else {
+        logo.style.transform = "translateY(0)";  // Reset position when collapsed
+      }
     }
   </script>
 </body>
