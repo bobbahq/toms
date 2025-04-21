@@ -126,9 +126,14 @@
       z-index: 1001;
       cursor: move;
       user-select: none;
-      resize: none;             /* ✅ Prevent resizing */
-      box-sizing: border-box;
-      overflow: hidden;
+      pointer-events: auto;
+      resize: none;
+      width: auto;
+      height: auto;
+      min-width: unset;
+      min-height: unset;
+      max-width: unset;
+      max-height: unset;
     }
 
     .ascii-button {
@@ -214,12 +219,12 @@
       miniPlaying = !miniPlaying;
     });
 
-    // Make mini player draggable (ignore button drag)
+    // Make mini player draggable (ignoring button clicks)
     const miniPlayer = document.getElementById('miniPlayer');
     let isDragging = false, offsetX, offsetY;
 
     miniPlayer.addEventListener('mousedown', function(e) {
-      if (e.target.tagName === 'BUTTON') return; // Prevent dragging when clicking the button
+      if (e.target.tagName === 'BUTTON') return;
       isDragging = true;
       offsetX = e.clientX - miniPlayer.offsetLeft;
       offsetY = e.clientY - miniPlayer.offsetTop;
