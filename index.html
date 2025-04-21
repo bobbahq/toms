@@ -65,7 +65,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    .top-tab.expanded {
+    ..top-tab.expanded {
   height: 300px;
     }
 
@@ -77,12 +77,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      top: 0;
+      transform: translateY(-82px);
       transition: transform 0.3s ease;
       padding-bottom: 10px;
     }
 
-    .top-tab.expanded .sleeve-content {
+    ..top-tab.expanded .sleeve-content {
   transform: translateY(0);
     }
 
