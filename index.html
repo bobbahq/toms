@@ -1,1 +1,221 @@
-vv
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tom's · bobba.fm</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <style>
+    /* Basic Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'VT323', monospace;
+      overflow: hidden;
+      background: url('tom_of_finland.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+    }
+
+    /* Sleeve Styles */
+    .sleeve {
+      position: fixed;
+      top: 50%; /* Vertically centered */
+      left: -300px; /* Initially hidden off-screen */
+      width: 300px;
+      height: 60%; /* Adjust height */
+      background-color: #000;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+      padding: 20px;
+      transition: left 0.5s ease;
+      z-index: 10;
+      transform: translateY(-50%); /* To perfectly center it vertically */
+    }
+
+    .sleeve.active {
+      left: 0; /* Show the sleeve when active */
+    }
+
+    /* Rotate the content inside the sleeve */
+    .sleeve-content {
+      transform: rotate(-90deg); /* Rotate the content */
+      transform-origin: top left;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px; /* Adjust width */
+      height: 100%; /* Full height of the sleeve */
+    }
+
+    .logo {
+      width: 180px;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Audio Controls */
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .audio-controls button {
+      font-size: 2rem;
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    .room-link {
+      display: block;
+      color: #ff0066;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .room-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Toggle Button (X for closing sleeve and ☰ for opening) */
+    .toggle-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 2rem;
+      color: white;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    /* Room Icon and Text */
+    .room-info {
+      display: flex;
+      align-items: center; /* Align horizontally */
+      color: white;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .room-info span {
+      margin-left: 10px;
+    }
+
+    /* Room Icon */
+    .room-icon {
+      width: 60px;
+      height: 60px;
+      display: block;
+      cursor: pointer;
+      image-rendering: pixelated; /* Ensures pixel art sharpness */
+    }
+
+    /* Powered by Bobba.fm */
+    .powered-by {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: white;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Footer Links */
+    .footer {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: white;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Sleeve with Content -->
+  <div class="sleeve active">
+    <!-- Toggle Button to Close the Sleeve (X when open, ☰ when closed) -->
+    <button class="toggle-button" onclick="toggleSleeve()">×</button>
+
+    <!-- Sleeve Content -->
+    <div class="sleeve-content">
+      <!-- TOMS Logo -->
+      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
+
+      <!-- Audio Player (Play/Pause only) -->
+      <div class="audio-controls">
+        <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
+        <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
+      </div>
+
+      <!-- Room Icon and Info -->
+      <a href="https://www.habbo.es/room/124338349" target="_blank">
+        <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
+      </a>
+      <div class="room-info">
+        <span>[18+] Tom's</span>
+        <span>Owner: JS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Powered by Bobba.fm -->
+  <div class="powered-by">
+    powered by bobba fm
+  </div>
+
+  <!-- Footer Links -->
+  <div class="footer">
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Privacy</a>
+  </div>
+
+  <script>
+    // Toggle the sleeve visibility
+    function toggleSleeve() {
+      document.querySelector('.sleeve').classList.toggle('active');
+      const button = document.querySelector('.toggle-button');
+      button.innerText = document.querySelector('.sleeve').classList.contains('active') ? '×' : '☰';
+    }
+
+    // Play/Pause toggle for audio
+    let audio = new Audio('bf-toms-1.mp3');
+    let isPlaying = false;
+
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
+</body>
+</html>
