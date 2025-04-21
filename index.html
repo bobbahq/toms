@@ -51,7 +51,7 @@
       transform: translateX(-50%);
       width: 90vw;
       max-width: 440px;
-      height: 140px;
+      height: 300px;
       background: black;
       border-bottom-left-radius: 24px;
       border-bottom-right-radius: 24px;
@@ -61,14 +61,40 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
-      padding-bottom: 20px;
+      padding: 20px 10px 20px 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    .top-tab.expanded {
-      height: 300px;
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 12px;
+    }
+
+    .top-bar .center-line {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: white;
+    }
+
+    .top-bar .left a img {
+      height: 20px;
+    }
+
+    .description {
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      padding: 5px 0;
     }
 
     .top-tab img {
@@ -101,6 +127,21 @@
   </div>
 
   <div class="top-tab" id="tab">
+    <div class="top-bar">
+      <div class="left">
+        <a href="https://www.habbo.es/room/124338349" target="_blank">
+          <img src="./room_icon_3.gif" alt="Room Icon">
+        </a>
+      </div>
+      <div class="center-line"></div>
+      <div class="right">
+        [18+] Tom's<br>
+        owner:JS
+      </div>
+    </div>
+    <div class="description">
+      A bold, diverse space for all to mix, connect & vibe.
+    </div>
     <img src="./logo.png" alt="Tom's logo" onerror="this.style.display='none'" />
   </div>
 
