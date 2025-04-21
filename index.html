@@ -51,7 +51,7 @@
       transform: translateX(-50%);
       width: 90vw;
       max-width: 440px;
-      height: 300px;
+      height: 140px;
       background: black;
       border-bottom-left-radius: 24px;
       border-bottom-right-radius: 24px;
@@ -61,10 +61,15 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      padding: 20px 10px 20px 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .top-tab.expanded {
+      height: 300px;
+      justify-content: space-between;
+      padding: 20px 10px;
     }
 
     .top-bar {
@@ -155,9 +160,14 @@
   <script>
     const tab = document.getElementById('tab');
     let expanded = false;
+
     tab.addEventListener('click', () => {
       expanded = !expanded;
-      tab.classList.toggle('expanded', expanded);
+      if (expanded) {
+        tab.classList.add('expanded');
+      } else {
+        tab.classList.remove('expanded');
+      }
     });
 
     // Background rotation
