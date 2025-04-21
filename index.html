@@ -25,26 +25,28 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 400px;
-      height: 100px;
+      width: 440px;
+      height: 140px;
       background: black;
       border-bottom-left-radius: 24px;
       border-bottom-right-radius: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       transition: height 0.3s ease;
       z-index: 1000;
-      cursor: pointer;
+      cursor: grab;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 20px;
     }
 
     .top-tab.expanded {
-      height: 250px;
+      height: 300px;
     }
 
     .top-tab img {
-      max-height: 90%;
+      height: 80px;
       max-width: 90%;
       display: block;
     }
