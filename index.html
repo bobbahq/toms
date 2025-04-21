@@ -61,10 +61,21 @@
       position: relative;
     }
 
-    /* Room Info and Description - Initially above the logo */
+    /* Logo (inside the sleeve and properly fitted) */
+    .logo {
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      transition: transform 0.5s ease; /* Smooth downwards movement */
+      max-height: 60px;
+      object-fit: contain;
+    }
+
+    /* Room Info and Description - Initially hidden */
     .room-info, .description {
       font-size: 1.2rem;
-      margin-bottom: 10px; /* Space between room info and logo */
+      margin-top: 10px;
       text-align: center;
       opacity: 0; /* Initially hidden */
       transition: opacity 0.5s ease;
@@ -73,16 +84,6 @@
     .sleeve.active .room-info,
     .sleeve.active .description {
       opacity: 1; /* Fade in the content when expanded */
-    }
-
-    /* Logo (inside the sleeve and properly fitted) */
-    .logo {
-      width: 100%;
-      display: block;
-      margin: 0 auto;
-      margin-top: 20px;
-      max-height: 60px;
-      object-fit: contain;
     }
 
     /* Room Icon */
@@ -168,7 +169,7 @@
     <!-- Toggle Button to Open/Close the Sleeve (Arrow for expanding/collapsing) -->
     <button class="toggle-button" onclick="toggleSleeve()">&#x2193;</button> <!-- Down Arrow -->
 
-    <!-- Sleeve Content (Logo and Room Info) -->
+    <!-- Sleeve Content -->
     <div class="sleeve-content">
       <!-- Room Info and Description (Initially above the logo) -->
       <a href="https://www.habbo.es/room/124338349" target="_blank">
@@ -211,14 +212,7 @@
       sleeve.classList.toggle('active');
       button.innerHTML = sleeve.classList.contains('active') ? '&#x2191;' : '&#x2193;'; // Change arrow direction
 
-      // When sleeve is expanded, the content moves down together as a group
-      if (sleeve.classList.contains('active')) {
-        roomInfo.style.transition = "top 0.5s ease";
-        description.style.transition = "top 0.5s ease";
-      } else {
-        roomInfo.style.transition = "none";
-        description.style.transition = "none";
-      }
+      // Ensure content slides down with the sleeve
     }
   </script>
 </body>
