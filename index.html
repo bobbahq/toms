@@ -129,6 +129,7 @@
       resize: none;
       box-sizing: border-box;
       overflow: hidden;
+      touch-action: none;
     }
 
     .mini-player button {
@@ -162,6 +163,31 @@
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
+
+    /* MOBILE default positions */
+    #atmos {
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-115%) rotate(-4deg);
+    }
+
+    #music {
+      bottom: 210px;
+      left: 50%;
+      transform: translateX(-15%) rotate(3deg);
+    }
+
+    /* DESKTOP overrides */
+    @media (min-width: 768px) {
+      #atmos {
+        bottom: 240px;
+        left: 35%;
+      }
+      #music {
+        bottom: 260px;
+        left: 65%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -191,7 +217,7 @@
   </div>
 
   <!-- ATMOS Mini Player -->
-  <div class="mini-player" style="bottom: 110px; left: 50%; transform: translateX(-115%) rotate(-4deg);">
+  <div class="mini-player" id="atmos">
     <div class="label">ATMOS</div>
     <button onclick="playAtmos()">PLAY</button>
     <button onclick="pauseAtmos()">PAUSE</button>
@@ -199,7 +225,7 @@
   </div>
 
   <!-- MUSIC Mini Player -->
-  <div class="mini-player" style="bottom: 210px; left: 50%; transform: translateX(-15%) rotate(3deg);">
+  <div class="mini-player" id="music">
     <div class="label">MUSIC</div>
     <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
     <button onclick="playMusic()">PLAY</button>
@@ -224,7 +250,7 @@
       slides[current].classList.add('visible');
     }, 15000);
 
-    // Shared behavior: only one player active at a time
+    // Exclusive audio control
     const atmosAudio = document.getElementById('atmosAudio');
     const musicAudio = document.getElementById('musicAudio');
 
@@ -239,7 +265,6 @@
       }
     }
 
-    // ATMOS player
     function playAtmos() {
       pauseOther('atmos');
       atmosAudio.play();
@@ -249,7 +274,6 @@
       atmosAudio.pause();
     }
 
-    // MUSIC player
     const musicTracks = [
       { title: "Track 1", file: "track1.mp3" },
       { title: "Track 2", file: "track2.mp3" },
@@ -280,8 +304,35 @@
       playMusic();
     }
 
-    // Load the initial track
     loadTrack(musicIndex);
+
+    // Make both mini players draggable
+    function makeDraggable(id) {
+      const el = document.getElementById(id);
+      let isDragging = false, offsetX, offsetY;
+
+      el.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - el.offsetLeft;
+        offsetY = e.clientY - el.offsetTop;
+        el.style.cursor = 'grabbing';
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        el.style.cursor = 'move';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          el.style.left = (e.clientX - offsetX) + 'px';
+          el.style.top = (e.clientY - offsetY) + 'px';
+        }
+      });
+    }
+
+    makeDraggable('atmos');
+    makeDraggable('music');
   </script>
 </body>
 </html>
