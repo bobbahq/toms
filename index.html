@@ -79,7 +79,7 @@
       text-decoration: underline;
     }
 
-    /* Toggle Button (X or Hamburger icon) */
+    /* Toggle Button (X for closing sleeve and ☰ for opening) */
     .toggle-button {
       position: absolute;
       top: 10px;
@@ -92,33 +92,35 @@
       z-index: 20;
     }
 
-    /* Room Icon */
-    .room-icon {
-      width: 60px;
-      height: 60px;
-      margin: 20px auto;
-      display: block;
-      cursor: pointer;
-      image-rendering: pixelated;
-    }
-
+    /* Room Icon and Text */
     .room-info {
-      text-align: center;
-      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      text-align: left;
       color: white;
+      font-size: 1.2rem;
       margin-top: 10px;
     }
 
     .room-info span {
+      margin-left: 10px;
+    }
+
+    /* Room Icon */
+    .room-icon {
+      width: 60px;
+      height: 60px;
       display: block;
+      cursor: pointer;
+      image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
   </style>
 </head>
 <body>
   <!-- Sleeve with Content -->
   <div class="sleeve active">
-    <!-- Toggle Button to Close the Sleeve -->
-    <button class="toggle-button" onclick="toggleSleeve()">☰</button>
+    <!-- Toggle Button to Close the Sleeve (X when open, ☰ when closed) -->
+    <button class="toggle-button" onclick="toggleSleeve()">×</button>
 
     <!-- TOMS Logo -->
     <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
@@ -144,7 +146,7 @@
     function toggleSleeve() {
       document.querySelector('.sleeve').classList.toggle('active');
       const button = document.querySelector('.toggle-button');
-      button.innerText = document.querySelector('.sleeve').classList.contains('active') ? '☰' : '×';
+      button.innerText = document.querySelector('.sleeve').classList.contains('active') ? '×' : '☰';
     }
 
     // Play/Pause toggle for audio
