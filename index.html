@@ -25,15 +25,17 @@
     }
 
     audio {
-      margin-top: 20px;
+      margin-top: 40px; /* Increased spacing */
       width: 220px;
       background-color: transparent;
     }
 
     .room-link img {
-      width: auto; /* Keeps original width */
-      height: auto; /* Keeps original height */
+      width: 160px; /* 2x scale */
+      height: 160px;
       cursor: pointer;
+      image-rendering: pixelated; /* Keeps the pixel art sharp */
+      margin-top: 30px; /* Spacing between the player and icon */
     }
   </style>
 </head>
@@ -46,7 +48,7 @@
     <source src="bf-toms-1.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Link to Habbo Room with GIF icon -->
+  <!-- Link to Habbo Room with scaled GIF icon -->
   <a href="https://www.habbo.es/room/124338349" class="room-link" target="_blank">
     <img src="room_icon_3.gif" alt="Tom's Habbo Room" />
   </a>
