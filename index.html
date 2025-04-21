@@ -21,9 +21,9 @@
     .sleeve {
       position: fixed;
       top: 50%; /* Vertically centered */
-      left: 0;
+      left: -300px; /* Initially hidden off-screen */
       width: 300px;
-      height: 100%; /* Full height */
+      height: 60%; /* Adjust height */
       background-color: #000;
       border-top-right-radius: 25px;
       border-bottom-right-radius: 25px;
@@ -31,11 +31,22 @@
       transition: left 0.5s ease;
       z-index: 10;
       transform: translateY(-50%); /* To perfectly center it vertically */
-      transform-origin: top left;
     }
 
     .sleeve.active {
       left: 0; /* Show the sleeve when active */
+    }
+
+    /* Rotate the content inside the sleeve */
+    .sleeve-content {
+      transform: rotate(-90deg); /* Rotate the content */
+      transform-origin: top left;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px; /* Adjust width */
+      height: 100%; /* Full height of the sleeve */
     }
 
     .logo {
@@ -151,22 +162,25 @@
     <!-- Toggle Button to Close the Sleeve (X when open, ☰ when closed) -->
     <button class="toggle-button" onclick="toggleSleeve()">×</button>
 
-    <!-- TOMS Logo -->
-    <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
+    <!-- Sleeve Content -->
+    <div class="sleeve-content">
+      <!-- TOMS Logo -->
+      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
 
-    <!-- Audio Player (Play/Pause only) -->
-    <div class="audio-controls">
-      <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
-      <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
-    </div>
+      <!-- Audio Player (Play/Pause only) -->
+      <div class="audio-controls">
+        <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
+        <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
+      </div>
 
-    <!-- Room Icon and Info -->
-    <a href="https://www.habbo.es/room/124338349" target="_blank">
-      <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
-    </a>
-    <div class="room-info">
-      <span>[18+] Tom's</span>
-      <span>Owner: JS</span>
+      <!-- Room Icon and Info -->
+      <a href="https://www.habbo.es/room/124338349" target="_blank">
+        <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
+      </a>
+      <div class="room-info">
+        <span>[18+] Tom's</span>
+        <span>Owner: JS</span>
+      </div>
     </div>
   </div>
 
