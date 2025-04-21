@@ -28,16 +28,16 @@
       background-color: transparent;
     }
 
-    /* Sleeve Styles (at the top and centered) */
+    /* Sleeve Styles (on the left side and centered vertically) */
     .sleeve {
       position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%); /* Center the sleeve */
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%); /* Center the sleeve vertically */
       width: 300px; /* Sleeve width */
       height: 100px; /* Sleeve height (collapsed) */
       background-color: #000;
-      border-bottom-left-radius: 25px;
+      border-top-right-radius: 25px;
       border-bottom-right-radius: 25px;
       padding: 20px;
       box-sizing: border-box;
@@ -212,7 +212,7 @@
       sleeve.classList.toggle('active');
       button.innerHTML = sleeve.classList.contains('active') ? '&#x2191;' : '&#x2193;'; // Change arrow direction
 
-      // Ensure content slides down with the sleeve
+      // When sleeve is expanded, the content moves down together as a group
     }
   </script>
 </body>
