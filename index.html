@@ -102,7 +102,7 @@
       box-sizing: border-box;
       overflow: hidden;
       min-width: 240px;
-      max-width: 480px;
+      max-width: 320px;
     }
     #atmos {
       bottom: 110px;
@@ -110,7 +110,7 @@
       transform: translateX(-90%) rotate(-4deg);
       font-size: 15px;
       padding: 8px 12px;
-      width: 480px;
+      width: 320px;
     }
     #music {
       bottom: 210px;
@@ -124,10 +124,13 @@
       animation: shimmerColor 3s linear infinite;
     }
     .now-playing {
+      display: inline-block;
+      text-overflow: ellipsis;
+      overflow: hidden;
       margin: 4px 0;
       white-space: nowrap;
       overflow: hidden;
-      width: 480px;
+      width: 320px;
       animation: scroll-text 8s linear infinite;
     }
     button {
