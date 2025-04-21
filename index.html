@@ -29,16 +29,17 @@
       background-color: transparent;
     }
 
-    /* Sleeve Styles (at the bottom) */
+    /* Sleeve Styles (at the top and centered) */
     .sleeve {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 200px; /* Smaller width for sleeve */
-      height: 150px; /* Adjusted height */
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%); /* Center the sleeve */
+      width: 300px; /* Sleeve width */
+      height: 150px; /* Sleeve height */
       background-color: #000;
-      border-top-left-radius: 25px;
-      border-top-right-radius: 25px;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
       padding: 20px;
       transition: height 0.5s ease, padding 0.5s ease;
       z-index: 10;
@@ -46,15 +47,16 @@
     }
 
     .sleeve.active {
-      height: 300px; /* Height when the sleeve is expanded */
+      height: 300px; /* Height when expanded */
       padding: 40px;
     }
 
     /* Logo */
     .logo {
-      width: 100%; /* Full width of the sleeve */
-      margin-bottom: 20px;
+      width: 100%;
       display: block;
+      margin: 0 auto;
+      margin-bottom: 20px;
     }
 
     /* Room Info */
@@ -62,7 +64,7 @@
       display: flex;
       align-items: center; /* Align horizontally */
       color: white;
-      font-size: 1.5rem; /* Adjusted size */
+      font-size: 1.5rem; /* Larger text */
       margin-top: 10px;
     }
 
@@ -93,15 +95,6 @@
       color: white;
       cursor: pointer;
       margin: 0 10px;
-    }
-
-    /* Floating Audio Player */
-    .audio-player {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 15;
     }
 
     /* Powered by Bobba.fm */
