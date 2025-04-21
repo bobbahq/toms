@@ -129,6 +129,11 @@
       resize: none;
       box-sizing: border-box;
       overflow: hidden;
+
+      width: auto;
+      height: auto;
+      min-width: 240px;
+      max-width: 320px;
     }
 
     .mini-player button {
@@ -163,7 +168,7 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Default mobile positions */
+    /* Mobile default positions */
     #atmos {
       bottom: 110px;
       left: 50%;
@@ -176,7 +181,6 @@
       transform: translateX(-15%) rotate(3deg);
     }
 
-    /* Clear transform on desktop for JS override */
     @media (min-width: 768px) {
       #atmos, #music {
         transform: none !important;
@@ -243,7 +247,7 @@
       slides[current].classList.add('visible');
     }, 15000);
 
-    // Exclusive playback
+    // Playback logic
     const atmosAudio = document.getElementById('atmosAudio');
     const musicAudio = document.getElementById('musicAudio');
 
@@ -299,24 +303,23 @@
 
     loadTrack(musicIndex);
 
-    // Randomize player positions on desktop
-    function setRandomPosition(id, baseX, baseY) {
+    // Random positions on desktop
+    function setRandomPosition(id) {
       const el = document.getElementById(id);
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
 
       if (screenWidth >= 768) {
-        const x = baseX + (Math.random() * 100 - 50);
-        const y = baseY + (Math.random() * 100 - 50);
+        const x = screenWidth / 2 + (Math.random() * 400 - 200);
+        const y = screenHeight / 2 + (Math.random() * 200 - 100);
         el.style.left = `${x}px`;
         el.style.top = `${y}px`;
       }
     }
 
-    // Example: center region randomized
     window.onload = () => {
-      setRandomPosition('atmos', window.innerWidth / 2 - 200, window.innerHeight / 2 + 60);
-      setRandomPosition('music', window.innerWidth / 2 + 100, window.innerHeight / 2 - 20);
+      setRandomPosition('atmos');
+      setRandomPosition('music');
     };
   </script>
 </body>
