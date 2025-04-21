@@ -129,7 +129,6 @@
       resize: none;
       box-sizing: border-box;
       overflow: hidden;
-
       width: auto;
       height: auto;
       min-width: 240px;
@@ -168,7 +167,7 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Mobile default positions */
+    /* Fixed positions (used for all devices now) */
     #atmos {
       bottom: 110px;
       left: 50%;
@@ -179,12 +178,6 @@
       bottom: 210px;
       left: 50%;
       transform: translateX(-15%) rotate(3deg);
-    }
-
-    @media (min-width: 768px) {
-      #atmos, #music {
-        transform: none !important;
-      }
     }
   </style>
 </head>
@@ -302,25 +295,6 @@
     }
 
     loadTrack(musicIndex);
-
-    // Random positions on desktop
-    function setRandomPosition(id) {
-      const el = document.getElementById(id);
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-
-      if (screenWidth >= 768) {
-        const x = screenWidth / 2 + (Math.random() * 400 - 200);
-        const y = screenHeight / 2 + (Math.random() * 200 - 100);
-        el.style.left = `${x}px`;
-        el.style.top = `${y}px`;
-      }
-    }
-
-    window.onload = () => {
-      setRandomPosition('atmos');
-      setRandomPosition('music');
-    };
   </script>
 </body>
 </html>
