@@ -16,49 +16,58 @@
       position: relative;
       background: url('tom_of_finland.jpeg') no-repeat center center fixed;
       background-size: cover;
-      animation: panZoom 15s infinite alternate ease-in-out; /* Faster background pan and zoom */
     }
 
-    /* Sleeve Styles */
+    /* Audio Player Styles (at the top of the page) */
+    .audio-player {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 15;
+      background-color: transparent;
+    }
+
+    /* Sleeve Styles (at the bottom) */
     .sleeve {
       position: fixed;
-      top: 50%; /* Vertically centered */
-      left: -300px; /* Initially hidden off-screen */
-      width: 300px;
-      height: 60%; /* Adjust height */
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px; /* Adjust height of the sleeve */
       background-color: #000;
+      border-top-left-radius: 25px;
       border-top-right-radius: 25px;
-      border-bottom-right-radius: 25px;
-      padding: 30px;
-      transition: left 0.5s ease;
+      padding: 20px;
+      transition: height 0.5s ease, padding 0.5s ease;
       z-index: 10;
-      transform: translateY(-50%); /* To perfectly center it vertically */
+      box-sizing: border-box;
     }
 
     .sleeve.active {
-      left: 0; /* Show the sleeve when active */
+      height: 300px; /* Height when the sleeve is expanded */
+      padding: 40px;
     }
 
-    /* Logo */
+    /* Logo Styles */
     .logo {
       width: 180px;
-      margin-bottom: 20px;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      margin-bottom: 20px;
     }
 
-    /* Room Info */
+    /* Room Info Text */
     .room-info {
-      display: flex;
-      align-items: center; /* Align horizontally */
+      display: none;
       color: white;
-      font-size: 1.8rem; /* Larger text */
+      font-size: 1.2rem;
+      text-align: center;
       margin-top: 10px;
     }
 
-    .room-info span {
-      margin-left: 10px;
+    .sleeve.active .room-info {
+      display: block;
     }
 
     /* Room Icon */
@@ -66,33 +75,22 @@
       width: 60px;
       height: 60px;
       display: block;
+      margin: 0 auto;
       cursor: pointer;
       image-rendering: pixelated; /* Ensures pixel art sharpness */
     }
 
-    /* Audio Controls */
-    .audio-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .audio-controls button {
+    /* Toggle Button (X for closing sleeve and ☰ for opening) */
+    .toggle-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
       font-size: 2rem;
-      background: transparent;
-      border: none;
       color: white;
+      background-color: transparent;
+      border: none;
       cursor: pointer;
-      margin: 0 10px;
-    }
-
-    /* Floating Audio Player */
-    .audio-player {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 15;
+      z-index: 20;
     }
 
     /* Powered by Bobba.fm */
@@ -133,56 +131,38 @@
       font-size: 1.2rem;
       color: white;
       margin-top: 20px;
-      text-align: left;
+      text-align: center;
       line-height: 1.6;
-      padding-right: 10px;
-      padding-left: 10px;
-    }
-
-    /* Animation for Background Pan and Zoom */
-    @keyframes panZoom {
-      0% {
-        background-position: center;
-        transform: scale(1);
-      }
-      100% {
-        background-position: 10% 10%;
-        transform: scale(1.05);
-      }
     }
 
   </style>
 </head>
 <body>
-  <!-- Sleeve with Content -->
-  <div class="sleeve active">
+  <!-- Audio Player (Floating at the top) -->
+  <div class="audio-player">
+    <audio controls>
+      <source src="bf-toms-1.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
+
+  <!-- Sleeve with Content (Logo and Room Info) -->
+  <div class="sleeve">
     <!-- Toggle Button to Close the Sleeve (X when open, ☰ when closed) -->
-    <button class="toggle-button" onclick="toggleSleeve()">×</button>
+    <button class="toggle-button" onclick="toggleSleeve()">☰</button>
 
-    <!-- Sleeve Content -->
-    <div class="sleeve-content">
-      <!-- TOMS Logo -->
-      <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
+    <!-- Logo -->
+    <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
 
-      <!-- Room Icon and Info -->
-      <a href="https://www.habbo.es/room/124338349" target="_blank">
-        <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
-      </a>
-      <div class="room-info">
-        <span>[18+] Tom's</span>
-        <span>Owner: JS</span>
-      </div>
-
-      <!-- Club Description -->
-      <div class="description">
+    <!-- Room Icon and Info (Visible when expanded) -->
+    <a href="https://www.habbo.es/room/124338349" target="_blank">
+      <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
+    </a>
+    <div class="room-info">
+      <span>[18+] Tom's</span>
+      <span>Owner: JS</span>
+      <p class="description">
         Step into a world of vibrant diversity and celebration of individuality. Tom's room is a sanctuary where **everyone is welcome** to be themselves, connect with like-minded souls, and enjoy an electrifying atmosphere. Whether you're here to vibe with great music or meet new friends, you'll always find a place at Tom's.
-      </div>
-
-      <!-- Audio Player (Play/Pause only) -->
-      <div class="audio-controls">
-        <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
-        <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
-      </div>
+      </p>
     </div>
   </div>
 
@@ -196,13 +176,6 @@
     <a href="#">About</a>
     <a href="#">Contact</a>
     <a href="#">Privacy</a>
-  </div>
-
-  <!-- Floating Audio Player -->
-  <div class="audio-player">
-    <audio controls>
-      <source src="bf-toms-1.mp3" type="audio/mpeg" />
-    </audio>
   </div>
 
   <script>
