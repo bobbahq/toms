@@ -81,14 +81,17 @@
     }
 
     .sleeve-extra {
-      display: none;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
       color: white;
       font-size: 14px;
       line-height: 1.6;
     }
 
     .top-tab.expanded .sleeve-extra {
-      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .sleeve-extra .top-bar {
