@@ -9,8 +9,9 @@
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
-      color: #eee;
+      background-color: #000;
+      background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,41 +24,10 @@
       max-width: 300px;
       height: auto;
       margin-bottom: 40px;
-      filter: drop-shadow(0 0 15px rgba(255, 0, 100, 0.5));
     }
 
     .player-container {
-      background: #111;
+      background: linear-gradient(145deg, #1a1a1a, #333);
+      border: 1px solid #555;
       padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(255, 0, 100, 0.3), 0 0 10px rgba(255, 0, 100, 0.2) inset;
-      text-align: center;
-      max-width: 420px;
-      width: 100%;
-    }
-
-    .player-container p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      color: #ff0066;
-      text-shadow: 0 0 10px rgba(255, 0, 102, 0.7);
-    }
-
-    audio {
-      width: 100%;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-  <img src="logo.png" alt="Tom's logo" class="logo" />
-  <div class="player-container">
-    <p>Now playing: Bluest Flame</p>
-    <audio controls>
-      <source src="bf-toms-1.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-</body>
-</html>
+      border
