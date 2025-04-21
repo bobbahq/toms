@@ -61,11 +61,11 @@
       text-decoration: underline;
     }
 
-    /* Toggle Button */
+    /* Toggle Button (X for closing sleeve) */
     .toggle-button {
       position: absolute;
-      top: 20px;
-      left: 320px; /* Adjusted position for proper alignment */
+      top: 10px;
+      right: 10px; /* Positioned in the visible corner of the sleeve */
       font-size: 1.5rem;
       color: white;
       background-color: transparent;
@@ -73,19 +73,34 @@
       cursor: pointer;
       z-index: 20;
     }
+
+    /* Room Icon */
+    .room-icon {
+      width: 60px; /* 1.0x size */
+      height: 60px;
+      margin: 20px auto;
+      display: block;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <!-- Toggle Button to Show/Hide Sleeve -->
-  <button class="toggle-button" onclick="toggleSleeve()">☰</button>
-
   <!-- Sleeve with Content -->
   <div class="sleeve active"> <!-- Sleeve is open by default -->
+    <!-- Toggle Button to Close the Sleeve -->
+    <button class="toggle-button" onclick="toggleSleeve()">×</button>
+
     <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
     <audio controls>
       <source src="bf-toms-1.mp3" type="audio/mpeg" />
     </audio>
+
     <a href="https://www.habbo.es/room/124338349" class="room-link" target="_blank">Visit Tom's Habbo Room</a>
+
+    <!-- Room Icon (1.0x size) -->
+    <a href="https://www.habbo.es/room/124338349" target="_blank">
+      <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
+    </a>
   </div>
 
   <script>
