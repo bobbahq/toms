@@ -190,23 +190,21 @@
     powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
   </div>
 
-  <!-- ATMOS Mini Player (moved down 50px) -->
-  <div class="mini-player" style="bottom: 110px; left: 50%; transform: translateX(-120%) rotate(-4deg);">
+  <!-- ATMOS Mini Player -->
+  <div class="mini-player" style="bottom: 110px; left: 50%; transform: translateX(-115%) rotate(-4deg);">
     <div class="label">ATMOS</div>
-    <button onclick="document.getElementById('atmosAudio').play()">> PLAY</button>
-    <button onclick="document.getElementById('atmosAudio').pause(); document.getElementById('atmosAudio').currentTime = 0;">■ STOP</button>
+    <button onclick="playAtmos()">PLAY</button>
+    <button onclick="pauseAtmos()">PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
   </div>
 
-  <!-- MUSIC Mini Player (moved up 50px) -->
-  <div class="mini-player" style="bottom: 210px; left: 50%; transform: translateX(-20%) rotate(3deg);">
+  <!-- MUSIC Mini Player -->
+  <div class="mini-player" style="bottom: 210px; left: 50%; transform: translateX(-15%) rotate(3deg);">
     <div class="label">MUSIC</div>
     <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
-    <button onclick="prevTrack()">⏮</button>
-    <button onclick="playMusic()">> PLAY</button>
-    <button onclick="pauseMusic()">|| PAUSE</button>
-    <button onclick="nextTrack()">⏭</button>
-    <button onclick="stopMusic()">■ STOP</button>
+    <button onclick="playMusic()">PLAY</button>
+    <button onclick="pauseMusic()">PAUSE</button>
+    <button onclick="nextTrack()">SKIP</button>
     <audio id="musicAudio" preload="auto"></audio>
   </div>
 
@@ -226,7 +224,32 @@
       slides[current].classList.add('visible');
     }, 15000);
 
-    // MUSIC Player functionality
+    // Shared behavior: only one player active at a time
+    const atmosAudio = document.getElementById('atmosAudio');
+    const musicAudio = document.getElementById('musicAudio');
+
+    function pauseOther(current) {
+      if (current !== 'atmos') {
+        atmosAudio.pause();
+        atmosAudio.currentTime = 0;
+      }
+      if (current !== 'music') {
+        musicAudio.pause();
+        musicAudio.currentTime = 0;
+      }
+    }
+
+    // ATMOS player
+    function playAtmos() {
+      pauseOther('atmos');
+      atmosAudio.play();
+    }
+
+    function pauseAtmos() {
+      atmosAudio.pause();
+    }
+
+    // MUSIC player
     const musicTracks = [
       { title: "Track 1", file: "track1.mp3" },
       { title: "Track 2", file: "track2.mp3" },
@@ -234,7 +257,6 @@
     ];
 
     let musicIndex = 0;
-    const musicAudio = document.getElementById("musicAudio");
     const nowPlaying = document.getElementById("nowPlaying");
 
     function loadTrack(index) {
@@ -244,6 +266,7 @@
     }
 
     function playMusic() {
+      pauseOther('music');
       musicAudio.play();
     }
 
@@ -251,19 +274,8 @@
       musicAudio.pause();
     }
 
-    function stopMusic() {
-      musicAudio.pause();
-      musicAudio.currentTime = 0;
-    }
-
     function nextTrack() {
       musicIndex = (musicIndex + 1) % musicTracks.length;
-      loadTrack(musicIndex);
-      playMusic();
-    }
-
-    function prevTrack() {
-      musicIndex = (musicIndex - 1 + musicTracks.length) % musicTracks.length;
       loadTrack(musicIndex);
       playMusic();
     }
