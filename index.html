@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tom's</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     html, body {
       min-height: 100vh;
       width: 100%;
       overflow: hidden;
       font-family: 'VT323', monospace;
       color: white;
+      background: black;
     }
 
     .background-wrapper {
       position: fixed;
+      top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
     }
-
     .background-slide {
       position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
       opacity: 0;
       transition: opacity 2s ease-in-out;
     }
-
     .background-slide.visible {
       opacity: 1;
     }
@@ -60,14 +54,12 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       cursor: grab;
       z-index: 1000;
-      transition: top 0.4s ease;
+      transition: top 0.3s ease;
       overflow: hidden;
     }
-
     .sleeve.expanded {
       top: 0;
     }
-
     .sleeve-content {
       padding: 40px 30px 20px 30px;
       display: flex;
@@ -75,41 +67,33 @@
       align-items: center;
       gap: 14px;
     }
-
     .info-line {
       width: 100%;
       font-size: 20px;
     }
-
     .info-line span {
       display: inline-block;
       border-bottom: 2px solid white;
       padding: 0 6px;
       min-width: 150px;
     }
-
     .info-line a {
       color: white;
       text-decoration: underline;
     }
-
     .logo {
       margin-top: 17px;
       max-width: 70%;
       height: 80px;
       object-fit: contain;
     }
-
     .footer {
       position: absolute;
       bottom: 20px;
       width: 100%;
       text-align: center;
       font-size: 20px;
-      font-family: 'VT323', monospace;
-      color: white;
     }
-
     .footer a {
       color: white;
       text-decoration: underline;
@@ -135,23 +119,35 @@
       max-width: 320px;
     }
 
-    .mini-player button {
-      background: none;
-      border: none;
-      color: white;
-      font-family: 'VT323', monospace;
-      font-size: 18px;
-      margin: 0 4px;
-      cursor: pointer;
+    #atmos {
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-90%) rotate(-4deg);
+      font-size: 15px;
+      padding: 8px 12px;
+    }
+    #music {
+      bottom: 210px;
+      left: 50%;
+      transform: translateX(-15%) rotate(3deg);
     }
 
-    .mini-player button:hover {
-      text-shadow: 0 0 6px white;
-    }
-
-    .gradient-text span {
+    .mini-player .label span {
       display: inline-block;
-      animation: colorShift 4s linear infinite;
+      animation: shimmerColor 3s linear infinite;
+    }
+
+    .now-playing {
+      margin: 4px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 200px;
+      animation: scroll-text 8s linear infinite;
+    }
+
+    @keyframes scroll-text {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
 
     @keyframes colorShiftWarm {
@@ -170,29 +166,24 @@
       100% { color: aqua; }
     }
 
-    .now-playing {
-      margin: 4px 0;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 200px;
-      animation: scroll-text 8s linear infinite;
+    .shimmer {
+      animation: shimmer 1.5s ease-in-out infinite;
     }
 
-    @keyframes scroll-text {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+    @keyframes shimmer {
+      0%   { text-shadow: 0 0 0 white; }
+      50%  { text-shadow: 0 0 8px white; }
+      100% { text-shadow: 0 0 0 white; }
     }
 
-    #atmos {
-      bottom: 110px;
-      left: 50%;
-      transform: translateX(-115%) rotate(-4deg);
-    }
-
-    #music {
-      bottom: 210px;
-      left: 50%;
-      transform: translateX(-15%) rotate(3deg);
+    button {
+      background: none;
+      border: none;
+      color: white;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      margin: 0 4px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -218,35 +209,30 @@
     </div>
   </div>
 
-  <div class="footer">
-    powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
-  </div>
+  <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
-  <!-- ATMOS Mini Player -->
   <div class="mini-player" id="atmos">
-    <div class="label gradient-text" id="atmosLabel"></div>
-    <button onclick="playAtmos()">PLAY</button>
-    <button onclick="pauseAtmos()">PAUSE</button>
+    <div class="label" id="atmosLabel"></div>
+    <button class="btn-play">PLAY</button>
+    <button class="btn-pause">PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
   </div>
 
-  <!-- MUSIC Mini Player -->
   <div class="mini-player" id="music">
-    <div class="label gradient-text" id="musicLabel"></div>
+    <div class="label" id="musicLabel"></div>
     <div class="now-playing" id="nowPlaying">Press PLAY to PLAY</div>
-    <button onclick="playMusic()">PLAY</button>
-    <button onclick="pauseMusic()">PAUSE</button>
-    <button onclick="nextTrack()">SKIP</button>
+    <button class="btn-play">PLAY</button>
+    <button class="btn-pause">PAUSE</button>
+    <button class="btn-skip">SKIP</button>
     <audio id="musicAudio" preload="auto"></audio>
   </div>
 
   <script>
-    // Sleeve toggle
-    document.getElementById('sleeve').addEventListener('click', () => {
-      document.getElementById('sleeve').classList.toggle('expanded');
+    const sleeve = document.getElementById('sleeve');
+    sleeve.addEventListener('click', () => {
+      sleeve.classList.toggle('expanded');
     });
 
-    // Background slideshow
     const slides = document.querySelectorAll('.background-slide');
     let current = 0;
     setInterval(() => {
@@ -255,29 +241,24 @@
       slides[current].classList.add('visible');
     }, 15000);
 
-    // Label gradient animation
-    function createAnimatedLabel(text, elementId, animationName) {
-      const container = document.getElementById(elementId);
-      container.innerHTML = '';
-      [...text].forEach((char, i) => {
+    function animateLabel(text, id, animName) {
+      const el = document.getElementById(id);
+      el.innerHTML = '';
+      [...text].forEach((c, i) => {
         const span = document.createElement('span');
-        span.textContent = char;
-        span.style.animationName = animationName;
+        span.textContent = c;
+        span.style.animation = `${animName} 3s linear infinite`;
         span.style.animationDelay = `${i * 0.15}s`;
-        span.style.animationDuration = `3s`;
-        span.style.animationIterationCount = 'infinite';
-        span.style.animationTimingFunction = 'linear';
-        container.appendChild(span);
+        el.appendChild(span);
       });
     }
 
-    createAnimatedLabel('MUSIC', 'musicLabel', 'colorShiftWarm');
-    createAnimatedLabel('ATMOS', 'atmosLabel', 'colorShiftCool');
+    animateLabel('MUSIC', 'musicLabel', 'colorShiftWarm');
+    animateLabel('ATMOS', 'atmosLabel', 'colorShiftCool');
 
-    // Player logic
     const atmosAudio = document.getElementById('atmosAudio');
     const musicAudio = document.getElementById('musicAudio');
-    const nowPlaying = document.getElementById("nowPlaying");
+    const nowPlaying = document.getElementById('nowPlaying');
 
     function pauseOther(current) {
       if (current !== 'atmos') {
@@ -329,7 +310,6 @@
       playMusic();
     }
 
-    // Default message if nothing playing
     setInterval(() => {
       if (musicAudio.paused && !musicAudio.currentTime) {
         nowPlaying.textContent = 'Press PLAY to PLAY';
@@ -337,6 +317,15 @@
     }, 500);
 
     loadTrack(musicIndex);
+
+    function randomShimmer() {
+      const buttons = document.querySelectorAll('.btn-play, .btn-pause, .btn-skip');
+      buttons.forEach(btn => btn.classList.remove('shimmer'));
+      const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
+      randomButton.classList.add('shimmer');
+    }
+
+    setInterval(randomShimmer, 5000);
   </script>
 </body>
 </html>
