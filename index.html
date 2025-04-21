@@ -44,21 +44,6 @@
       opacity: 1;
     }
 
-    .background-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.85;
-      background-size: cover;
-      background-position: center;
-      background-repeat: repeat;
-      pointer-events: none;
-      z-index: 1;
-      transition: opacity 1s ease-in-out;
-    }
-
     .top-tab {
       position: fixed;
       top: 0;
@@ -113,7 +98,6 @@
     <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
     <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
     <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
-    <div class="background-overlay" id="overlay"></div>
   </div>
 
   <div class="top-tab" id="tab">
@@ -137,21 +121,12 @@
 
     // Background rotation
     const slides = document.querySelectorAll('.background-slide');
-    const overlay = document.getElementById('overlay');
-    const overlays = ['./01.png', './05.png', './07.png', './14.png'];
     let current = 0;
-    let overlayIndex = 0;
-
-    // Set initial overlay
-    overlay.style.backgroundImage = `url('${overlays[0]}')`;
 
     setInterval(() => {
       slides.forEach(slide => slide.classList.remove('visible'));
       current = (current + 1) % slides.length;
       slides[current].classList.add('visible');
-
-      overlayIndex = (overlayIndex + 1) % overlays.length;
-      overlay.style.backgroundImage = `url('${overlays[overlayIndex]}')`;
     }, 15000);
   </script>
 </body>
