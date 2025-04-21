@@ -155,7 +155,19 @@
       width: 300px;
       max-width: 90vw;
     }
-  </style>
+      .info-line {
+      margin-bottom: 10px;
+      color: white;
+      font-size: 28px;
+    }
+
+    .info-line span {
+      display: inline-block;
+      border-bottom: 2px solid white;
+      padding: 0 8px;
+      min-width: 150px;
+    }
+</style>
 </head>
 <body>
   <div class="background-wrapper">
@@ -167,20 +179,12 @@
   <div class="top-tab" id="tab">
     <div class="sleeve-content">
       <div class="sleeve-extra">
-        <div class="top-bar">
-          <div class="left">
-            <a href="https://www.habbo.es/room/124338349" target="_blank">
-              <img src="./room_icon_3.gif" alt="Room Icon">
-            </a>
-          </div>
-                    <div class="right">
-            [18+] Tom's<br>
-            owner:JS
-          </div>
-        </div>
-        <div class="description">
-          A bold, diverse space for all to mix, connect & vibe.
-        </div>
+  <div style="text-align: left; padding: 0 30px;">
+    <div class="info-line">Room name: <span>[18+] Tom's</span></div>
+    <div class="info-line">Owner: <span>JS</span></div>
+    <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+  </div>
+</div>
       </div>
       <img src="./logo.png" alt="Tom's logo" onerror="this.style.display='none'" />
     </div>
