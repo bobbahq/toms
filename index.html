@@ -81,6 +81,19 @@
       margin: 20px auto;
       display: block;
       cursor: pointer;
+      image-rendering: pixelated; /* Ensures pixel art sharpness */
+    }
+
+    /* Text next to the room icon */
+    .room-info {
+      text-align: center;
+      font-size: 0.8rem; /* Tiny text */
+      color: white;
+      margin-top: 10px;
+    }
+
+    .room-info span {
+      display: block; /* Separate rows */
     }
   </style>
 </head>
@@ -95,12 +108,14 @@
       <source src="bf-toms-1.mp3" type="audio/mpeg" />
     </audio>
 
-    <a href="https://www.habbo.es/room/124338349" class="room-link" target="_blank">Visit Tom's Habbo Room</a>
-
-    <!-- Room Icon (1.0x size) -->
+    <!-- Room Icon and Info -->
     <a href="https://www.habbo.es/room/124338349" target="_blank">
       <img src="room_icon_3.gif" alt="Tom's Room Icon" class="room-icon" />
     </a>
+    <div class="room-info">
+      <span>[18+] Tom's</span>
+      <span>Owner: JS</span>
+    </div>
   </div>
 
   <script>
