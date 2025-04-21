@@ -16,12 +16,38 @@
       width: 100%;
       overflow: hidden;
       font-family: sans-serif;
-      background:
-        url('./01.png') repeat,
-        url('./tom_of_finland.jpeg') no-repeat center center;
-      background-size:
-        auto,
-        cover;
+    }
+
+    .background-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .background-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .background-slide.visible {
+      opacity: 1;
+    }
+
+    .background-overlay {
+      background: url('./01.png') repeat;
+      mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     .top-tab {
@@ -74,6 +100,12 @@
   </style>
 </head>
 <body>
+  <div class="background-wrapper">
+    <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
+    <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
+    <div class="background-slide background-overlay"></div>
+  </div>
+
   <div class="top-tab" id="tab">
     <img src="./logo.png" alt="Tom's logo" onerror="this.style.display='none'" />
   </div>
@@ -93,6 +125,16 @@
       expanded = !expanded;
       tab.classList.toggle('expanded', expanded);
     });
+
+    // Background rotation
+    const slides = document.querySelectorAll('.background-slide:not(.background-overlay)');
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('visible');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('visible');
+    }, 10000);
   </script>
 </body>
 </html>
