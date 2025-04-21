@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tom's · bobba.fm</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
     /* Basic Styles */
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'VT323', monospace;
       overflow: hidden;
       background: url('tom_of_finland.jpeg') no-repeat center center fixed;
       background-size: cover;
@@ -23,7 +23,7 @@
       top: 50%; /* Vertically centered */
       left: -300px; /* Initially hidden off-screen */
       width: 300px;
-      height: 60%; /* A smaller height */
+      height: 60%;
       background-color: #000;
       border-top-right-radius: 25px;
       border-bottom-right-radius: 25px;
@@ -33,19 +33,37 @@
       transform: translateY(-50%); /* To perfectly center it vertically */
     }
 
-    /* Keep the sleeve open by default */
     .sleeve.active {
-      left: 0;
+      left: 0; /* Show the sleeve when active */
     }
 
     .logo {
       width: 180px;
       margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     audio {
+      margin-top: 20px;
       width: 100%;
-      margin-bottom: 20px;
+    }
+
+    /* Play/Pause button styling */
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .audio-controls button {
+      font-size: 2rem;
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin: 0 10px;
     }
 
     .room-link {
@@ -61,12 +79,12 @@
       text-decoration: underline;
     }
 
-    /* Toggle Button (X for closing sleeve) */
+    /* Toggle Button (X or Hamburger icon) */
     .toggle-button {
       position: absolute;
       top: 10px;
-      right: 10px; /* Positioned in the visible corner of the sleeve */
-      font-size: 1.5rem;
+      right: 10px;
+      font-size: 2rem;
       color: white;
       background-color: transparent;
       border: none;
@@ -76,37 +94,40 @@
 
     /* Room Icon */
     .room-icon {
-      width: 60px; /* 1.0x size */
+      width: 60px;
       height: 60px;
       margin: 20px auto;
       display: block;
       cursor: pointer;
-      image-rendering: pixelated; /* Ensures pixel art sharpness */
+      image-rendering: pixelated;
     }
 
-    /* Text next to the room icon */
     .room-info {
       text-align: center;
-      font-size: 0.8rem; /* Tiny text */
+      font-size: 0.8rem;
       color: white;
       margin-top: 10px;
     }
 
     .room-info span {
-      display: block; /* Separate rows */
+      display: block;
     }
   </style>
 </head>
 <body>
   <!-- Sleeve with Content -->
-  <div class="sleeve active"> <!-- Sleeve is open by default -->
+  <div class="sleeve active">
     <!-- Toggle Button to Close the Sleeve -->
-    <button class="toggle-button" onclick="toggleSleeve()">×</button>
+    <button class="toggle-button" onclick="toggleSleeve()">☰</button>
 
+    <!-- TOMS Logo -->
     <img src="logo.png" class="logo" alt="Bobba.fm Logo" />
-    <audio controls>
-      <source src="bf-toms-1.mp3" type="audio/mpeg" />
-    </audio>
+
+    <!-- Audio Player (Play/Pause only) -->
+    <div class="audio-controls">
+      <button onclick="togglePlay()">▶️</button> <!-- Play Button -->
+      <button onclick="togglePlay()">⏸️</button> <!-- Pause Button -->
+    </div>
 
     <!-- Room Icon and Info -->
     <a href="https://www.habbo.es/room/124338349" target="_blank">
@@ -122,6 +143,21 @@
     // Toggle the sleeve visibility
     function toggleSleeve() {
       document.querySelector('.sleeve').classList.toggle('active');
+      const button = document.querySelector('.toggle-button');
+      button.innerText = document.querySelector('.sleeve').classList.contains('active') ? '☰' : '×';
+    }
+
+    // Play/Pause toggle for audio
+    let audio = new Audio('bf-toms-1.mp3');
+    let isPlaying = false;
+
+    function togglePlay() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
     }
   </script>
 </body>
