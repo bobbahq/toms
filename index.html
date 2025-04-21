@@ -267,11 +267,27 @@
       randomButton.classList.add('shimmer');
     }
     setInterval(randomShimmer, 5000);
-  document.getElementById('sleeve').addEventListener('click', () => {
-      document.getElementById('sleeve').classList.toggle('expanded');
-    });
-</script>
+  </script>
 </body>
+
+  <script>
+    // Background slideshow
+    const slides = document.querySelectorAll('.background-slide');
+    let current = 0;
+    setInterval(() => {
+      slides.forEach(slide => slide.classList.remove('visible'));
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('visible');
+    }, 15000);
+
+    // Ensure the sleeve expands on click
+    document.addEventListener('DOMContentLoaded', () => {
+      const sleeve = document.getElementById('sleeve');
+      sleeve.addEventListener('click', () => {
+        sleeve.classList.toggle('expanded');
+      });
+    });
+  </script>
 </html>
   <div class="sleeve" id="sleeve">
     <div class="sleeve-content">
