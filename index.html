@@ -105,5 +105,86 @@
       document.getElementById('atmosAudio').pause();
     }
   </script>
+
+  <div class="sleeve expanded" id="sleeve">
+    <div class="sleeve-content">
+      <div class="info-line">Room name: <span>[18+] Tom's</span></div>
+      <div class="info-line">Owner: <span>JS</span></div>
+      <div class="info-line">Est.: <span>2025</span></div>
+      <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+      <div class="info-line">
+        <a href="https://www.habbo.es/room/124338349" target="_blank">
+          &gt; visit https://www.habbo.es/room/124338349
+        </a>
+      </div>
+      <img src="./logo.png" alt="Tom's logo" class="logo" />
+    </div>
+  </div>
+
+  <div class="footer">
+    powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
+  </div>
+
+  <div class="mini-player" id="music">
+    <div class="label gradient-text" id="musicLabel">
+      <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
+    </div>
+    <div class="now-playing" id="nowPlaying">Press PLAY to PLAY</div>
+    <button class="btn-play" onclick="playMusic()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseMusic()">|| PAUSE</button>
+    <button class="btn-skip" onclick="nextTrack()">>> SKIP</button>
+    <audio id="musicAudio" preload="auto"></audio>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.background-slide');
+    let current = 0;
+    setInterval(() => {
+      slides.forEach(slide => slide.classList.remove('visible'));
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('visible');
+    }, 15000);
+
+    const musicTracks = [
+      { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+      { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+      { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+    ];
+    let musicIndex = 0;
+    const musicAudio = document.getElementById("musicAudio");
+    const nowPlaying = document.getElementById("nowPlaying");
+
+    function playMusic() {
+      pauseOther('music');
+      musicAudio.play();
+      nowPlaying.textContent = "Now Playing: " + musicTracks[musicIndex].title;
+    }
+    function pauseMusic() {
+      musicAudio.pause();
+    }
+    function nextTrack() {
+      musicIndex = (musicIndex + 1) % musicTracks.length;
+      loadTrack(musicIndex);
+      playMusic();
+    }
+    function loadTrack(index) {
+      const track = musicTracks[index];
+      musicAudio.src = track.file;
+      nowPlaying.textContent = "Now Playing: " + track.title;
+    }
+    setInterval(() => {
+      if (musicAudio.paused && !musicAudio.currentTime) {
+        nowPlaying.textContent = 'Press PLAY to PLAY';
+      }
+    }, 500);
+    loadTrack(musicIndex);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sleeve = document.getElementById('sleeve');
+      sleeve.addEventListener('click', () => {
+        sleeve.classList.toggle('expanded');
+      });
+    });
+  </script>
 </body>
 </html>
