@@ -81,6 +81,43 @@
       padding: 6px 10px;
     }
 
+
+<style>
+  @keyframes colorShiftWarm {
+    0% { color: red; }
+    25% { color: hotpink; }
+    50% { color: orange; }
+    75% { color: yellow; }
+    100% { color: red; }
+  }
+
+  @keyframes colorShiftCool {
+    0% { color: aqua; }
+    25% { color: mediumseagreen; }
+    50% { color: royalblue; }
+    75% { color: violet; }
+    100% { color: aqua; }
+  }
+
+  .warm-animated span {
+    display: inline-block;
+    animation: colorShiftWarm 3s linear infinite;
+  }
+
+  .cool-animated span {
+    display: inline-block;
+    animation: colorShiftCool 3s linear infinite;
+  }
+
+  .mini-player button:hover {
+    animation: colorShiftCool 2s linear infinite;
+  }
+
+  #music-player button:hover {
+    animation-name: colorShiftWarm;
+  }
+</style>
+
 </style>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
@@ -209,6 +246,43 @@
       padding: 6px 10px;
     }
 
+
+<style>
+  @keyframes colorShiftWarm {
+    0% { color: red; }
+    25% { color: hotpink; }
+    50% { color: orange; }
+    75% { color: yellow; }
+    100% { color: red; }
+  }
+
+  @keyframes colorShiftCool {
+    0% { color: aqua; }
+    25% { color: mediumseagreen; }
+    50% { color: royalblue; }
+    75% { color: violet; }
+    100% { color: aqua; }
+  }
+
+  .warm-animated span {
+    display: inline-block;
+    animation: colorShiftWarm 3s linear infinite;
+  }
+
+  .cool-animated span {
+    display: inline-block;
+    animation: colorShiftCool 3s linear infinite;
+  }
+
+  .mini-player button:hover {
+    animation: colorShiftCool 2s linear infinite;
+  }
+
+  #music-player button:hover {
+    animation-name: colorShiftWarm;
+  }
+</style>
+
 </style>
 
 <style>
@@ -248,6 +322,43 @@
     margin: 2px 6px;
     cursor: pointer;
   }
+
+<style>
+  @keyframes colorShiftWarm {
+    0% { color: red; }
+    25% { color: hotpink; }
+    50% { color: orange; }
+    75% { color: yellow; }
+    100% { color: red; }
+  }
+
+  @keyframes colorShiftCool {
+    0% { color: aqua; }
+    25% { color: mediumseagreen; }
+    50% { color: royalblue; }
+    75% { color: violet; }
+    100% { color: aqua; }
+  }
+
+  .warm-animated span {
+    display: inline-block;
+    animation: colorShiftWarm 3s linear infinite;
+  }
+
+  .cool-animated span {
+    display: inline-block;
+    animation: colorShiftCool 3s linear infinite;
+  }
+
+  .mini-player button:hover {
+    animation: colorShiftCool 2s linear infinite;
+  }
+
+  #music-player button:hover {
+    animation-name: colorShiftWarm;
+  }
+</style>
+
 </style>
 
 </head>
@@ -318,7 +429,7 @@
   </script>
 
 <div class="mini-player" id="music-player">
-  <div class="label">MUSIC</div>
+  <div class="label warm-animated" id="musicLabel"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></div>
   <button onclick="playMusic()">> PLAY</button>
   <button onclick="pauseMusic()">|| PAUSE</button>
   <button onclick="nextTrack()">>> SKIP</button>
@@ -326,7 +437,7 @@
 </div>
 
 <div class="mini-player" id="atmos-player">
-  <div class="label">ATMOS</div>
+  <div class="label cool-animated" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
   <button onclick="playAtmos()">> PLAY</button>
   <button onclick="pauseAtmos()">|| PAUSE</button>
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
