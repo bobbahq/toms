@@ -24,6 +24,7 @@
       height: 100vh;
       width: 100vw;
       z-index: -1;
+      background-image: url('tom_of_finland.jpeg'); /* default fallback */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -284,7 +285,7 @@
     nextTrack();
   });
 
-  // Floating effect for mini players
+  // Floating draggable player logic
   document.addEventListener('DOMContentLoaded', () => {
     const music = document.getElementById("music-player");
     const atmos = document.getElementById("atmos-player");
@@ -339,12 +340,8 @@
     }
   });
 
-  // Background image slideshow
-  const backgrounds = [
-    'tom_of_finland.jpeg',
-    'crotch.jpg',
-    'haring.jpg'
-  ];
+  // Background slideshow script
+  const backgrounds = ['tom_of_finland.jpeg', 'crotch.jpg', 'haring.jpg'];
   let currentBackground = 0;
   const bg = document.querySelector('.background-slideshow');
 
@@ -354,7 +351,7 @@
   }
 
   changeBackground();
-  setInterval(changeBackground, 10000); // every 10 seconds
+  setInterval(changeBackground, 10000); // change every 10 seconds
 </script>
 </body>
 </html>
