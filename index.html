@@ -220,10 +220,7 @@
       musicAudio.play();
       const trackTitle = musicTracks[musicIndex].title;
       const nowPlaying = document.getElementById("nowPlaying");
-      nowPlaying.innerHTML = `<span class="scrolling">${(trackTitle + '     ').repeat(30)}</span>`;
-      const trackTitle = musicTracks[musicIndex].title;
-      const nowPlaying = document.getElementById("nowPlaying");
-      nowPlaying.innerHTML = `<span class="scrolling">${(trackTitle + '     ').repeat(30)}</span>`;
+      nowPlaying.innerHTML = `<span class=\"scrolling\">${(trackTitle + '     ').repeat(30)}</span>`;
       
           }
 
@@ -254,9 +251,7 @@
           nowPlaying.innerHTML = "<span>Press PLAY to start</span>";
         }
       }
-        const nowPlaying = document.getElementById("nowPlaying");
-        nowPlaying.innerHTML = "<span>Press PLAY to start</span>";
-      }
+              }
       if (current !== 'atmos') {
         atmosAudio.pause();
         atmosAudio.currentTime = 0;
