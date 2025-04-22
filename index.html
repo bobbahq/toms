@@ -319,211 +319,26 @@
 
   
 
-<script>
-  const musicTracks = [
-    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-  ];
-  let musicIndex = 0;
-  const musicAudio = document.getElementById("musicAudio");
-  const atmosAudio = document.getElementById("atmosAudio");
-  const nowPlaying = document.getElementById("nowPlaying");
-
-  function playMusic() {
-    pauseOther('music');
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
-    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
-  }
-
-  function pauseMusic() {
-    musicAudio.pause();
-  }
-
-  function nextTrack() {
-    musicIndex = (musicIndex + 1) % musicTracks.length;
-    playMusic();
-  }
-
-  function playAtmos() {
-    pauseOther('atmos');
-    atmosAudio.play();
-  }
-
-  function pauseAtmos() {
-    atmosAudio.pause();
-  }
-
-  function pauseOther(current) {
-    if (current !== 'music') {
-      musicAudio.pause();
-      musicAudio.currentTime = 0;
-    }
-    if (current !== 'atmos') {
-      atmosAudio.pause();
-      atmosAudio.currentTime = 0;
-    }
-  }
-
-  musicAudio.addEventListener('ended', () => {
-    nextTrack();
-  });
-</script>
-
-
-
-
 
 <script>
-  const musicTracks = [
-    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-  ];
-  let musicIndex = 0;
-  const musicAudio = document.getElementById("musicAudio");
-  const atmosAudio = document.getElementById("atmosAudio");
-  const nowPlaying = document.getElementById("nowPlaying");
+function isMobile() {
+  return window.innerWidth <= 600;
+}
 
-  function playMusic() {
-    pauseOther('music');
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
-    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
-  }
-
-  function pauseMusic() {
-    musicAudio.pause();
-  }
-
-  function nextTrack() {
-    musicIndex = (musicIndex + 1) % musicTracks.length;
-    playMusic();
-  }
-
-  function playAtmos() {
-    pauseOther('atmos');
-    atmosAudio.play();
-  }
-
-  function pauseAtmos() {
-    atmosAudio.pause();
-  }
-
-  function pauseOther(current) {
-    if (current !== 'music') {
-      musicAudio.pause();
-      musicAudio.currentTime = 0;
-    }
-    if (current !== 'atmos') {
-      atmosAudio.pause();
-      atmosAudio.currentTime = 0;
-    }
-  }
-
-  musicAudio.addEventListener('ended', () => {
-    nextTrack();
-  });
-</script>
-
-
-
-
-<script>
-  const players = document.querySelectorAll('.mini-player');
-  players.forEach(player => {
-    const handle = player.querySelector('.handle');
-    let offsetX, offsetY, isDragging = false;
-
-    handle.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - player.getBoundingClientRect().left;
-      offsetY = e.clientY - player.getBoundingClientRect().top;
-      player.classList.add('dragging');
-
-      function onMouseMove(e) {
-        if (!isDragging) return;
-        player.style.left = `${e.clientX - offsetX}px`;
-        player.style.top = `${e.clientY - offsetY}px`;
-        player.style.transform = 'none';
-      }
-
-      function onMouseUp() {
-        isDragging = false;
-        player.classList.remove('dragging');
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      }
-
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
+document.addEventListener('DOMContentLoaded', () => {
+  if (!isMobile()) {
+    const players = document.querySelectorAll('.mini-player');
+    players.forEach(player => {
+      const pageWidth = window.innerWidth;
+      const pageHeight = window.innerHeight;
+      const randLeft = Math.floor(pageWidth * 0.3 + Math.random() * pageWidth * 0.4);
+      const randTop = Math.floor(pageHeight * 0.2 + Math.random() * pageHeight * 0.3);
+      player.style.left = `${randLeft}px`;
+      player.style.top = `${randTop}px`;
     });
-  });
-</script>
-
-<script>
-  const players = document.querySelectorAll('.mini-player');
-  players.forEach(player => {
-    const handle = player.querySelector('.handle');
-    let offsetX, offsetY, isDragging = false;
-
-    function onDragStart(x, y) {
-      isDragging = true;
-      offsetX = x - player.getBoundingClientRect().left;
-      offsetY = y - player.getBoundingClientRect().top;
-      player.classList.add('dragging');
-    }
-
-    function onDragMove(x, y) {
-      if (!isDragging) return;
-      player.style.left = `${x - offsetX}px`;
-      player.style.top = `${y - offsetY}px`;
-      player.style.transform = 'none';
-    }
-
-    function onDragEnd() {
-      isDragging = false;
-      player.classList.remove('dragging');
-    }
-
-    // Mouse events
-    handle.addEventListener('mousedown', (e) => {
-      onDragStart(e.clientX, e.clientY);
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    });
-
-    function onMouseMove(e) {
-      onDragMove(e.clientX, e.clientY);
-    }
-
-    function onMouseUp() {
-      onDragEnd();
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-    }
-
-    // Touch events
-    handle.addEventListener('touchstart', (e) => {
-      const touch = e.touches[0];
-      onDragStart(touch.clientX, touch.clientY);
-      window.addEventListener('touchmove', onTouchMove);
-      window.addEventListener('touchend', onTouchEnd);
-    }, { passive: false });
-
-    function onTouchMove(e) {
-      e.preventDefault(); // prevent scrolling while dragging
-      const touch = e.touches[0];
-      onDragMove(touch.clientX, touch.clientY);
-    }
-
-    function onTouchEnd() {
-      onDragEnd();
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', onTouchEnd);
-    }
-  });
+  }
+});
 </script>
 </body>
+
 </html>
