@@ -57,12 +57,6 @@
     }
 
     .sleeve.expanded {
-  top: 0;
-}
-
-.sleeve {
-  top: -190px;
-}
       top: 0;
     }
 
@@ -119,7 +113,7 @@
     }
   </style>
 </head>
-<body>
+<body onload="document.getElementById('sleeve').classList.add('expanded')">
   <div class="background-wrapper">
     <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
     <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
@@ -158,14 +152,6 @@
         sleeve.classList.toggle('expanded');
       });
     });
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    const sleeve = document.getElementById('sleeve');
-    sleeve.classList.add('expanded');
-    sleeve.addEventListener('click', () => {
-      sleeve.classList.toggle('expanded');
-    });
-  });
-</script>
+  </script>
 </body>
 </html>
