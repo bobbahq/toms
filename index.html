@@ -13,160 +13,42 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
-      background: black;
-      color: white;
-    }
-
-    .background-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    .background-slide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-    }
-
-    .background-slide.visible {
-      opacity: 1;
-    }
-
-    .sleeve {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90vw;
-      max-width: 440px;
-      background: black;
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      transition: top 0.3s ease;
-      overflow: hidden;
-    }
-
-    .sleeve-content {
-      padding: 40px 30px 20px 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .info-line {
-      width: 100%;
-      font-size: 20px;
-    }
-
-    .info-line span {
-      display: inline-block;
-      border-bottom: 2px solid white;
-      padding: 0 6px;
-      min-width: 150px;
-    }
-
-    .info-line a {
-      color: white;
-      text-decoration: underline;
-    }
-
-    .logo {
-      margin-top: 17px;
-      max-width: 70%;
-      height: 80px;
-      object-fit: contain;
-    }
-
-    .footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 20px;
-    }
-
-    .footer a {
-      color: white;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .footer {
-        position: fixed;
-        bottom: 6px;
-      }
+      background: white;
+      color: black;
     }
 
     .mini-player {
-  position: absolute;
-  transition: none;
-  will-change: transform;
-  pointer-events: auto;
-  position: absolute;
-  transition: left 0.3s, top 0.3s;
-  will-change: transform;
-  position: absolute;
-  min-width: 200px;
-  max-width: 300px;
-  resize: none;
-      position: fixed;
+      position: absolute;
       background: black;
-      padding: 14px 20px;
-      border-radius: 24px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      font-family: 'VT323', monospace;
       color: white;
+      border-radius: 16px;
+      padding: 12px 18px;
       font-size: 18px;
-      z-index: 1001;
+      font-family: 'VT323', monospace;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      width: fit-content;
+      max-width: 300px;
+    }
+
+    .label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .label .title {
+      font-size: 20px;
+    }
+
+    .handle {
+      cursor: grab;
       user-select: none;
+      padding-left: 8px;
+      font-size: 20px;
+      opacity: 0.5;
     }
-
-    #music-player {
-  top: 220px;
-  left: 80px;
-  width: 280px;
-  position: absolute;
-  transform: none;
-}
-
-    #atmos-player {
-  top: 370px;
-  left: 120px;
-  width: 220px;
-  position: absolute;
-  transform: none;
-}
-
-    .mini-player .label span {
-      display: inline-block;
-      animation-duration: 4s;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-    }
-
-    .label.warm span:nth-child(1) { animation-name: colorShiftWarm; animation-delay: 0s; }
-    .label.warm span:nth-child(2) { animation-name: colorShiftWarm; animation-delay: 0.2s; }
-    .label.warm span:nth-child(3) { animation-name: colorShiftWarm; animation-delay: 0.4s; }
-    .label.warm span:nth-child(4) { animation-name: colorShiftWarm; animation-delay: 0.6s; }
-    .label.warm span:nth-child(5) { animation-name: colorShiftWarm; animation-delay: 0.8s; }
-
-    .label.cool span:nth-child(1) { animation-name: colorShiftCool; animation-delay: 0s; }
-    .label.cool span:nth-child(2) { animation-name: colorShiftCool; animation-delay: 0.2s; }
-    .label.cool span:nth-child(3) { animation-name: colorShiftCool; animation-delay: 0.4s; }
-    .label.cool span:nth-child(4) { animation-name: colorShiftCool; animation-delay: 0.6s; }
-    .label.cool span:nth-child(5) { animation-name: colorShiftCool; animation-delay: 0.8s; }
 
     button {
       background: none;
@@ -174,288 +56,282 @@
       color: white;
       font-family: 'VT323', monospace;
       font-size: 18px;
-      margin: 2px 6px;
+      margin: 4px 6px;
       cursor: pointer;
     }
 
-    button:hover {
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-    }
-
-    #music-player button:hover {
-      animation-name: colorShiftWarm;
-    }
-
-    #atmos-player button:hover {
-      animation-name: colorShiftCool;
-    }
-
-    @keyframes colorShiftWarm {
-      0% { color: red; }
-      25% { color: hotpink; }
-      50% { color: orange; }
-      75% { color: yellow; }
-      100% { color: red; }
-    }
-
-    @keyframes colorShiftCool {
-      0% { color: aqua; }
-      25% { color: mediumseagreen; }
-      50% { color: royalblue; }
-      75% { color: violet; }
-      100% { color: aqua; }
-    }
-    body { background-color: white; }
-
-  .now-playing {
+    .separator {
       width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, #222, #111, #222);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+      margin: 8px 0;
+    }
+
+    .now-playing {
       overflow: hidden;
       white-space: nowrap;
-      box-sizing: border-box;
     }
+
     .now-playing span {
       display: inline-block;
       padding-left: 100%;
       animation: scroll-left 10s linear infinite;
     }
+
     @keyframes scroll-left {
       0% { transform: translateX(0%); }
       100% { transform: translateX(-100%); }
     }
 
-  .now-playing::after {
-    content: '';
+    audio { display: none; }
+  
+  @keyframes colorShiftWarm {
+    0% { color: red; }
+    25% { color: hotpink; }
+    50% { color: orange; }
+    75% { color: yellow; }
+    100% { color: red; }
+  }
+
+  @keyframes colorShiftCool {
+    0% { color: aqua; }
+    25% { color: mediumseagreen; }
+    50% { color: royalblue; }
+    75% { color: violet; }
+    100% { color: aqua; }
+  }
+
+  .label.warm span.title span {
     display: inline-block;
-    padding-left: 100%;
-    animation: scrollText 10s linear infinite;
+    animation-name: colorShiftWarm;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 
-  @keyframes scrollText {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+  .label.cool span.title span {
+    display: inline-block;
+    animation-name: colorShiftCool;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 
-  .separator {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, #222, #111, #222);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-      margin: 10px 0;
-    }
-
-  .label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-    .title {
-      font-size: 22px;
-      letter-spacing: 1px;
-    }
-
-  .handle {
-    margin-left: auto;
-    padding-left: 8px;
-    cursor: grab;
-    user-select: none;
-    text-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-    opacity: 0.6;
+  #music-player button:hover {
+    animation-name: colorShiftWarm;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 
-  .mini-player.dragging {
-    opacity: 0.8;
-    cursor: grabbing;
+  #atmos-player button:hover {
+    animation-name: colorShiftCool;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 
-  audio { display: none; }
+
+.sleeve {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 440px;
+  background: black;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  transition: top 0.3s ease;
+  overflow: hidden;
+  color: white;
+}
+
+.sleeve-content {
+  padding: 40px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.info-line {
+  width: 100%;
+  font-size: 20px;
+  color: white;
+}
+
+.info-line span {
+  display: inline-block;
+  border-bottom: 2px solid white;
+  padding: 0 6px;
+  min-width: 150px;
+}
+
+.info-line a {
+  color: white;
+  text-decoration: underline;
+}
+
+.logo {
+  margin-top: 17px;
+  max-width: 70%;
+  height: 80px;
+  object-fit: contain;
+}
+
 </style>
 </head>
-<body onload="document.getElementById('sleeve').classList.add('expanded')">
-
-  <!-- background removed -->
-    
-    
-    
-  </span></div>
-
-  <div class="sleeve" id="sleeve">
-    <div class="sleeve-content">
-      <div class="info-line">Room name: <span>[18+] Tom's</span></div>
-      <div class="info-line">Owner: <span>JS</span></div>
-      <div class="info-line">Est.: <span>2025</span></div>
-      <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
-      <div class="info-line">
-        <a href="https://www.habbo.es/room/124338349" target="_blank">
-          &gt; visit https://www.habbo.es/room/124338349
-        </a>
-      </div>
-      <img src="./logo.png" alt="Tom's logo" class="logo" />
+<body>
+  
+<div class="sleeve" id="sleeve">
+  <div class="sleeve-content">
+    <div class="info-line">Room name: <span>[18+] Tom's</span></div>
+    <div class="info-line">Owner: <span>JS</span></div>
+    <div class="info-line">Est.: <span>2025</span></div>
+    <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+    <div class="info-line">
+      <a href="https://www.habbo.es/room/124338349" target="_blank">
+        &gt; visit https://www.habbo.es/room/124338349
+      </a>
     </div>
+    <img src="./logo.png" alt="Tom's logo" class="logo" />
+  </div>
+</div>
+
+
+<div class="mini-player" id="music-player">
+    <div class="label warm">
+      <span class="title"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></span>
+      <span class="handle">•••</span>
+    </div>
+    <div class="separator"></div>
+    <div class="now-playing" id="nowPlaying"><span>Press PLAY to start</span></div>
+    <div class="separator"></div>
+    <button onclick="playMusic()">> PLAY</button>
+    <button onclick="pauseMusic()">|| PAUSE</button>
+    <button onclick="nextTrack()">>> SKIP</button>
   </div>
 
-  
-<div class="mini-player" id="atmos-player">
-  <div class="label cool">
-  <span class="title">ATMOS</span>
-  <span class="handle">•••</span>
-</div>
-  <div class="separator"></div>
-  <button onclick="playAtmos()">> PLAY</button>
-  <button onclick="pauseAtmos()">|| PAUSE</button>
-</div>
-<audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
+  <div class="mini-player" id="atmos-player">
+    <div class="label cool">
+      <span class="title"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></span>
+      <span class="handle">•••</span>
+    </div>
+    <div class="separator"></div>
+    <button onclick="playAtmos()">> PLAY</button>
+    <button onclick="pauseAtmos()">|| PAUSE</button>
+  </div>
 
-<div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
-
-  
-<div class="mini-player" id="music-player">
-  <div class="label warm">
-  <span class="title">MUSIC</span>
-  <span class="handle">•••</span>
-</div>
-  <div class="separator"></div>
-  <div class="now-playing" id="nowPlaying"><span>Press PLAY to start</div>
-  <div class="separator"></div>
-  <button onclick="playMusic()">> PLAY</button>
-  <button onclick="pauseMusic()">|| PAUSE</button>
-  <button onclick="nextTrack()">>> SKIP</button>
-</div>
-<audio id="musicAudio" preload="auto"></audio> id="musicAudio" preload="auto"></audio>
+  <audio id="musicAudio" preload="auto"></audio>
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
-  
+  <script>
+    const musicTracks = [
+      { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+      { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+      { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+    ];
+    let musicIndex = 0;
+    const musicAudio = document.getElementById("musicAudio");
+    const atmosAudio = document.getElementById("atmosAudio");
+    const nowPlaying = document.getElementById("nowPlaying");
 
+    function playMusic() {
+      pauseOther('music');
+      musicAudio.src = musicTracks[musicIndex].file;
+      musicAudio.play();
+      nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
+    }
 
-
-<script>
-  const musicTracks = [
-    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-  ];
-  let musicIndex = 0;
-  const musicAudio = document.getElementById("musicAudio");
-  const atmosAudio = document.getElementById("atmosAudio");
-  const nowPlaying = document.getElementById("nowPlaying");
-
-  function playMusic() {
-    pauseOther('music');
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
-    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
-  }
-
-  function pauseMusic() {
-    musicAudio.pause();
-  }
-
-  function nextTrack() {
-    musicIndex = (musicIndex + 1) % musicTracks.length;
-    playMusic();
-  }
-
-  function playAtmos() {
-    pauseOther('atmos');
-    atmosAudio.play();
-  }
-
-  function pauseAtmos() {
-    atmosAudio.pause();
-  }
-
-  function pauseOther(current) {
-    if (current !== 'music') {
+    function pauseMusic() {
       musicAudio.pause();
-      musicAudio.currentTime = 0;
     }
-    if (current !== 'atmos') {
+
+    function nextTrack() {
+      musicIndex = (musicIndex + 1) % musicTracks.length;
+      playMusic();
+    }
+
+    function playAtmos() {
+      pauseOther('atmos');
+      atmosAudio.play();
+    }
+
+    function pauseAtmos() {
       atmosAudio.pause();
-      atmosAudio.currentTime = 0;
     }
-  }
 
-  musicAudio.addEventListener('ended', () => {
-    nextTrack();
-  });
-
-  // Position and drag setup
-  function isMobile() {
-    return window.innerWidth <= 600;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const musicPlayer = document.getElementById("music-player");
-    const atmosPlayer = document.getElementById("atmos-player");
-
-    if (!isMobile()) {
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight;
-      const sleeveHeight = 300;
-      const buffer = 80;
-
-      function getRandomPosition(existingRects = []) {
-        let x, y, tries = 0;
-        let width = 280, height = 120;
-        do {
-          x = Math.floor(screenW * 0.2 + Math.random() * screenW * 0.4);
-          y = Math.floor(screenH * 0.25 + Math.random() * screenH * 0.4);
-          var rect = { x, y, width, height };
-          tries++;
-        } while (
-          tries < 20 &&
-          (y < sleeveHeight + buffer || existingRects.some(r => Math.abs(x - r.x) < width && Math.abs(y - r.y) < height))
-        );
-        return { x, y };
+    function pauseOther(current) {
+      if (current !== 'music') {
+        musicAudio.pause();
+        musicAudio.currentTime = 0;
       }
-
-      const pos1 = getRandomPosition();
-      const pos2 = getRandomPosition([pos1]);
-
-      musicPlayer.style.left = `${pos1.x}px`;
-      musicPlayer.style.top = `${pos1.y}px`;
-      musicPlayer.style.transform = "rotate(-3deg)";
-
-      atmosPlayer.style.left = `${pos2.x}px`;
-      atmosPlayer.style.top = `${pos2.y}px`;
-      atmosPlayer.style.transform = "rotate(3deg)";
+      if (current !== 'atmos') {
+        atmosAudio.pause();
+        atmosAudio.currentTime = 0;
+      }
     }
 
-    // Desktop dragging
-    if (!isMobile()) {
-      const players = document.querySelectorAll('.mini-player');
-      players.forEach(player => {
-        const handle = player.querySelector('.handle');
-        let offsetX, offsetY, isDragging = false;
+    musicAudio.addEventListener('ended', () => {
+      nextTrack();
+    });
 
-        handle.addEventListener('mousedown', (e) => {
-          isDragging = true;
-          offsetX = e.clientX - player.getBoundingClientRect().left;
-          offsetY = e.clientY - player.getBoundingClientRect().top;
-          player.classList.add('dragging');
+    function isMobile() {
+      return window.innerWidth <= 600;
+    }
 
-          function onMouseMove(e) {
+    document.addEventListener('DOMContentLoaded', () => {
+      const music = document.getElementById("music-player");
+      const atmos = document.getElementById("atmos-player");
+
+      if (!isMobile()) {
+        // Random position avoiding top and overlap
+        music.style.left = `${200 + Math.random() * 300}px`;
+        music.style.top = `${200 + Math.random() * 100}px`;
+        music.style.transform = "rotate(-3deg)";
+        music.dataset.tilt = "-3deg";
+
+        atmos.style.left = `${300 + Math.random() * 200}px`;
+        atmos.style.top = `${350 + Math.random() * 100}px`;
+        atmos.style.transform = "rotate(3deg)";
+        atmos.dataset.tilt = "3deg";
+
+        // Desktop dragging
+        const players = document.querySelectorAll('.mini-player');
+        players.forEach(player => {
+          const handle = player.querySelector('.handle');
+          let offsetX = 0, offsetY = 0, isDragging = false;
+
+          handle.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isDragging = true;
+            const rect = player.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            player.style.transform = "rotate(0deg)";
+          });
+
+          document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             player.style.left = `${e.clientX - offsetX}px`;
             player.style.top = `${e.clientY - offsetY}px`;
-          }
+          });
 
-          function onMouseUp() {
+          document.addEventListener('mouseup', () => {
+            if (isDragging) {
+              if (player.dataset.tilt) {
+                player.style.transform = `rotate(${player.dataset.tilt})`;
+              }
+            }
             isDragging = false;
-            player.classList.remove('dragging');
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseup', onMouseUp);
-          }
-
-          window.addEventListener('mousemove', onMouseMove);
-          window.addEventListener('mouseup', onMouseUp);
+          });
         });
-      });
-    }
-  });
-</script>
+      }
+    });
+  </script>
 </body>
-
 </html>
