@@ -230,6 +230,26 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
       margin: 10px 0;
     }
+
+  .label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .handle {
+    margin-left: auto;
+    padding-left: 8px;
+    cursor: grab;
+    user-select: none;
+    text-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    opacity: 0.6;
+  }
+
+  .mini-player.dragging {
+    opacity: 0.8;
+    cursor: grabbing;
+  }
 </style>
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
@@ -257,7 +277,7 @@
 
   
 <div class="mini-player" id="atmos-player">
-  <div class="label cool" id="atmosLabel">
+  <div class="label cool" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span><span class="handle">•••</span>
     <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
   </div>
   <div class="separator"></div>
@@ -270,7 +290,7 @@
 
   
 <div class="mini-player" id="music-player">
-  <div class="label warm" id="musicLabel">
+  <div class="label warm" id="musicLabel"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span><span class="handle">•••</span>
     <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
   </div>
   <div class="separator"></div>
@@ -334,5 +354,38 @@ musicAudio.addEventListener('ended', () => {
   nextTrack();
 });
 </script>
+
+<script>
+  const players = document.querySelectorAll('.mini-player');
+  players.forEach(player => {
+    const handle = player.querySelector('.handle');
+    let offsetX, offsetY, isDragging = false;
+
+    handle.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - player.getBoundingClientRect().left;
+      offsetY = e.clientY - player.getBoundingClientRect().top;
+      player.classList.add('dragging');
+
+      function onMouseMove(e) {
+        if (!isDragging) return;
+        player.style.left = `${e.clientX - offsetX}px`;
+        player.style.top = `${e.clientY - offsetY}px`;
+        player.style.transform = 'rotate(0deg)'; // Remove tilt while dragging
+      }
+
+      function onMouseUp() {
+        isDragging = false;
+        player.classList.remove('dragging');
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      }
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    });
+  });
+</script>
+
 </body>
 </html>
