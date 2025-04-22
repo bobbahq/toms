@@ -223,7 +223,7 @@
       musicAudio.play();
       const trackTitle = musicTracks[musicIndex].title;
       nowPlaying.classList.add("scrolling");
-      nowPlaying.textContent = `${trackTitle}   ${trackTitle}`;
+      nowPlaying.textContent = `${trackTitle}     `.repeat(12);
     }
 
     function pauseMusic() {
