@@ -3,40 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tom's</title>
+  <title>bobba.fm</title>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
       font-family: 'VT323', monospace;
-      background: #f0f0f0;
-      color: black;
-    }
-
-    .widget-shell {
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 20px;
       background: white;
-      box-shadow: 0 0 25px rgba(0,0,0,0.15);
-      min-height: 100vh;
-      box-sizing: border-box;
-      position: relative;
+      color: black;
       overflow: hidden;
     }
 
-    @media (min-width: 720px) {
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: start;
-      }
+    .widget {
+      max-width: 540px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      position: relative;
+      min-height: 90vh;
+    }
 
-      .widget-shell {
-        margin-top: 40px;
-        border-radius: 24px;
-      }
+    .sleeve {
+      background: black;
+      color: white;
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .sleeve .line {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .sleeve .line span {
+      border-bottom: 2px solid white;
+      padding: 0 4px;
+    }
+
+    .sleeve a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .logo {
+      width: 80%;
+      height: 70px;
+      object-fit: contain;
+      margin-top: 14px;
+      display: block;
     }
 
     .mini-player {
@@ -47,19 +65,23 @@
       padding: 12px 18px;
       font-size: 18px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      z-index: 10;
       width: fit-content;
       max-width: 300px;
-      animation: float 6s ease-in-out infinite;
+      animation: float 5s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(var(--tilt, 0deg)); }
-      50% { transform: translateY(-4px) rotate(var(--tilt, 0deg)); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .mini-player.playing {
       box-shadow: 0 0 10px 3px rgba(255,255,255,0.3), 0 0 20px 5px rgba(255,255,255,0.1);
+    }
+
+    .label {
+      font-size: 20px;
+      margin-bottom: 6px;
     }
 
     .sparkle {
@@ -78,62 +100,19 @@
       100% { transform: scale(2); opacity: 0; }
     }
 
-    .label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .label .title span {
-      display: inline-block;
-      animation: wave 4s infinite linear;
-    }
-
-    @keyframes wave {
-      0% { color: red; }
-      25% { color: hotpink; }
-      50% { color: orange; }
-      75% { color: yellow; }
-      100% { color: red; }
-    }
-
-    .label.cool .title span {
-      animation-name: waveCool;
-    }
-
-    @keyframes waveCool {
-      0% { color: aqua; }
-      25% { color: mediumseagreen; }
-      50% { color: royalblue; }
-      75% { color: violet; }
-      100% { color: aqua; }
-    }
-
-    .handle {
-      cursor: grab;
-      user-select: none;
-      opacity: 0.4;
-    }
-
-    .separator {
-      height: 1px;
-      background: #333;
-      margin: 6px 0;
-    }
-
     button {
       background: none;
       border: none;
       color: white;
       font-family: 'VT323', monospace;
       font-size: 18px;
-      margin: 3px 6px;
+      margin: 4px 6px;
       cursor: pointer;
     }
 
     .now-playing {
       font-size: 16px;
-      height: 1.2em;
+      margin: 6px 0;
       white-space: nowrap;
       overflow: hidden;
       position: relative;
@@ -146,74 +125,38 @@
     }
 
     @keyframes scroll {
-      0% { transform: translateX(0%); }
+      0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
 
     audio { display: none; }
-
-    .sleeve {
-      background: black;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      color: white;
-      padding: 28px 22px 18px 22px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    }
-
-    .info-line {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .info-line span {
-      border-bottom: 2px solid white;
-      padding: 0 4px;
-    }
-
-    .logo {
-      width: 80%;
-      height: 70px;
-      object-fit: contain;
-      margin: 12px auto 0;
-      display: block;
-    }
   </style>
 </head>
 <body>
-  <div class="widget-shell">
+  <div class="widget">
     <div class="sleeve">
-      <div class="info-line">Room name: <span>[18+] Tom's</span></div>
-      <div class="info-line">Owner: <span>JS</span></div>
-      <div class="info-line">Est.: <span>2025</span></div>
-      <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
-      <div class="info-line">
-        <a href="https://www.habbo.es/room/124338349" target="_blank" style="color:white;text-decoration:underline;">
-          &gt; visit https://www.habbo.es/room/124338349
+      <div class="line">Room: <span>[18+] Tom's</span></div>
+      <div class="line">Owner: <span>JS</span></div>
+      <div class="line">Est.: <span>2025</span></div>
+      <div class="line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+      <div class="line">
+        <a href="https://www.habbo.es/room/124338349" target="_blank">
+          &gt; visit habbo room
         </a>
       </div>
-      <img src="./logo.png" class="logo" alt="Tom's logo"/>
+      <img src="logo.png" alt="Tom's Logo" class="logo"/>
     </div>
 
-    <div class="mini-player" id="music-player" style="--tilt:-3deg">
-      <div class="label warm">
-        <span class="title"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></span>
-        <span class="handle">•••</span>
-      </div>
-      <div class="separator"></div>
-      <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
-      <div class="separator"></div>
+    <div class="mini-player" id="music-player" style="left: 40px; top: 420px;">
+      <div class="label">MUSIC</div>
+      <div class="now-playing"><span id="nowPlaying">Press PLAY to start</span></div>
       <button onclick="playMusic()">> PLAY</button>
       <button onclick="pauseMusic()">|| PAUSE</button>
       <button onclick="nextTrack()">>> SKIP</button>
     </div>
 
-    <div class="mini-player" id="atmos-player" style="--tilt:3deg">
-      <div class="label cool">
-        <span class="title"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></span>
-        <span class="handle">•••</span>
-      </div>
-      <div class="separator"></div>
+    <div class="mini-player" id="atmos-player" style="right: 40px; top: 540px;">
+      <div class="label">ATMOS</div>
       <button onclick="playAtmos()">> PLAY</button>
       <button onclick="pauseAtmos()">|| PAUSE</button>
     </div>
@@ -228,11 +171,13 @@
       { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
       { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
     ];
+
     let musicIndex = 0;
     const musicAudio = document.getElementById("musicAudio");
     const atmosAudio = document.getElementById("atmosAudio");
+    const nowPlaying = document.getElementById("nowPlaying");
     const musicPlayer = document.getElementById("music-player");
-    const nowPlaying = document.getElementById("nowPlayingScroll");
+    const atmosPlayer = document.getElementById("atmos-player");
 
     function playMusic() {
       pauseOther('music');
@@ -255,53 +200,40 @@
     function playAtmos() {
       pauseOther('atmos');
       atmosAudio.play();
-      document.getElementById("atmos-player").classList.add("playing");
+      atmosPlayer.classList.add("playing");
     }
 
     function pauseAtmos() {
       atmosAudio.pause();
-      document.getElementById("atmos-player").classList.remove("playing");
+      atmosPlayer.classList.remove("playing");
     }
 
-    function pauseOther(current) {
-      if (current !== 'music') {
+    function pauseOther(active) {
+      if (active !== 'music') {
         musicAudio.pause();
         musicAudio.currentTime = 0;
         musicPlayer.classList.remove("playing");
       }
-      if (current !== 'atmos') {
+      if (active !== 'atmos') {
         atmosAudio.pause();
         atmosAudio.currentTime = 0;
-        document.getElementById("atmos-player").classList.remove("playing");
+        atmosPlayer.classList.remove("playing");
       }
     }
 
     musicAudio.addEventListener('ended', () => nextTrack());
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const music = document.getElementById("music-player");
-      const atmos = document.getElementById("atmos-player");
-      const centerX = 180;
-      const centerY = 380;
-      const offset = 100 + Math.random() * 40;
-
-      music.style.left = `${centerX - offset}px`;
-      music.style.top = `${centerY - offset}px`;
-
-      atmos.style.left = `${centerX + offset}px`;
-      atmos.style.top = `${centerY + offset}px`;
-
-      setInterval(() => {
-        [music, atmos].forEach(player => {
-          const sparkle = document.createElement("div");
-          sparkle.className = "sparkle";
-          sparkle.style.top = `${Math.random() * 100}%`;
-          sparkle.style.left = `${Math.random() * 100}%`;
-          player.appendChild(sparkle);
-          setTimeout(() => sparkle.remove(), 1200);
-        });
-      }, 4000);
-    });
+    // Sparkles every few seconds
+    setInterval(() => {
+      [musicPlayer, atmosPlayer].forEach(player => {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.left = `${Math.random() * 100}%`;
+        player.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1200);
+      });
+    }, 4000);
   </script>
 </body>
 </html>
