@@ -111,6 +111,10 @@
 
     .mini-player {
   position: absolute;
+  transition: none;
+  will-change: transform;
+  pointer-events: auto;
+  position: absolute;
   transition: left 0.3s, top 0.3s;
   will-change: transform;
   position: absolute;
@@ -265,6 +269,8 @@
     opacity: 0.8;
     cursor: grabbing;
   }
+
+  audio { display: none; }
 </style>
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
