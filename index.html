@@ -461,5 +461,69 @@
     });
   });
 </script>
+
+<script>
+  const players = document.querySelectorAll('.mini-player');
+  players.forEach(player => {
+    const handle = player.querySelector('.handle');
+    let offsetX, offsetY, isDragging = false;
+
+    function onDragStart(x, y) {
+      isDragging = true;
+      offsetX = x - player.getBoundingClientRect().left;
+      offsetY = y - player.getBoundingClientRect().top;
+      player.classList.add('dragging');
+    }
+
+    function onDragMove(x, y) {
+      if (!isDragging) return;
+      player.style.left = `${x - offsetX}px`;
+      player.style.top = `${y - offsetY}px`;
+      player.style.transform = 'none';
+    }
+
+    function onDragEnd() {
+      isDragging = false;
+      player.classList.remove('dragging');
+    }
+
+    // Mouse events
+    handle.addEventListener('mousedown', (e) => {
+      onDragStart(e.clientX, e.clientY);
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    });
+
+    function onMouseMove(e) {
+      onDragMove(e.clientX, e.clientY);
+    }
+
+    function onMouseUp() {
+      onDragEnd();
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    }
+
+    // Touch events
+    handle.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      onDragStart(touch.clientX, touch.clientY);
+      window.addEventListener('touchmove', onTouchMove);
+      window.addEventListener('touchend', onTouchEnd);
+    }, { passive: false });
+
+    function onTouchMove(e) {
+      e.preventDefault(); // prevent scrolling while dragging
+      const touch = e.touches[0];
+      onDragMove(touch.clientX, touch.clientY);
+    }
+
+    function onTouchEnd() {
+      onDragEnd();
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+    }
+  });
+</script>
 </body>
 </html>
