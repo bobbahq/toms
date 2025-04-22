@@ -255,38 +255,9 @@
     const musicAudio = document.getElementById('musicAudio');
     const nowPlaying = document.getElementById("nowPlaying");
 
-    function pauseOther(current) {
-      
-      if (current !== 'music') {
-        musicAudio.pause(); musicAudio.currentTime = 0;
-      }
+    
     }
-    const musicTracks = [
-      { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-      { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-      { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-    ];
-    let musicIndex = 0;
-
-    function loadTrack(index) {
-      const track = musicTracks[index];
-      musicAudio.src = track.file;
-      nowPlaying.textContent = "Now Playing: " + track.title;
-    }
-
-    function playMusic() {
-      pauseOther('music');
-      musicAudio.play();
-      nowPlaying.textContent = "Now Playing: " + musicTracks[musicIndex].title;
-    }
-
-    function pauseMusic() {
-      musicAudio.pause();
-    }
-
-    function nextTrack() {
-      musicIndex = (musicIndex + 1) % musicTracks.length;
-      loadTrack(musicIndex);
+    
       playMusic();
     }
 
