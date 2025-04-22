@@ -214,6 +214,13 @@
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
   }
+
+  .separator {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    margin: 6px 0;
+  }
 </style>
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
@@ -241,25 +248,19 @@
 
   <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
-  <div class="mini-player" id="music-player">
+  
+<div class="mini-player" id="music-player">
+  <div class="label warm" id="musicLabel">
+    <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
+  </div>
+  <div class="separator">____________________________</div>
   <div class="now-playing" id="nowPlaying">Press PLAY to PLAY</div>
-    <div class="label warm" id="musicLabel">
-      <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
-    </div>
-    <button onclick="playMusic()">> PLAY</button>
-    <button onclick="pauseMusic()">|| PAUSE</button>
-    <button onclick="nextTrack()">>> SKIP</button>
-  </div>
-
-  <div class="mini-player" id="atmos-player">
-    <div class="label cool" id="atmosLabel">
-      <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
-    </div>
-    <button onclick="playAtmos()">> PLAY</button>
-    <button onclick="pauseAtmos()">|| PAUSE</button>
-  </div>
-
-  <audio id="musicAudio" preload="auto"></audio>
+  <div class="separator">____________________________</div>
+  <button onclick="playMusic()">> PLAY</button>
+  <button onclick="pauseMusic()">|| PAUSE</button>
+  <button onclick="nextTrack()">>> SKIP</button>
+</div>
+<audio id="musicAudio" preload="auto"></audio> id="musicAudio" preload="auto"></audio>
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
   <script>
