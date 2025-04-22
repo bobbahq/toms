@@ -83,9 +83,8 @@
     }
 
     .scrolling {
-      animation: scroll-left 15s linear infinite;
-      padding-left: 100%;
-    }
+  animation: scroll-left 20s linear infinite;
+}
 
     @keyframes scroll-left {
       0% { transform: translateX(100%); }
@@ -223,7 +222,7 @@
       musicAudio.play();
       const trackTitle = musicTracks[musicIndex].title;
       nowPlaying.classList.add("scrolling");
-      nowPlaying.textContent = `${trackTitle}     `.repeat(12);
+      nowPlaying.innerHTML = `<span class=\"scrolling\">${(trackTitle + '     ').repeat(12)}</span>`;.repeat(12);
     }
 
     function pauseMusic() {
