@@ -27,13 +27,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      animation: slideShow 30s infinite ease-in-out;
-    }
-
-    @keyframes slideShow {
-      0%, 33.3%   { background-image: url('tom_of_finland.jpeg'); }
-      33.4%, 66.6% { background-image: url('crotch.jpg'); }
-      66.7%, 100%  { background-image: url('haring.jpg'); }
+      transition: background-image 1s ease-in-out;
     }
 
     .mini-player {
@@ -240,6 +234,7 @@
 <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
 <script>
+  // Mini player functionality
   const musicTracks = [
     { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
     { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
@@ -289,6 +284,7 @@
     nextTrack();
   });
 
+  // Floating effect for mini players
   document.addEventListener('DOMContentLoaded', () => {
     const music = document.getElementById("music-player");
     const atmos = document.getElementById("atmos-player");
@@ -342,6 +338,23 @@
       });
     }
   });
+
+  // Background image slideshow
+  const backgrounds = [
+    'tom_of_finland.jpeg',
+    'crotch.jpg',
+    'haring.jpg'
+  ];
+  let currentBackground = 0;
+  const bg = document.querySelector('.background-slideshow');
+
+  function changeBackground() {
+    bg.style.backgroundImage = `url('${backgrounds[currentBackground]}')`;
+    currentBackground = (currentBackground + 1) % backgrounds.length;
+  }
+
+  changeBackground();
+  setInterval(changeBackground, 10000); // every 10 seconds
 </script>
 </body>
 </html>
