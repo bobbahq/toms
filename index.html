@@ -70,9 +70,19 @@
 
     .now-playing {
       width: 100%;
+      height: 1.2em;
       overflow: hidden;
       white-space: nowrap;
       box-sizing: border-box;
+      position: relative;
+    }
+
+    .now-playing span {
+      position: absolute;
+      display: inline-block;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: scroll-left 10s linear infinite;
     }
 
     .now-playing span {
@@ -219,7 +229,7 @@
       <span class="handle">•••</span>
     </div>
     <div class="separator"></div>
-    <div class="now-playing" id="nowPlaying"><span>Press PLAY to start</span></div>
+    <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
     <div class="separator"></div>
     <button onclick="playMusic()">> PLAY</button>
     <button onclick="pauseMusic()">|| PAUSE</button>
