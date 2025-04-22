@@ -227,7 +227,7 @@
     }
     animateLabel('MUSIC', 'musicLabel', 'colorShiftWarm');
 
-    animateLabel('ATMOS', 'atmosLabel', 'colorShiftCool');
+    
     const atmosAudio = document.getElementById('atmosAudio');
     function playAtmos() {
       pauseOther('atmos');
@@ -330,7 +330,7 @@
 
   
   <div class="mini-player" id="atmos">
-    <div class="label gradient-text" id="atmosLabel"></div>
+    <div class="label gradient-text" id="atmosLabel">ATMOS</div>
     <button class="btn-play" onclick="playAtmos()">> PLAY</button>
     <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
