@@ -216,11 +216,12 @@
   }
 
   .separator {
-    text-align: center;
-    color: white;
-    font-size: 16px;
-    margin: 6px 0;
-  }
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, #222, #111, #222);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+      margin: 10px 0;
+    }
 </style>
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
@@ -246,7 +247,18 @@
     </div>
   </div>
 
-  <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
+  
+<div class="mini-player" id="atmos-player">
+  <div class="label cool" id="atmosLabel">
+    <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
+  </div>
+  <div class="separator"></div>
+  <button onclick="playAtmos()">> PLAY</button>
+  <button onclick="pauseAtmos()">|| PAUSE</button>
+</div>
+<audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
+
+<div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
   
 <div class="mini-player" id="music-player">
