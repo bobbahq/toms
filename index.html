@@ -342,8 +342,16 @@
   </div>
 
   
+  
   <div class="mini-player" id="atmos">
-    <div class="label gradient-text" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
+    <div class="label gradient-text" id="atmosLabel">
+      <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
+    </div>
+    <button class="btn-play" onclick="playAtmos()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
+    <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
+  </div>
+
     <button class="btn-play" onclick="playAtmos()">> PLAY</button>
     <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
