@@ -28,25 +28,81 @@
       z-index: 10;
       width: fit-content;
       max-width: 300px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(var(--tilt, 0deg)); }
+      50% { transform: translateY(-4px) rotate(var(--tilt, 0deg)); }
+    }
+
+    .mini-player.playing {
+      box-shadow: 0 0 10px 3px rgba(255,255,255,0.3), 0 0 20px 5px rgba(255,255,255,0.1);
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: sparkle 1.2s ease-out forwards;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
     }
 
     .label {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
     }
 
-    .label .title {
-      font-size: 20px;
+    .label .title span {
+      display: inline-block;
+      animation: wave 4s infinite linear;
+    }
+
+    @keyframes wave {
+      0% { color: red; }
+      25% { color: hotpink; }
+      50% { color: orange; }
+      75% { color: yellow; }
+      100% { color: red; }
+    }
+
+    .label.cool .title span {
+      animation-name: waveCool;
+    }
+
+    @keyframes waveCool {
+      0% { color: aqua; }
+      25% { color: mediumseagreen; }
+      50% { color: royalblue; }
+      75% { color: violet; }
+      100% { color: aqua; }
     }
 
     .handle {
       cursor: grab;
       user-select: none;
-      padding-left: 8px;
-      font-size: 20px;
-      opacity: 0.5;
+      opacity: 0.4;
+    }
+
+    .separator {
+      height: 1px;
+      background: #333;
+      margin: 6px 0;
     }
 
     button {
@@ -55,154 +111,106 @@
       color: white;
       font-family: 'VT323', monospace;
       font-size: 18px;
-      margin: 4px 6px;
+      margin: 3px 6px;
       cursor: pointer;
     }
 
-    .separator {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, #222, #111, #222);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-      margin: 8px 0;
-    }
-
     .now-playing {
-      width: 100%;
+      font-size: 16px;
       height: 1.2em;
-      overflow: hidden;
       white-space: nowrap;
-      box-sizing: border-box;
+      overflow: hidden;
       position: relative;
     }
 
     .now-playing span {
       position: absolute;
-      display: inline-block;
-      white-space: nowrap;
+      padding-left: 100%;
+      animation: scroll 10s linear infinite;
     }
 
-    .scrolling {
-      animation: scroll-left 120s linear infinite;
-    }
-
-    @keyframes scroll-left {
-      0% { transform: translateX(100%); }
+    @keyframes scroll {
+      0% { transform: translateX(0%); }
       100% { transform: translateX(-100%); }
     }
 
     audio { display: none; }
-
-    @keyframes flowingGradient {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    .flowing-warm {
-      background: linear-gradient(90deg, red, orange, gold, red);
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: flowingGradient 9.6s ease-in-out infinite;
-    }
-
-    .flowing-cool {
-      background: linear-gradient(90deg, aqua, lightblue, violet, aqua);
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: flowingGradient 9.6s ease-in-out infinite;
-    }
 
     .sleeve {
       position: fixed;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 90vw;
-      max-width: 440px;
+      width: 94vw;
+      max-width: 360px;
       background: black;
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      transition: top 0.3s ease;
-      overflow: hidden;
       color: white;
-    }
-
-    .sleeve-content {
-      padding: 40px 30px 20px 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
+      z-index: 1000;
+      padding: 28px 22px 18px 22px;
     }
 
     .info-line {
-      width: 100%;
-      font-size: 20px;
-      color: white;
+      font-size: 18px;
+      margin-bottom: 8px;
     }
 
     .info-line span {
-      display: inline-block;
       border-bottom: 2px solid white;
-      padding: 0 6px;
-      min-width: 150px;
-    }
-
-    .info-line a {
-      color: white;
-      text-decoration: none;
+      padding: 0 4px;
     }
 
     .logo {
-      margin-top: 17px;
-      max-width: 70%;
-      height: 80px;
+      width: 80%;
+      height: 70px;
       object-fit: contain;
+      margin: 12px auto 0;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <div class="sleeve" id="sleeve">
-    <div class="sleeve-content">
-      <div class="info-line">Room name: <span>[18+] Tom's</span></div>
-      <div class="info-line">Owner: <span>JS</span></div>
-      <div class="info-line">Est.: <span>2025</span></div>
-      <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
-      <div class="info-line">
-        <a href="https://www.habbo.es/room/124338349" target="_blank"><span>&gt; visit https://www.habbo.es/room/124338349</span></a>
-      </div>
-      <img src="./logo.png" alt="Tom's logo" class="logo" />
+
+  <div class="sleeve">
+    <div class="info-line">Room name: <span>[18+] Tom's</span></div>
+    <div class="info-line">Owner: <span>JS</span></div>
+    <div class="info-line">Est.: <span>2025</span></div>
+    <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+    <div class="info-line">
+      <a href="https://www.habbo.es/room/124338349" target="_blank" style="color:white;text-decoration:underline;">
+        &gt; visit https://www.habbo.es/room/124338349
+      </a>
     </div>
+    <img src="./logo.png" class="logo" alt="Tom's logo"/>
   </div>
 
-  <div class="mini-player" id="music-player">
+  <div class="mini-player" id="music-player" style="--tilt:-3deg">
     <div class="label warm">
-      <span class="title"><span class="flowing-warm">MUSIC</span></span>
+      <span class="title"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></span>
       <span class="handle">•••</span>
     </div>
     <div class="separator"></div>
-    <div class="now-playing" id="nowPlaying"><span>Press PLAY to start</span></div>
-    <button onclick="playMusic()"><span>> PLAY</span></button>
-    <button onclick="pauseMusic()"><span>|| PAUSE</span></button>
-    <button onclick="nextTrack()"><span>>> SKIP</span></button>
+    <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
+    <div class="separator"></div>
+    <button onclick="playMusic()">> PLAY</button>
+    <button onclick="pauseMusic()">|| PAUSE</button>
+    <button onclick="nextTrack()">>> SKIP</button>
   </div>
 
-  <div class="mini-player" id="atmos-player">
+  <div class="mini-player" id="atmos-player" style="--tilt:3deg">
     <div class="label cool">
-      <span class="title"><span class="flowing-cool">ATMOS</span></span>
+      <span class="title"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></span>
       <span class="handle">•••</span>
     </div>
     <div class="separator"></div>
-    <button onclick="playAtmos()"><span>> PLAY</span></button>
-    <button onclick="pauseAtmos()"><span>|| PAUSE</span></button>
+    <button onclick="playAtmos()">> PLAY</button>
+    <button onclick="pauseAtmos()">|| PAUSE</button>
   </div>
 
-  <audio id="musicAudio" preload="auto"></audio>
-  <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
+  <audio id="musicAudio"></audio>
+  <audio id="atmosAudio" src="atmos_toms.mp3" loop></audio>
 
   <script>
     const musicTracks = [
@@ -213,20 +221,21 @@
     let musicIndex = 0;
     const musicAudio = document.getElementById("musicAudio");
     const atmosAudio = document.getElementById("atmosAudio");
-    
+    const musicPlayer = document.getElementById("music-player");
+    const nowPlaying = document.getElementById("nowPlayingScroll");
+
     function playMusic() {
       pauseOther('music');
       musicAudio.src = musicTracks[musicIndex].file;
       musicAudio.play();
-      const trackTitle = musicTracks[musicIndex].title;
-      const nowPlaying = document.getElementById("nowPlaying");
-      nowPlaying.innerHTML = `<span class=\"scrolling\">${(trackTitle + '     ').repeat(30)}</span>`;
-      
-          }
+      nowPlaying.textContent = musicTracks[musicIndex].title;
+      musicPlayer.classList.add("playing");
+    }
 
     function pauseMusic() {
       musicAudio.pause();
-          }
+      musicPlayer.classList.remove("playing");
+    }
 
     function nextTrack() {
       musicIndex = (musicIndex + 1) % musicTracks.length;
@@ -236,82 +245,53 @@
     function playAtmos() {
       pauseOther('atmos');
       atmosAudio.play();
+      document.getElementById("atmos-player").classList.add("playing");
     }
 
     function pauseAtmos() {
       atmosAudio.pause();
+      document.getElementById("atmos-player").classList.remove("playing");
     }
 
     function pauseOther(current) {
       if (current !== 'music') {
         musicAudio.pause();
         musicAudio.currentTime = 0;
-        const nowPlaying = document.getElementById("nowPlaying");
-        if (nowPlaying) {
-          nowPlaying.innerHTML = "<span>Press PLAY to start</span>";
-        }
+        musicPlayer.classList.remove("playing");
       }
-              }
       if (current !== 'atmos') {
         atmosAudio.pause();
         atmosAudio.currentTime = 0;
+        document.getElementById("atmos-player").classList.remove("playing");
       }
     }
 
-    musicAudio.addEventListener('ended', () => {
-      nextTrack();
-    });
+    musicAudio.addEventListener('ended', () => nextTrack());
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // Random positioning + sparkles
+    document.addEventListener("DOMContentLoaded", () => {
       const music = document.getElementById("music-player");
       const atmos = document.getElementById("atmos-player");
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2 + 80;
+      const offset = 100 + Math.random() * 60;
 
-      if (window.innerWidth > 600) {
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        const centerX = w / 2;
-        const centerY = h / 2 + 100;
+      music.style.left = `${centerX - offset}px`;
+      music.style.top = `${centerY - offset}px`;
 
-        const offset = 100 + Math.random() * 60;
+      atmos.style.left = `${centerX + offset}px`;
+      atmos.style.top = `${centerY + offset}px`;
 
-        music.style.left = `${centerX - offset}px`;
-        music.style.top = `${centerY - offset}px`;
-        music.style.transform = "rotate(-3deg)";
-        music.dataset.tilt = "-3deg";
-
-        atmos.style.left = `${centerX + offset}px`;
-        atmos.style.top = `${centerY + offset}px`;
-        atmos.style.transform = "rotate(3deg)";
-        atmos.dataset.tilt = "3deg";
-
-        const players = document.querySelectorAll('.mini-player');
-        players.forEach(player => {
-          const handle = player.querySelector('.handle');
-          let offsetX = 0, offsetY = 0, isDragging = false;
-
-          handle.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            isDragging = true;
-            const rect = player.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            player.style.transform = "rotate(0deg)";
-          });
-
-          document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            player.style.left = `${e.clientX - offsetX}px`;
-            player.style.top = `${e.clientY - offsetY}px`;
-          });
-
-          document.addEventListener('mouseup', () => {
-            if (isDragging && player.dataset.tilt) {
-              player.style.transform = `rotate(${player.dataset.tilt})`;
-            }
-            isDragging = false;
-          });
+      setInterval(() => {
+        [music, atmos].forEach(player => {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.style.top = `${Math.random() * 100}%`;
+          sparkle.style.left = `${Math.random() * 100}%`;
+          player.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1200);
         });
-      }
+      }, 4000);
     });
   </script>
 </body>
