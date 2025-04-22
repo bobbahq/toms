@@ -207,9 +207,7 @@
       75% { color: violet; }
       100% { color: aqua; }
     }
-    .shimmer {
-      animation: shimmer 1.5s ease-in-out infinite;
-    }
+    
   .gradient-text span {
   animation: colorShiftCool 3s linear infinite;
 }
@@ -331,32 +329,7 @@
 
     loadTrack(musicIndex);
 
-    function randomShimmer() {
-      const buttons = document.querySelectorAll('.btn-play, .btn-pause, .btn-skip');
-      buttons.forEach(btn => btn.classList.remove('shimmer'));
-      const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
-      randomButton.classList.add('shimmer');
-    }
-    setInterval(randomShimmer, 5000);
-  </script>
-</body>
-
-  <script>
-    // Background slideshow
-    const slides = document.querySelectorAll('.background-slide');
-    let current = 0;
-    setInterval(() => {
-      slides.forEach(slide => slide.classList.remove('visible'));
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('visible');
-    }, 15000);
-
-    // Ensure the sleeve expands on click
-    document.addEventListener('DOMContentLoaded', () => {
-      const sleeve = document.getElementById('sleeve');
-      sleeve.addEventListener('click', () => {
-        sleeve.classList.toggle('expanded');
-      });
+        
     });
   </script>
 </html>
@@ -378,9 +351,15 @@
   
   
   <div class="mini-player" id="atmos">
-    <div class="label gradient-text" id="atmosLabel">
-      <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
-    </div>
+    
+<div class="label gradient-text" id="atmosLabel">
+  <span style="animation: colorShiftCool 3s linear infinite;">A</span>
+  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.15s;">T</span>
+  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.3s;">M</span>
+  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.45s;">O</span>
+  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.6s;">S</span>
+</div>
+
     <button class="btn-play" onclick="playAtmos()">> PLAY</button>
     <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
