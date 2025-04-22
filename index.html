@@ -331,7 +331,14 @@
 
         
     });
-  </script>
+  
+document.addEventListener('DOMContentLoaded', () => {
+  const sleeve = document.getElementById('sleeve');
+  sleeve.addEventListener('click', () => {
+    sleeve.classList.toggle('expanded');
+  });
+});
+</script>
 </html>
   <div class="sleeve expanded" id="sleeve">
     <div class="sleeve-content">
