@@ -111,6 +111,9 @@
 
     .mini-player {
   position: absolute;
+  min-width: 200px;
+  max-width: 300px;
+  resize: none;
       position: fixed;
       background: black;
       padding: 14px 20px;
@@ -233,10 +236,15 @@
     }
 
   .label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    .title {
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
 
   .handle {
     margin-left: auto;
@@ -278,9 +286,10 @@
 
   
 <div class="mini-player" id="atmos-player">
-  <div class="label cool"><span class="handle">•••</span>
-    <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
-  </div>
+  <div class="label cool">
+  <span class="title">ATMOS</span>
+  <span class="handle">•••</span>
+</div>
   <div class="separator"></div>
   <button onclick="playAtmos()">> PLAY</button>
   <button onclick="pauseAtmos()">|| PAUSE</button>
@@ -291,9 +300,10 @@
 
   
 <div class="mini-player" id="music-player">
-  <div class="label warm"><span class="handle">•••</span>
-    <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
-  </div>
+  <div class="label warm">
+  <span class="title">MUSIC</span>
+  <span class="handle">•••</span>
+</div>
   <div class="separator"></div>
   <div class="now-playing" id="nowPlaying"><span>Press PLAY to start</div>
   <div class="separator"></div>
@@ -304,57 +314,40 @@
 <audio id="musicAudio" preload="auto"></audio> id="musicAudio" preload="auto"></audio>
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
-  <script>
-const musicTracks = [
-  { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-  { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-  { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-];
-let musicIndex = 0;
-const musicAudio = document.getElementById("musicAudio");
-const atmosAudio = document.getElementById("atmosAudio");
-const nowPlaying = document.getElementById("nowPlaying");
+  
+<script>
+  const players = document.querySelectorAll('.mini-player');
+  players.forEach(player => {
+    const handle = player.querySelector('.handle');
+    let offsetX, offsetY, isDragging = false;
 
-function playMusic() {
-  pauseOther('music');
-  musicAudio.src = musicTracks[musicIndex].file;
-  musicAudio.play();
-  nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
-}
+    handle.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - player.getBoundingClientRect().left;
+      offsetY = e.clientY - player.getBoundingClientRect().top;
+      player.classList.add('dragging');
 
-function pauseMusic() {
-  musicAudio.pause();
-}
+      function onMouseMove(e) {
+        if (!isDragging) return;
+        player.style.left = `${e.clientX - offsetX}px`;
+        player.style.top = `${e.clientY - offsetY}px`;
+        player.style.transform = 'none';
+      }
 
-function nextTrack() {
-  musicIndex = (musicIndex + 1) % musicTracks.length;
-  playMusic();
-}
+      function onMouseUp() {
+        isDragging = false;
+        player.classList.remove('dragging');
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      }
 
-function playAtmos() {
-  pauseOther('atmos');
-  atmosAudio.play();
-}
-
-function pauseAtmos() {
-  atmosAudio.pause();
-}
-
-function pauseOther(current) {
-  if (current !== 'music') {
-    musicAudio.pause();
-    musicAudio.currentTime = 0;
-  }
-  if (current !== 'atmos') {
-    atmosAudio.pause();
-    atmosAudio.currentTime = 0;
-  }
-}
-
-musicAudio.addEventListener('ended', () => {
-  nextTrack();
-});
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    });
+  });
 </script>
+
+
 
 <script>
   const players = document.querySelectorAll('.mini-player');
@@ -372,9 +365,7 @@ musicAudio.addEventListener('ended', () => {
         if (!isDragging) return;
         player.style.left = `${e.clientX - offsetX}px`;
         player.style.top = `${e.clientY - offsetY}px`;
-        player.style.transform = 'rotate(0deg)';
-        player.style.top = `${e.clientY - offsetY}px`;
-        player.style.transform = 'rotate(0deg)'; // Remove tilt while dragging
+        player.style.transform = 'none';
       }
 
       function onMouseUp() {
@@ -389,6 +380,7 @@ musicAudio.addEventListener('ended', () => {
     });
   });
 </script>
+
 
 </body>
 </html>
