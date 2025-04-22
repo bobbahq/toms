@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tom's</title>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
@@ -24,7 +24,6 @@
       border-radius: 16px;
       padding: 12px 18px;
       font-size: 18px;
-      font-family: 'VT323', monospace;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       z-index: 10;
       width: fit-content;
@@ -85,172 +84,97 @@
       animation: scroll-left 10s linear infinite;
     }
 
-    .now-playing span {
-      display: inline-block;
-      width: auto;
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: scroll-left 10s linear infinite;
-    }
-
-    .now-playing span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll-left 10s linear infinite;
-    }
-
     @keyframes scroll-left {
       0% { transform: translateX(0%); }
       100% { transform: translateX(-100%); }
     }
 
     audio { display: none; }
-  
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
 
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
+    /* Gradient Animation */
+    @keyframes flowingGradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
 
-  
+    .flowing-warm {
+      background: linear-gradient(90deg, red, orange, gold, yellow, red);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: flowingGradient 5s linear infinite;
+    }
 
-  
+    .flowing-cool {
+      background: linear-gradient(90deg, aqua, lightblue, blue, violet, aqua);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: flowingGradient 5s linear infinite;
+    }
 
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
+    button:hover span,
+    .sleeve a:hover span {
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: flowingGradient 3s linear infinite;
+    }
 
-  #atmos-player button:hover {
-    animation-name: colorShiftCool;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
+    .sleeve {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90vw;
+      max-width: 440px;
+      background: black;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      transition: top 0.3s ease;
+      overflow: hidden;
+      color: white;
+    }
 
+    .sleeve-content {
+      padding: 40px 30px 20px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
 
-.sleeve {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90vw;
-  max-width: 440px;
-  background: black;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  transition: top 0.3s ease;
-  overflow: hidden;
-  color: white;
-}
+    .info-line {
+      width: 100%;
+      font-size: 20px;
+      color: white;
+    }
 
-.sleeve-content {
-  padding: 40px 30px 20px 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
+    .info-line span {
+      display: inline-block;
+      border-bottom: 2px solid white;
+      padding: 0 6px;
+      min-width: 150px;
+    }
 
-.info-line {
-  width: 100%;
-  font-size: 20px;
-  color: white;
-}
+    .info-line a {
+      color: white;
+      text-decoration: none;
+    }
 
-.info-line span {
-  display: inline-block;
-  border-bottom: 2px solid white;
-  padding: 0 6px;
-  min-width: 150px;
-}
-
-.info-line a {
-  color: white;
-  text-decoration: underline;
-}
-
-.logo {
-  margin-top: 17px;
-  max-width: 70%;
-  height: 80px;
-  object-fit: contain;
-}
-
-
-
-  20% { color: orange; }
-  40% { color: yellow; }
-  60% { color: gold; }
-  80% { color: tomato; }
-  100% { color: red; }
-}
-
-
-  20% { color: lightseagreen; }
-  40% { color: royalblue; }
-  60% { color: violet; }
-  80% { color: lightblue; }
-  100% { color: aqua; }
-}
-
-
-
-.flow.warm span:nth-child(1) { animation-name: flowWarm; animation-delay: 0s; }
-.flow.warm span:nth-child(2) { animation-name: flowWarm; animation-delay: 0.2s; }
-.flow.warm span:nth-child(3) { animation-name: flowWarm; animation-delay: 0.4s; }
-.flow.warm span:nth-child(4) { animation-name: flowWarm; animation-delay: 0.6s; }
-.flow.warm span:nth-child(5) { animation-name: flowWarm; animation-delay: 0.8s; }
-
-.flow.cool span:nth-child(1) { animation-name: flowCool; animation-delay: 0s; }
-.flow.cool span:nth-child(2) { animation-name: flowCool; animation-delay: 0.2s; }
-.flow.cool span:nth-child(3) { animation-name: flowCool; animation-delay: 0.4s; }
-.flow.cool span:nth-child(4) { animation-name: flowCool; animation-delay: 0.6s; }
-.flow.cool span:nth-child(5) { animation-name: flowCool; animation-delay: 0.8s; }
-
-button:hover span,
-.sleeve a:hover span {
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-
-@keyframes flowingGradient {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-.flowing-text {
-  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
-  background-size: 400% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: flowingGradient 5s linear infinite;
-}
-
-.flowing-text:hover {
-  animation-duration: 3s;
-}
-
-</style>
+    .logo {
+      margin-top: 17px;
+      max-width: 70%;
+      height: 80px;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
-  
+
 <div class="sleeve" id="sleeve">
   <div class="sleeve-content">
     <div class="info-line">Room name: <span>[18+] Tom's</span></div>
@@ -258,42 +182,50 @@ button:hover span,
     <div class="info-line">Est.: <span>2025</span></div>
     <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
     <div class="info-line">
-      <a href="https://www.habbo.es/room/124338349" target="_blank"><span class="flowing-text">
-        &gt; visit https://www.habbo.es/room/124338349
-      </span></a>
+      <a href="https://www.habbo.es/room/124338349" target="_blank"><span>&gt; visit https://www.habbo.es/room/124338349</span></a>
     </div>
     <img src="./logo.png" alt="Tom's logo" class="logo" />
   </div>
 </div>
 
-
 <div class="mini-player" id="music-player">
-    <div class="label warm">
-      <span class="title"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></span>
-      <span class="handle">•••</span>
-    </div>
-    <div class="separator"></div>
-    <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
-    <div class="separator"></div>
-    <button><span class="flowing-text">> PLAY</span></button>
-    <button><span class="flowing-text">|| PAUSE</span></button>
-    <button><span class="flowing-text">>> SKIP</span></button>
+  <div class="label warm">
+    <span class="title">
+      <span class="flowing-warm">M</span>
+      <span class="flowing-warm">U</span>
+      <span class="flowing-warm">S</span>
+      <span class="flowing-warm">I</span>
+      <span class="flowing-warm">C</span>
+    </span>
+    <span class="handle">•••</span>
   </div>
+  <div class="separator"></div>
+  <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
+  <div class="separator"></div>
+  <button><span>> PLAY</span></button>
+  <button><span>|| PAUSE</span></button>
+  <button><span>>> SKIP</span></button>
+</div>
 
-  <div class="mini-player" id="atmos-player">
-    <div class="label cool">
-      <span class="title"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></span>
-      <span class="handle">•••</span>
-    </div>
-    <div class="separator"></div>
-    <button><span class="flowing-text">> PLAY</span></button>
-    <button><span class="flowing-text">|| PAUSE</span></button>
+<div class="mini-player" id="atmos-player">
+  <div class="label cool">
+    <span class="title">
+      <span class="flowing-cool">A</span>
+      <span class="flowing-cool">T</span>
+      <span class="flowing-cool">M</span>
+      <span class="flowing-cool">O</span>
+      <span class="flowing-cool">S</span>
+    </span>
+    <span class="handle">•••</span>
   </div>
+  <div class="separator"></div>
+  <button><span>> PLAY</span></button>
+  <button><span>|| PAUSE</span></button>
+</div>
 
-  <audio id="musicAudio" preload="auto"></audio>
-  <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
+<audio id="musicAudio" preload="auto"></audio>
+<audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
-  
 <script>
   const musicTracks = [
     { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
@@ -303,7 +235,6 @@ button:hover span,
   let musicIndex = 0;
   const musicAudio = document.getElementById("musicAudio");
   const atmosAudio = document.getElementById("atmosAudio");
-  const nowPlaying = document.getElementById("nowPlaying");
 
   function playMusic() {
     pauseOther('music');
