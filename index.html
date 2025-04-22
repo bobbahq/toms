@@ -10,11 +10,33 @@
       margin: 0;
       padding: 0;
       font-family: 'VT323', monospace;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: white;
+      background: #f0f0f0;
       color: black;
+    }
+
+    .widget-shell {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 25px rgba(0,0,0,0.15);
+      min-height: 100vh;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 720px) {
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+      }
+
+      .widget-shell {
+        margin-top: 40px;
+        border-radius: 24px;
+      }
     }
 
     .mini-player {
@@ -52,14 +74,8 @@
     }
 
     @keyframes sparkle {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(2);
-        opacity: 0;
-      }
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
     }
 
     .label {
@@ -137,19 +153,12 @@
     audio { display: none; }
 
     .sleeve {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 94vw;
-      max-width: 360px;
       background: black;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       color: white;
-      z-index: 1000;
       padding: 28px 22px 18px 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
     .info-line {
@@ -172,45 +181,46 @@
   </style>
 </head>
 <body>
-
-  <div class="sleeve">
-    <div class="info-line">Room name: <span>[18+] Tom's</span></div>
-    <div class="info-line">Owner: <span>JS</span></div>
-    <div class="info-line">Est.: <span>2025</span></div>
-    <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
-    <div class="info-line">
-      <a href="https://www.habbo.es/room/124338349" target="_blank" style="color:white;text-decoration:underline;">
-        &gt; visit https://www.habbo.es/room/124338349
-      </a>
+  <div class="widget-shell">
+    <div class="sleeve">
+      <div class="info-line">Room name: <span>[18+] Tom's</span></div>
+      <div class="info-line">Owner: <span>JS</span></div>
+      <div class="info-line">Est.: <span>2025</span></div>
+      <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
+      <div class="info-line">
+        <a href="https://www.habbo.es/room/124338349" target="_blank" style="color:white;text-decoration:underline;">
+          &gt; visit https://www.habbo.es/room/124338349
+        </a>
+      </div>
+      <img src="./logo.png" class="logo" alt="Tom's logo"/>
     </div>
-    <img src="./logo.png" class="logo" alt="Tom's logo"/>
-  </div>
 
-  <div class="mini-player" id="music-player" style="--tilt:-3deg">
-    <div class="label warm">
-      <span class="title"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></span>
-      <span class="handle">•••</span>
+    <div class="mini-player" id="music-player" style="--tilt:-3deg">
+      <div class="label warm">
+        <span class="title"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span></span>
+        <span class="handle">•••</span>
+      </div>
+      <div class="separator"></div>
+      <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
+      <div class="separator"></div>
+      <button onclick="playMusic()">> PLAY</button>
+      <button onclick="pauseMusic()">|| PAUSE</button>
+      <button onclick="nextTrack()">>> SKIP</button>
     </div>
-    <div class="separator"></div>
-    <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
-    <div class="separator"></div>
-    <button onclick="playMusic()">> PLAY</button>
-    <button onclick="pauseMusic()">|| PAUSE</button>
-    <button onclick="nextTrack()">>> SKIP</button>
-  </div>
 
-  <div class="mini-player" id="atmos-player" style="--tilt:3deg">
-    <div class="label cool">
-      <span class="title"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></span>
-      <span class="handle">•••</span>
+    <div class="mini-player" id="atmos-player" style="--tilt:3deg">
+      <div class="label cool">
+        <span class="title"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></span>
+        <span class="handle">•••</span>
+      </div>
+      <div class="separator"></div>
+      <button onclick="playAtmos()">> PLAY</button>
+      <button onclick="pauseAtmos()">|| PAUSE</button>
     </div>
-    <div class="separator"></div>
-    <button onclick="playAtmos()">> PLAY</button>
-    <button onclick="pauseAtmos()">|| PAUSE</button>
-  </div>
 
-  <audio id="musicAudio"></audio>
-  <audio id="atmosAudio" src="atmos_toms.mp3" loop></audio>
+    <audio id="musicAudio"></audio>
+    <audio id="atmosAudio" src="atmos_toms.mp3" loop></audio>
+  </div>
 
   <script>
     const musicTracks = [
@@ -268,13 +278,12 @@
 
     musicAudio.addEventListener('ended', () => nextTrack());
 
-    // Random positioning + sparkles
     document.addEventListener("DOMContentLoaded", () => {
       const music = document.getElementById("music-player");
       const atmos = document.getElementById("atmos-player");
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2 + 80;
-      const offset = 100 + Math.random() * 60;
+      const centerX = 180;
+      const centerY = 380;
+      const offset = 100 + Math.random() * 40;
 
       music.style.left = `${centerX - offset}px`;
       music.style.top = `${centerY - offset}px`;
