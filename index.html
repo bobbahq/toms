@@ -205,9 +205,46 @@
 }
 
 
-.sleeve a:hover {
-  animation-name: colorShiftCool;
-  animation-duration: 2s;
+@keyframes flowWarm {
+  0% { color: red; }
+  20% { color: orange; }
+  40% { color: yellow; }
+  60% { color: gold; }
+  80% { color: tomato; }
+  100% { color: red; }
+}
+
+@keyframes flowCool {
+  0% { color: aqua; }
+  20% { color: lightseagreen; }
+  40% { color: royalblue; }
+  60% { color: violet; }
+  80% { color: lightblue; }
+  100% { color: aqua; }
+}
+
+.flow span {
+  display: inline-block;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.flow.warm span:nth-child(1) { animation-name: flowWarm; animation-delay: 0s; }
+.flow.warm span:nth-child(2) { animation-name: flowWarm; animation-delay: 0.2s; }
+.flow.warm span:nth-child(3) { animation-name: flowWarm; animation-delay: 0.4s; }
+.flow.warm span:nth-child(4) { animation-name: flowWarm; animation-delay: 0.6s; }
+.flow.warm span:nth-child(5) { animation-name: flowWarm; animation-delay: 0.8s; }
+
+.flow.cool span:nth-child(1) { animation-name: flowCool; animation-delay: 0s; }
+.flow.cool span:nth-child(2) { animation-name: flowCool; animation-delay: 0.2s; }
+.flow.cool span:nth-child(3) { animation-name: flowCool; animation-delay: 0.4s; }
+.flow.cool span:nth-child(4) { animation-name: flowCool; animation-delay: 0.6s; }
+.flow.cool span:nth-child(5) { animation-name: flowCool; animation-delay: 0.8s; }
+
+button:hover span,
+.sleeve a:hover span {
+  animation-duration: 3s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
@@ -223,9 +260,9 @@
     <div class="info-line">Est.: <span>2025</span></div>
     <div class="info-line">Description: <span>A bold, diverse space for all to mix, connect & vibe.</span></div>
     <div class="info-line">
-      <a href="https://www.habbo.es/room/124338349" target="_blank">
+      <a href="https://www.habbo.es/room/124338349" target="_blank"><span>
         &gt; visit https://www.habbo.es/room/124338349
-      </a>
+      </span></a>
     </div>
     <img src="./logo.png" alt="Tom's logo" class="logo" />
   </div>
@@ -240,9 +277,9 @@
     <div class="separator"></div>
     <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
     <div class="separator"></div>
-    <button onclick="playMusic()">> PLAY</button>
-    <button onclick="pauseMusic()">|| PAUSE</button>
-    <button onclick="nextTrack()">>> SKIP</button>
+    <button onclick="playMusic()"><span>> PLAY</span></button>
+    <button onclick="pauseMusic()"><span>|| PAUSE</span></button>
+    <button onclick="nextTrack()"><span>>> SKIP</span></button>
   </div>
 
   <div class="mini-player" id="atmos-player">
@@ -251,8 +288,8 @@
       <span class="handle">•••</span>
     </div>
     <div class="separator"></div>
-    <button onclick="playAtmos()">> PLAY</button>
-    <button onclick="pauseAtmos()">|| PAUSE</button>
+    <button onclick="playAtmos()"><span>> PLAY</span></button>
+    <button onclick="pauseAtmos()"><span>|| PAUSE</span></button>
   </div>
 
   <audio id="musicAudio" preload="auto"></audio>
@@ -274,7 +311,7 @@
     pauseOther('music');
     musicAudio.src = musicTracks[musicIndex].file;
     musicAudio.play();
-    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
+    document.getElementById('nowPlayingScroll').textContent = musicTracks[musicIndex].title;
   }
 
   function pauseMusic() {
