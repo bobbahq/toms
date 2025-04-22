@@ -13,8 +13,27 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
-      background: white;
-      color: black;
+      background: black;
+      color: white;
+    }
+
+    .background-slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: slideShow 30s infinite ease-in-out;
+    }
+
+    @keyframes slideShow {
+      0%, 33.3%   { background-image: url('tom_of_finland.jpeg'); }
+      33.4%, 66.6% { background-image: url('crotch.jpg'); }
+      66.7%, 100%  { background-image: url('haring.jpg'); }
     }
 
     .mini-player {
@@ -91,7 +110,6 @@
 
     audio { display: none; }
 
-    /* Gradient animation for always-on titles */
     @keyframes flowingGradient {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
@@ -113,7 +131,6 @@
       animation: flowingGradient 12s ease-in-out infinite;
     }
 
-    /* Hover-only gradient for buttons and links */
     button:hover span,
     .sleeve a:hover span {
       background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
@@ -176,6 +193,10 @@
 </head>
 <body>
 
+<!-- background slideshow -->
+<div class="background-slideshow"></div>
+
+<!-- sleeve -->
 <div class="sleeve" id="sleeve">
   <div class="sleeve-content">
     <div class="info-line">Room name: <span>[18+] Tom's</span></div>
@@ -189,6 +210,7 @@
   </div>
 </div>
 
+<!-- music player -->
 <div class="mini-player" id="music-player">
   <div class="label warm">
     <span class="title"><span class="flowing-warm">MUSIC</span></span>
@@ -202,6 +224,7 @@
   <button onclick="nextTrack()"><span>>> SKIP</span></button>
 </div>
 
+<!-- atmos player -->
 <div class="mini-player" id="atmos-player">
   <div class="label cool">
     <span class="title"><span class="flowing-cool">ATMOS</span></span>
@@ -212,6 +235,7 @@
   <button onclick="pauseAtmos()"><span>|| PAUSE</span></button>
 </div>
 
+<!-- audio players -->
 <audio id="musicAudio" preload="auto"></audio>
 <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
