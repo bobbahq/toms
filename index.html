@@ -10,26 +10,26 @@
       margin: 0;
       padding: 0;
       font-family: 'VT323', monospace;
-      background: white;
-      color: black;
+      background: #f0f0f0;
       overflow: hidden;
     }
 
     .widget {
-      max-width: 540px;
+      width: 512px;
+      height: 575px;
       margin: 40px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      background-image: url("h02.gif");
+      background-repeat: no-repeat;
+      background-size: contain;
       position: relative;
-      min-height: 90vh;
+      padding: 28px 22px;
+      box-sizing: border-box;
     }
 
     .sleeve {
       background: black;
       color: white;
-      padding: 24px;
+      padding: 20px;
       border-radius: 16px;
       margin-bottom: 20px;
     }
@@ -147,7 +147,7 @@
       <img src="logo.png" alt="Tom's Logo" class="logo"/>
     </div>
 
-    <div class="mini-player" id="music-player" style="left: 40px; top: 420px;">
+    <div class="mini-player" id="music-player" style="left: 20px; top: 320px;">
       <div class="label">MUSIC</div>
       <div class="now-playing"><span id="nowPlaying">Press PLAY to start</span></div>
       <button onclick="playMusic()">> PLAY</button>
@@ -155,7 +155,7 @@
       <button onclick="nextTrack()">>> SKIP</button>
     </div>
 
-    <div class="mini-player" id="atmos-player" style="right: 40px; top: 540px;">
+    <div class="mini-player" id="atmos-player" style="right: 20px; top: 430px;">
       <div class="label">ATMOS</div>
       <button onclick="playAtmos()">> PLAY</button>
       <button onclick="pauseAtmos()">|| PAUSE</button>
@@ -223,7 +223,6 @@
 
     musicAudio.addEventListener('ended', () => nextTrack());
 
-    // Sparkles every few seconds
     setInterval(() => {
       [musicPlayer, atmosPlayer].forEach(player => {
         const sparkle = document.createElement("div");
