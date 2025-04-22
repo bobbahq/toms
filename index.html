@@ -193,14 +193,15 @@
       75% { color: violet; }
       100% { color: aqua; }
     }
-  </style>
+    body { background-color: white; }
+</style>
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
 
-  <div class="background-wrapper">
-    <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
-    <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
-    <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
+  <!-- background removed -->
+    
+    
+    
   </div>
 
   <div class="sleeve" id="sleeve">
@@ -241,7 +242,7 @@
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
   <script>
-    const slides = document.querySelectorAll('.background-slide');
+    // rotating background disabled
     let current = 0;
     setInterval(() => {
       slides.forEach(slide => slide.classList.remove('visible'));
