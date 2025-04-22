@@ -1,4 +1,3 @@
-<audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio><audio id="musicAudio" preload="auto"></audio>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +6,14 @@
   <title>Tom's</title>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'VT323', monospace;
       height: 100%;
       width: 100%;
       overflow: hidden;
-      font-family: 'VT323', monospace;
+      background: black;
       color: white;
     }
 
@@ -54,10 +55,6 @@
       z-index: 1000;
       transition: top 0.3s ease;
       overflow: hidden;
-    }
-
-    .sleeve.expanded {
-      top: 0;
     }
 
     .sleeve-content {
@@ -111,148 +108,95 @@
         bottom: 6px;
       }
     }
+
+    .mini-player {
+      position: fixed;
+      background: black;
+      padding: 14px 20px;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      font-family: 'VT323', monospace;
+      color: white;
+      font-size: 18px;
+      z-index: 1001;
+      user-select: none;
+    }
+
+    #music-player {
+      bottom: 210px;
+      left: 50%;
+      transform: translateX(-60%) rotate(-3deg);
+      width: 280px;
+    }
+
+    #atmos-player {
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-40%) rotate(3deg);
+    }
+
+    .mini-player .label span {
+      display: inline-block;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .label.warm span:nth-child(1) { animation-name: colorShiftWarm; animation-delay: 0s; }
+    .label.warm span:nth-child(2) { animation-name: colorShiftWarm; animation-delay: 0.2s; }
+    .label.warm span:nth-child(3) { animation-name: colorShiftWarm; animation-delay: 0.4s; }
+    .label.warm span:nth-child(4) { animation-name: colorShiftWarm; animation-delay: 0.6s; }
+    .label.warm span:nth-child(5) { animation-name: colorShiftWarm; animation-delay: 0.8s; }
+
+    .label.cool span:nth-child(1) { animation-name: colorShiftCool; animation-delay: 0s; }
+    .label.cool span:nth-child(2) { animation-name: colorShiftCool; animation-delay: 0.2s; }
+    .label.cool span:nth-child(3) { animation-name: colorShiftCool; animation-delay: 0.4s; }
+    .label.cool span:nth-child(4) { animation-name: colorShiftCool; animation-delay: 0.6s; }
+    .label.cool span:nth-child(5) { animation-name: colorShiftCool; animation-delay: 0.8s; }
+
+    button {
+      background: none;
+      border: none;
+      color: white;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      margin: 2px 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    #music-player button:hover {
+      animation-name: colorShiftWarm;
+    }
+
+    #atmos-player button:hover {
+      animation-name: colorShiftCool;
+    }
+
+    @keyframes colorShiftWarm {
+      0% { color: red; }
+      25% { color: hotpink; }
+      50% { color: orange; }
+      75% { color: yellow; }
+      100% { color: red; }
+    }
+
+    @keyframes colorShiftCool {
+      0% { color: aqua; }
+      25% { color: mediumseagreen; }
+      50% { color: royalblue; }
+      75% { color: violet; }
+      100% { color: aqua; }
+    }
   </style>
-
-<style>
-  .mini-player {
-    position: fixed;
-    background: black;
-    padding: 14px 20px;
-    border-radius: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    font-family: 'VT323', monospace;
-    color: white;
-    font-size: 18px;
-    z-index: 1001;
-    user-select: none;
-  }
-  #music-player {
-    bottom: 210px;
-    left: 50%;
-    transform: translateX(-60%) rotate(-3deg);
-  }
-  #atmos-player {
-    bottom: 110px;
-    left: 50%;
-    transform: translateX(-40%) rotate(3deg);
-  }
-  .mini-player .label span {
-    display: inline-block;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-  .label.warm span {
-    animation-name: colorShiftWarm;
-  }
-  .label.cool span {
-    animation-name: colorShiftCool;
-  }
-
-  button {
-    background: none;
-    border: none;
-    color: white;
-    font-family: 'VT323', monospace;
-    font-size: 18px;
-    margin: 2px 6px;
-    cursor: pointer;
-  }
-  button:hover {
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-  #atmos-player button:hover {
-    animation-name: colorShiftCool;
-  }
-
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-</style>
-
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .label.warm span, .label.cool span {
-    display: inline-block;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-
-  .label.warm span:nth-child(1) { animation-name: colorShiftWarm; animation-delay: 0s; }
-  .label.warm span:nth-child(2) { animation-name: colorShiftWarm; animation-delay: 0.2s; }
-  .label.warm span:nth-child(3) { animation-name: colorShiftWarm; animation-delay: 0.4s; }
-  .label.warm span:nth-child(4) { animation-name: colorShiftWarm; animation-delay: 0.6s; }
-  .label.warm span:nth-child(5) { animation-name: colorShiftWarm; animation-delay: 0.8s; }
-
-  .label.cool span:nth-child(1) { animation-name: colorShiftCool; animation-delay: 0s; }
-  .label.cool span:nth-child(2) { animation-name: colorShiftCool; animation-delay: 0.2s; }
-  .label.cool span:nth-child(3) { animation-name: colorShiftCool; animation-delay: 0.4s; }
-  .label.cool span:nth-child(4) { animation-name: colorShiftCool; animation-delay: 0.6s; }
-  .label.cool span:nth-child(5) { animation-name: colorShiftCool; animation-delay: 0.8s; }
-
-  .mini-player button:hover {
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-  #atmos-player button:hover {
-    animation-name: colorShiftCool;
-  }
-
-  #music-player {
-    bottom: 210px;
-    left: 50%;
-    transform: translateX(-60%) rotate(-3deg);
-    width: 280px;
-  }
-
-  #atmos-player {
-    bottom: 110px;
-    left: 50%;
-    transform: translateX(-40%) rotate(3deg);
-  }
-</style>
-
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
+
   <div class="background-wrapper">
     <div class="background-slide visible" style="background-image: url('./tom_of_finland.jpeg');"></div>
     <div class="background-slide" style="background-image: url('./crotch.jpg');"></div>
@@ -276,129 +220,78 @@
 
   <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
-  
-
-<script>
-  const musicTracks = [
-    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-  ];
-  let musicIndex = 0;
-  const musicAudio = document.getElementById("musicAudio");
-  const atmosAudio = document.getElementById("atmosAudio");
-
-  function playMusic() {
-    if (musicTracks[musicIndex]) {
-      pauseOther('music');
-      musicAudio.src = musicTracks[musicIndex].file;
-      musicAudio.play();
-    }
-  }
-
-  function pauseMusic() {
-    musicAudio.pause();
-  }
-
-  function nextTrack() {
-    musicIndex = (musicIndex + 1) % musicTracks.length;
-    playMusic();
-  }
-
-  function playAtmos() {
-    pauseOther('atmos');
-    atmosAudio.play();
-  }
-
-  function pauseAtmos() {
-    atmosAudio.pause();
-  }
-
-  function pauseOther(current) {
-    if (current !== 'music') {
-      musicAudio.pause();
-      musicAudio.currentTime = 0;
-    }
-    if (current !== 'atmos') {
-      atmosAudio.pause();
-      atmosAudio.currentTime = 0;
-    }
-  }
-</script>
-
-
-
-<div class="mini-player" id="music-player">
-  <div class="label warm" id="musicLabel">
-    <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
+  <div class="mini-player" id="music-player">
+    <div class="label warm" id="musicLabel">
+      <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
+    </div>
+    <button onclick="playMusic()">> PLAY</button>
+    <button onclick="pauseMusic()">|| PAUSE</button>
+    <button onclick="nextTrack()">>> SKIP</button>
   </div>
-  <button onclick="playMusic()">> PLAY</button>
-  <button onclick="pauseMusic()">|| PAUSE</button>
-  <button onclick="nextTrack()">>> SKIP</button>
+
+  <div class="mini-player" id="atmos-player">
+    <div class="label cool" id="atmosLabel">
+      <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
+    </div>
+    <button onclick="playAtmos()">> PLAY</button>
+    <button onclick="pauseAtmos()">|| PAUSE</button>
+  </div>
+
   <audio id="musicAudio" preload="auto"></audio>
-</div>
-
-<div class="mini-player" id="atmos-player">
-  <div class="label cool" id="atmosLabel">
-    <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
-  </div>
-  <button onclick="playAtmos()">> PLAY</button>
-  <button onclick="pauseAtmos()">|| PAUSE</button>
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
-</div>
 
+  <script>
+    const slides = document.querySelectorAll('.background-slide');
+    let current = 0;
+    setInterval(() => {
+      slides.forEach(slide => slide.classList.remove('visible'));
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('visible');
+    }, 15000);
 
+    const musicTracks = [
+      { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+      { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+      { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+    ];
+    let musicIndex = 0;
+    const musicAudio = document.getElementById("musicAudio");
+    const atmosAudio = document.getElementById("atmosAudio");
 
-
-<script>
-  const musicTracks = [
-    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-  ];
-  let musicIndex = 0;
-  const musicAudio = document.getElementById("musicAudio");
-  const atmosAudio = document.getElementById("atmosAudio");
-
-  function playMusic() {
-    if (musicTracks[musicIndex]) {
+    function playMusic() {
       pauseOther('music');
       musicAudio.src = musicTracks[musicIndex].file;
       musicAudio.play();
     }
-  }
 
-  function pauseMusic() {
-    musicAudio.pause();
-  }
-
-  function nextTrack() {
-    musicIndex = (musicIndex + 1) % musicTracks.length;
-    playMusic();
-  }
-
-  function playAtmos() {
-    pauseOther('atmos');
-    atmosAudio.play();
-  }
-
-  function pauseAtmos() {
-    atmosAudio.pause();
-  }
-
-  function pauseOther(current) {
-    if (current !== 'music') {
+    function pauseMusic() {
       musicAudio.pause();
-      musicAudio.currentTime = 0;
     }
-    if (current !== 'atmos') {
+
+    function nextTrack() {
+      musicIndex = (musicIndex + 1) % musicTracks.length;
+      playMusic();
+    }
+
+    function playAtmos() {
+      pauseOther('atmos');
+      atmosAudio.play();
+    }
+
+    function pauseAtmos() {
       atmosAudio.pause();
-      atmosAudio.currentTime = 0;
     }
-  }
-</script>
 
-
-
+    function pauseOther(current) {
+      if (current !== 'music') {
+        musicAudio.pause();
+        musicAudio.currentTime = 0;
+      }
+      if (current !== 'atmos') {
+        atmosAudio.pause();
+        atmosAudio.currentTime = 0;
+      }
+    }
+  </script>
 </body>
 </html>
