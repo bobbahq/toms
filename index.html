@@ -323,80 +323,132 @@
   
 
 
+
 <script>
-function isMobile() {
-  return window.innerWidth <= 600;
-}
+  const musicTracks = [
+    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+  ];
+  let musicIndex = 0;
+  const musicAudio = document.getElementById("musicAudio");
+  const atmosAudio = document.getElementById("atmosAudio");
+  const nowPlaying = document.getElementById("nowPlaying");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const musicPlayer = document.getElementById("music-player");
-  const atmosPlayer = document.getElementById("atmos-player");
+  function playMusic() {
+    pauseOther('music');
+    musicAudio.src = musicTracks[musicIndex].file;
+    musicAudio.play();
+    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
+  }
 
-  if (!isMobile()) {
-    const screenW = window.innerWidth;
-    const screenH = window.innerHeight;
-    const sleeveHeight = 300;
-    const buffer = 80;
+  function pauseMusic() {
+    musicAudio.pause();
+  }
 
-    function getRandomPosition(existingRects = []) {
-      let x, y, tries = 0;
-      let width = 280, height = 120;
-      do {
-        x = Math.floor(screenW * 0.2 + Math.random() * screenW * 0.4);
-        y = Math.floor(screenH * 0.25 + Math.random() * screenH * 0.4);
-        var rect = { x, y, width, height };
-        tries++;
-      } while (
-        tries < 20 &&
-        (y < sleeveHeight + buffer || existingRects.some(r => Math.abs(x - r.x) < width && Math.abs(y - r.y) < height))
-      );
-      return { x, y };
+  function nextTrack() {
+    musicIndex = (musicIndex + 1) % musicTracks.length;
+    playMusic();
+  }
+
+  function playAtmos() {
+    pauseOther('atmos');
+    atmosAudio.play();
+  }
+
+  function pauseAtmos() {
+    atmosAudio.pause();
+  }
+
+  function pauseOther(current) {
+    if (current !== 'music') {
+      musicAudio.pause();
+      musicAudio.currentTime = 0;
+    }
+    if (current !== 'atmos') {
+      atmosAudio.pause();
+      atmosAudio.currentTime = 0;
+    }
+  }
+
+  musicAudio.addEventListener('ended', () => {
+    nextTrack();
+  });
+
+  // Position and drag setup
+  function isMobile() {
+    return window.innerWidth <= 600;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const musicPlayer = document.getElementById("music-player");
+    const atmosPlayer = document.getElementById("atmos-player");
+
+    if (!isMobile()) {
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+      const sleeveHeight = 300;
+      const buffer = 80;
+
+      function getRandomPosition(existingRects = []) {
+        let x, y, tries = 0;
+        let width = 280, height = 120;
+        do {
+          x = Math.floor(screenW * 0.2 + Math.random() * screenW * 0.4);
+          y = Math.floor(screenH * 0.25 + Math.random() * screenH * 0.4);
+          var rect = { x, y, width, height };
+          tries++;
+        } while (
+          tries < 20 &&
+          (y < sleeveHeight + buffer || existingRects.some(r => Math.abs(x - r.x) < width && Math.abs(y - r.y) < height))
+        );
+        return { x, y };
+      }
+
+      const pos1 = getRandomPosition();
+      const pos2 = getRandomPosition([pos1]);
+
+      musicPlayer.style.left = `${pos1.x}px`;
+      musicPlayer.style.top = `${pos1.y}px`;
+      musicPlayer.style.transform = "rotate(-3deg)";
+
+      atmosPlayer.style.left = `${pos2.x}px`;
+      atmosPlayer.style.top = `${pos2.y}px`;
+      atmosPlayer.style.transform = "rotate(3deg)";
     }
 
-    const pos1 = getRandomPosition();
-    const pos2 = getRandomPosition([pos1]);
+    // Desktop dragging
+    if (!isMobile()) {
+      const players = document.querySelectorAll('.mini-player');
+      players.forEach(player => {
+        const handle = player.querySelector('.handle');
+        let offsetX, offsetY, isDragging = false;
 
-    musicPlayer.style.left = `${pos1.x}px`;
-    musicPlayer.style.top = `${pos1.y}px`;
-    musicPlayer.style.transform = "rotate(-3deg)";
+        handle.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          offsetX = e.clientX - player.getBoundingClientRect().left;
+          offsetY = e.clientY - player.getBoundingClientRect().top;
+          player.classList.add('dragging');
 
-    atmosPlayer.style.left = `${pos2.x}px`;
-    atmosPlayer.style.top = `${pos2.y}px`;
-    atmosPlayer.style.transform = "rotate(3deg)";
-  }
+          function onMouseMove(e) {
+            if (!isDragging) return;
+            player.style.left = `${e.clientX - offsetX}px`;
+            player.style.top = `${e.clientY - offsetY}px`;
+          }
 
-  // Desktop dragging only
-  if (!isMobile()) {
-    const players = document.querySelectorAll('.mini-player');
-    players.forEach(player => {
-      const handle = player.querySelector('.handle');
-      let offsetX, offsetY, isDragging = false;
+          function onMouseUp() {
+            isDragging = false;
+            player.classList.remove('dragging');
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+          }
 
-      handle.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - player.getBoundingClientRect().left;
-        offsetY = e.clientY - player.getBoundingClientRect().top;
-        player.classList.add('dragging');
-
-        function onMouseMove(e) {
-          if (!isDragging) return;
-          player.style.left = `${e.clientX - offsetX}px`;
-          player.style.top = `${e.clientY - offsetY}px`;
-        }
-
-        function onMouseUp() {
-          isDragging = false;
-          player.classList.remove('dragging');
-          window.removeEventListener('mousemove', onMouseMove);
-          window.removeEventListener('mouseup', onMouseUp);
-        }
-
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mouseup', onMouseUp);
+          window.addEventListener('mousemove', onMouseMove);
+          window.addEventListener('mouseup', onMouseUp);
+        });
       });
-    });
-  }
-});
+    }
+  });
 </script>
 </body>
 
