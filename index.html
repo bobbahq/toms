@@ -13,22 +13,8 @@
       height: 100%;
       width: 100%;
       overflow: hidden;
-      background: black;
-      color: white;
-    }
-
-    .background-slideshow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      z-index: -1;
-      background-image: url('tom_of_finland.jpeg'); /* fallback */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 1s ease-in-out;
+      background: white;
+      color: black;
     }
 
     .mini-player {
@@ -188,8 +174,6 @@
 </head>
 <body>
 
-<div class="background-slideshow"></div>
-
 <div class="sleeve" id="sleeve">
   <div class="sleeve-content">
     <div class="info-line">Room name: <span>[18+] Tom's</span></div>
@@ -283,7 +267,6 @@
     const music = document.getElementById("music-player");
     const atmos = document.getElementById("atmos-player");
 
-    // Position players
     if (window.innerWidth > 600) {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -330,21 +313,6 @@
         });
       });
     }
-
-    // ⬇️ Background Slideshow (AFTER DOM is ready)
-    const backgrounds = ['tom_of_finland.jpeg', 'crotch.jpg', 'haring.jpg'];
-    let currentBackground = 0;
-    const bg = document.querySelector('.background-slideshow');
-
-    function changeBackground() {
-      const file = backgrounds[currentBackground];
-      console.log("Changing background to:", file);
-      bg.style.backgroundImage = `url('${file}')`;
-      currentBackground = (currentBackground + 1) % backgrounds.length;
-    }
-
-    changeBackground(); // initial load
-    setInterval(changeBackground, 10000); // every 10s
   });
 </script>
 </body>
