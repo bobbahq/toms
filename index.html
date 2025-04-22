@@ -277,6 +277,7 @@
   <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
   
+
 <script>
   const musicTracks = [
     { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
@@ -288,9 +289,11 @@
   const atmosAudio = document.getElementById("atmosAudio");
 
   function playMusic() {
-    pauseOther('music');
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
+    if (musicTracks[musicIndex]) {
+      pauseOther('music');
+      musicAudio.src = musicTracks[musicIndex].file;
+      musicAudio.play();
+    }
   }
 
   function pauseMusic() {
@@ -299,10 +302,7 @@
 
   function nextTrack() {
     musicIndex = (musicIndex + 1) % musicTracks.length;
-    musicAudio.pause();
-    musicAudio.currentTime = 0;
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
+    playMusic();
   }
 
   function playAtmos() {
@@ -325,6 +325,7 @@
     }
   }
 </script>
+
 
 
 <div class="mini-player" id="music-player">
@@ -348,6 +349,7 @@
 
 
 
+
 <script>
   const musicTracks = [
     { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
@@ -359,9 +361,11 @@
   const atmosAudio = document.getElementById("atmosAudio");
 
   function playMusic() {
-    pauseOther('music');
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
+    if (musicTracks[musicIndex]) {
+      pauseOther('music');
+      musicAudio.src = musicTracks[musicIndex].file;
+      musicAudio.play();
+    }
   }
 
   function pauseMusic() {
@@ -370,10 +374,7 @@
 
   function nextTrack() {
     musicIndex = (musicIndex + 1) % musicTracks.length;
-    musicAudio.pause();
-    musicAudio.currentTime = 0;
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
+    playMusic();
   }
 
   function playAtmos() {
@@ -396,6 +397,7 @@
     }
   }
 </script>
+
 
 
 </body>
