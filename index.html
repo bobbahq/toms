@@ -98,19 +98,19 @@
     }
 
     .flowing-warm {
-      background: linear-gradient(90deg, red, orange, gold, yellow, red);
+      background: linear-gradient(90deg, red, orange, gold, red);
       background-size: 300% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: flowingGradient 10s ease-in-out infinite;
+      animation: flowingGradient 12s ease-in-out infinite;
     }
 
     .flowing-cool {
-      background: linear-gradient(90deg, aqua, lightblue, violet, blue, aqua);
+      background: linear-gradient(90deg, aqua, lightblue, violet, aqua);
       background-size: 300% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: flowingGradient 10s ease-in-out infinite;
+      animation: flowingGradient 12s ease-in-out infinite;
     }
 
     /* Hover-only gradient for buttons and links */
@@ -197,9 +197,9 @@
   <div class="separator"></div>
   <div class="now-playing"><span id="nowPlayingScroll">Press PLAY to start</span></div>
   <div class="separator"></div>
-  <button><span>> PLAY</span></button>
-  <button><span>|| PAUSE</span></button>
-  <button><span>>> SKIP</span></button>
+  <button onclick="playMusic()"><span>> PLAY</span></button>
+  <button onclick="pauseMusic()"><span>|| PAUSE</span></button>
+  <button onclick="nextTrack()"><span>>> SKIP</span></button>
 </div>
 
 <div class="mini-player" id="atmos-player">
@@ -208,8 +208,8 @@
     <span class="handle">•••</span>
   </div>
   <div class="separator"></div>
-  <button><span>> PLAY</span></button>
-  <button><span>|| PAUSE</span></button>
+  <button onclick="playAtmos()"><span>> PLAY</span></button>
+  <button onclick="pauseAtmos()"><span>|| PAUSE</span></button>
 </div>
 
 <audio id="musicAudio" preload="auto"></audio>
