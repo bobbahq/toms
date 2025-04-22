@@ -110,6 +110,7 @@
     }
 
     .mini-player {
+  position: absolute;
       position: fixed;
       background: black;
       padding: 14px 20px;
@@ -277,7 +278,7 @@
 
   
 <div class="mini-player" id="atmos-player">
-  <div class="label cool" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span><span class="handle">•••</span>
+  <div class="label cool"><span class="handle">•••</span>
     <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
   </div>
   <div class="separator"></div>
@@ -290,7 +291,7 @@
 
   
 <div class="mini-player" id="music-player">
-  <div class="label warm" id="musicLabel"><span>M</span><span>U</span><span>S</span><span>I</span><span>C</span><span class="handle">•••</span>
+  <div class="label warm"><span class="handle">•••</span>
     <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
   </div>
   <div class="separator"></div>
@@ -370,6 +371,8 @@ musicAudio.addEventListener('ended', () => {
       function onMouseMove(e) {
         if (!isDragging) return;
         player.style.left = `${e.clientX - offsetX}px`;
+        player.style.top = `${e.clientY - offsetY}px`;
+        player.style.transform = 'rotate(0deg)';
         player.style.top = `${e.clientY - offsetY}px`;
         player.style.transform = 'rotate(0deg)'; // Remove tilt while dragging
       }
