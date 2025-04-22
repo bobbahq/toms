@@ -83,7 +83,7 @@
     }
 
     .scrolling {
-      animation: scroll-left 60s linear infinite;
+      animation: scroll-left 120s linear infinite;
     }
 
     @keyframes scroll-left {
@@ -221,7 +221,7 @@
       musicAudio.src = musicTracks[musicIndex].file;
       musicAudio.play();
       const trackTitle = musicTracks[musicIndex].title;
-      nowPlaying.innerHTML = `<span class="scrolling">${(trackTitle + '     ').repeat(20)}</span>`;
+      nowPlaying.innerHTML = `<span class=\"scrolling\">${(trackTitle + '     ').repeat(50)}</span>`;
     }
 
     function pauseMusic() {
