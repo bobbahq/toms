@@ -318,71 +318,115 @@
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
   
+
 <script>
-  const players = document.querySelectorAll('.mini-player');
-  players.forEach(player => {
-    const handle = player.querySelector('.handle');
-    let offsetX, offsetY, isDragging = false;
+  const musicTracks = [
+    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+  ];
+  let musicIndex = 0;
+  const musicAudio = document.getElementById("musicAudio");
+  const atmosAudio = document.getElementById("atmosAudio");
+  const nowPlaying = document.getElementById("nowPlaying");
 
-    handle.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - player.getBoundingClientRect().left;
-      offsetY = e.clientY - player.getBoundingClientRect().top;
-      player.classList.add('dragging');
+  function playMusic() {
+    pauseOther('music');
+    musicAudio.src = musicTracks[musicIndex].file;
+    musicAudio.play();
+    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
+  }
 
-      function onMouseMove(e) {
-        if (!isDragging) return;
-        player.style.left = `${e.clientX - offsetX}px`;
-        player.style.top = `${e.clientY - offsetY}px`;
-        player.style.transform = 'none';
-      }
+  function pauseMusic() {
+    musicAudio.pause();
+  }
 
-      function onMouseUp() {
-        isDragging = false;
-        player.classList.remove('dragging');
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      }
+  function nextTrack() {
+    musicIndex = (musicIndex + 1) % musicTracks.length;
+    playMusic();
+  }
 
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    });
+  function playAtmos() {
+    pauseOther('atmos');
+    atmosAudio.play();
+  }
+
+  function pauseAtmos() {
+    atmosAudio.pause();
+  }
+
+  function pauseOther(current) {
+    if (current !== 'music') {
+      musicAudio.pause();
+      musicAudio.currentTime = 0;
+    }
+    if (current !== 'atmos') {
+      atmosAudio.pause();
+      atmosAudio.currentTime = 0;
+    }
+  }
+
+  musicAudio.addEventListener('ended', () => {
+    nextTrack();
   });
 </script>
 
 
 
+
+
 <script>
-  const players = document.querySelectorAll('.mini-player');
-  players.forEach(player => {
-    const handle = player.querySelector('.handle');
-    let offsetX, offsetY, isDragging = false;
+  const musicTracks = [
+    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+  ];
+  let musicIndex = 0;
+  const musicAudio = document.getElementById("musicAudio");
+  const atmosAudio = document.getElementById("atmosAudio");
+  const nowPlaying = document.getElementById("nowPlaying");
 
-    handle.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - player.getBoundingClientRect().left;
-      offsetY = e.clientY - player.getBoundingClientRect().top;
-      player.classList.add('dragging');
+  function playMusic() {
+    pauseOther('music');
+    musicAudio.src = musicTracks[musicIndex].file;
+    musicAudio.play();
+    nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
+  }
 
-      function onMouseMove(e) {
-        if (!isDragging) return;
-        player.style.left = `${e.clientX - offsetX}px`;
-        player.style.top = `${e.clientY - offsetY}px`;
-        player.style.transform = 'none';
-      }
+  function pauseMusic() {
+    musicAudio.pause();
+  }
 
-      function onMouseUp() {
-        isDragging = false;
-        player.classList.remove('dragging');
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      }
+  function nextTrack() {
+    musicIndex = (musicIndex + 1) % musicTracks.length;
+    playMusic();
+  }
 
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    });
+  function playAtmos() {
+    pauseOther('atmos');
+    atmosAudio.play();
+  }
+
+  function pauseAtmos() {
+    atmosAudio.pause();
+  }
+
+  function pauseOther(current) {
+    if (current !== 'music') {
+      musicAudio.pause();
+      musicAudio.currentTime = 0;
+    }
+    if (current !== 'atmos') {
+      atmosAudio.pause();
+      atmosAudio.currentTime = 0;
+    }
+  }
+
+  musicAudio.addEventListener('ended', () => {
+    nextTrack();
   });
 </script>
+
 
 
 </body>
