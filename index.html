@@ -91,7 +91,7 @@
 
     audio { display: none; }
 
-    /* Gradient Animation */
+    /* Gradient animation for always-on titles */
     @keyframes flowingGradient {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
@@ -99,20 +99,21 @@
 
     .flowing-warm {
       background: linear-gradient(90deg, red, orange, gold, yellow, red);
-      background-size: 400% 100%;
+      background-size: 300% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: flowingGradient 5s linear infinite;
+      animation: flowingGradient 10s ease-in-out infinite;
     }
 
     .flowing-cool {
-      background: linear-gradient(90deg, aqua, lightblue, blue, violet, aqua);
-      background-size: 400% 100%;
+      background: linear-gradient(90deg, aqua, lightblue, violet, blue, aqua);
+      background-size: 300% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: flowingGradient 5s linear infinite;
+      animation: flowingGradient 10s ease-in-out infinite;
     }
 
+    /* Hover-only gradient for buttons and links */
     button:hover span,
     .sleeve a:hover span {
       background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
@@ -190,13 +191,7 @@
 
 <div class="mini-player" id="music-player">
   <div class="label warm">
-    <span class="title">
-      <span class="flowing-warm">M</span>
-      <span class="flowing-warm">U</span>
-      <span class="flowing-warm">S</span>
-      <span class="flowing-warm">I</span>
-      <span class="flowing-warm">C</span>
-    </span>
+    <span class="title"><span class="flowing-warm">MUSIC</span></span>
     <span class="handle">•••</span>
   </div>
   <div class="separator"></div>
@@ -209,13 +204,7 @@
 
 <div class="mini-player" id="atmos-player">
   <div class="label cool">
-    <span class="title">
-      <span class="flowing-cool">A</span>
-      <span class="flowing-cool">T</span>
-      <span class="flowing-cool">M</span>
-      <span class="flowing-cool">O</span>
-      <span class="flowing-cool">S</span>
-    </span>
+    <span class="title"><span class="flowing-cool">ATMOS</span></span>
     <span class="handle">•••</span>
   </div>
   <div class="separator"></div>
