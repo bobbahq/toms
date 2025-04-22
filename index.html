@@ -194,6 +194,26 @@
       100% { color: aqua; }
     }
     body { background-color: white; }
+
+  .now-playing {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 18px;
+    padding-bottom: 6px;
+  }
+
+  .now-playing::after {
+    content: '';
+    display: inline-block;
+    padding-left: 100%;
+    animation: scrollText 10s linear infinite;
+  }
+
+  @keyframes scrollText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
 </style>
 </head>
 <body onload="document.getElementById('sleeve').classList.add('expanded')">
@@ -222,6 +242,7 @@
   <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
   <div class="mini-player" id="music-player">
+  <div class="now-playing" id="nowPlaying">Press PLAY to PLAY</div>
     <div class="label warm" id="musicLabel">
       <span>M</span><span>U</span><span>S</span><span>I</span><span>C</span>
     </div>
@@ -242,57 +263,55 @@
   <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
   <script>
-    // rotating background disabled
-    let current = 0;
-    setInterval(() => {
-      slides.forEach(slide => slide.classList.remove('visible'));
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('visible');
-    }, 15000);
+const musicTracks = [
+  { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
+  { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
+  { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
+];
+let musicIndex = 0;
+const musicAudio = document.getElementById("musicAudio");
+const atmosAudio = document.getElementById("atmosAudio");
+const nowPlaying = document.getElementById("nowPlaying");
 
-    const musicTracks = [
-      { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-      { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-      { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-    ];
-    let musicIndex = 0;
-    const musicAudio = document.getElementById("musicAudio");
-    const atmosAudio = document.getElementById("atmosAudio");
+function playMusic() {
+  pauseOther('music');
+  musicAudio.src = musicTracks[musicIndex].file;
+  musicAudio.play();
+  nowPlaying.textContent = musicTracks[musicIndex].title;
+}
 
-    function playMusic() {
-      pauseOther('music');
-      musicAudio.src = musicTracks[musicIndex].file;
-      musicAudio.play();
-    }
+function pauseMusic() {
+  musicAudio.pause();
+}
 
-    function pauseMusic() {
-      musicAudio.pause();
-    }
+function nextTrack() {
+  musicIndex = (musicIndex + 1) % musicTracks.length;
+  playMusic();
+}
 
-    function nextTrack() {
-      musicIndex = (musicIndex + 1) % musicTracks.length;
-      playMusic();
-    }
+function playAtmos() {
+  pauseOther('atmos');
+  atmosAudio.play();
+}
 
-    function playAtmos() {
-      pauseOther('atmos');
-      atmosAudio.play();
-    }
+function pauseAtmos() {
+  atmosAudio.pause();
+}
 
-    function pauseAtmos() {
-      atmosAudio.pause();
-    }
+function pauseOther(current) {
+  if (current !== 'music') {
+    musicAudio.pause();
+    musicAudio.currentTime = 0;
+  }
+  if (current !== 'atmos') {
+    atmosAudio.pause();
+    atmosAudio.currentTime = 0;
+  }
+}
 
-    function pauseOther(current) {
-      if (current !== 'music') {
-        musicAudio.pause();
-        musicAudio.currentTime = 0;
-      }
-      if (current !== 'atmos') {
-        atmosAudio.pause();
-        atmosAudio.currentTime = 0;
-      }
-    }
-  </script>
+musicAudio.addEventListener('ended', () => {
+  nextTrack();
+});
+</script>
 </body>
 </html>
