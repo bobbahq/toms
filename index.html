@@ -81,20 +81,6 @@
       padding: 6px 10px;
     }
 
-
-.gradient-text span {
-  animation: colorShiftCool 3s linear infinite;
-}
-
-
-@media (max-width: 600px) {
-  .footer {
-    position: fixed;
-    bottom: 6px;
-    width: 100%;
-  }
-}
-
 </style>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
@@ -207,7 +193,9 @@
       75% { color: violet; }
       100% { color: aqua; }
     }
-    
+    .shimmer {
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
   .gradient-text span {
   animation: colorShiftCool 3s linear infinite;
 }
@@ -220,20 +208,6 @@
       font-size: 16px;
       padding: 6px 10px;
     }
-
-
-.gradient-text span {
-  animation: colorShiftCool 3s linear infinite;
-}
-
-
-@media (max-width: 600px) {
-  .footer {
-    position: fixed;
-    bottom: 6px;
-    width: 100%;
-  }
-}
 
 </style>
 </head>
@@ -329,16 +303,34 @@
 
     loadTrack(musicIndex);
 
-        
+    function randomShimmer() {
+      const buttons = document.querySelectorAll('.btn-play, .btn-pause, .btn-skip');
+      buttons.forEach(btn => btn.classList.remove('shimmer'));
+      const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
+      randomButton.classList.add('shimmer');
+    }
+    setInterval(randomShimmer, 5000);
+  </script>
+</body>
+
+  <script>
+    // Background slideshow
+    const slides = document.querySelectorAll('.background-slide');
+    let current = 0;
+    setInterval(() => {
+      slides.forEach(slide => slide.classList.remove('visible'));
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('visible');
+    }, 15000);
+
+    // Ensure the sleeve expands on click
+    document.addEventListener('DOMContentLoaded', () => {
+      const sleeve = document.getElementById('sleeve');
+      sleeve.addEventListener('click', () => {
+        sleeve.classList.toggle('expanded');
+      });
     });
-  
-document.addEventListener('DOMContentLoaded', () => {
-  const sleeve = document.getElementById('sleeve');
-  sleeve.addEventListener('click', () => {
-    sleeve.classList.toggle('expanded');
-  });
-});
-</script>
+  </script>
 </html>
   <div class="sleeve expanded" id="sleeve">
     <div class="sleeve-content">
@@ -358,17 +350,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
   <div class="mini-player" id="atmos">
-    
-
-<div class="label gradient-text" id="atmosLabel">
-  <span style="animation: colorShiftCool 3s linear infinite;">A</span>
-  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.15s;">T</span>
-  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.3s;">M</span>
-  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.45s;">O</span>
-  <span style="animation: colorShiftCool 3s linear infinite; animation-delay: 0.6s;">S</span>
-</div>
-
-
+    <div class="label gradient-text" id="atmosLabel">
+      <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span>
+    </div>
     <button class="btn-play" onclick="playAtmos()">> PLAY</button>
     <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
