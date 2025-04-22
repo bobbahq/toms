@@ -111,6 +111,9 @@
 
     .mini-player {
   position: absolute;
+  transition: left 0.3s, top 0.3s;
+  will-change: transform;
+  position: absolute;
   min-width: 200px;
   max-width: 300px;
   resize: none;
@@ -326,15 +329,71 @@ function isMobile() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const musicPlayer = document.getElementById("music-player");
+  const atmosPlayer = document.getElementById("atmos-player");
+
+  if (!isMobile()) {
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+    const sleeveHeight = 300;
+    const buffer = 80;
+
+    function getRandomPosition(existingRects = []) {
+      let x, y, tries = 0;
+      let width = 280, height = 120;
+      do {
+        x = Math.floor(screenW * 0.2 + Math.random() * screenW * 0.4);
+        y = Math.floor(screenH * 0.25 + Math.random() * screenH * 0.4);
+        var rect = { x, y, width, height };
+        tries++;
+      } while (
+        tries < 20 &&
+        (y < sleeveHeight + buffer || existingRects.some(r => Math.abs(x - r.x) < width && Math.abs(y - r.y) < height))
+      );
+      return { x, y };
+    }
+
+    const pos1 = getRandomPosition();
+    const pos2 = getRandomPosition([pos1]);
+
+    musicPlayer.style.left = `${pos1.x}px`;
+    musicPlayer.style.top = `${pos1.y}px`;
+    musicPlayer.style.transform = "rotate(-3deg)";
+
+    atmosPlayer.style.left = `${pos2.x}px`;
+    atmosPlayer.style.top = `${pos2.y}px`;
+    atmosPlayer.style.transform = "rotate(3deg)";
+  }
+
+  // Desktop dragging only
   if (!isMobile()) {
     const players = document.querySelectorAll('.mini-player');
     players.forEach(player => {
-      const pageWidth = window.innerWidth;
-      const pageHeight = window.innerHeight;
-      const randLeft = Math.floor(pageWidth * 0.3 + Math.random() * pageWidth * 0.4);
-      const randTop = Math.floor(pageHeight * 0.2 + Math.random() * pageHeight * 0.3);
-      player.style.left = `${randLeft}px`;
-      player.style.top = `${randTop}px`;
+      const handle = player.querySelector('.handle');
+      let offsetX, offsetY, isDragging = false;
+
+      handle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - player.getBoundingClientRect().left;
+        offsetY = e.clientY - player.getBoundingClientRect().top;
+        player.classList.add('dragging');
+
+        function onMouseMove(e) {
+          if (!isDragging) return;
+          player.style.left = `${e.clientX - offsetX}px`;
+          player.style.top = `${e.clientY - offsetY}px`;
+        }
+
+        function onMouseUp() {
+          isDragging = false;
+          player.classList.remove('dragging');
+          window.removeEventListener('mousemove', onMouseMove);
+          window.removeEventListener('mouseup', onMouseUp);
+        }
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      });
     });
   }
 });
