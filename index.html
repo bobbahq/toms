@@ -179,12 +179,6 @@
     <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
   </div>
 
-  <div class="mini-player" id="atmos">
-    <div class="label" id="atmosLabel"></div>
-    <button class="btn-play" onclick="playAtmos()">> PLAY</button>
-    <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
-    <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
-  </div>
 
   <div class="mini-player" id="music">
     <div class="label" id="musicLabel"></div>
@@ -207,28 +201,19 @@
         el.appendChild(span);
       });
     }
-    animateLabel('ATMOS', 'atmosLabel', 'colorShiftCool');
+    
     animateLabel('MUSIC', 'musicLabel', 'colorShiftWarm');
 
-    const atmosAudio = document.getElementById('atmosAudio');
-    const musicAudio = document.getElementById('musicAudio');
+        const musicAudio = document.getElementById('musicAudio');
     const nowPlaying = document.getElementById("nowPlaying");
 
     function pauseOther(current) {
-      if (current !== 'atmos') {
-        atmosAudio.pause(); atmosAudio.currentTime = 0;
-      }
+      
       if (current !== 'music') {
         musicAudio.pause(); musicAudio.currentTime = 0;
       }
     }
-    function playAtmos() {
-      pauseOther('atmos'); atmosAudio.play();
-    }
-    function pauseAtmos() {
-      atmosAudio.pause();
-    }
-
+    
     const musicTracks = [
       { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
       { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
