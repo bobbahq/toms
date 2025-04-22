@@ -66,7 +66,7 @@
       bottom: 130px;
       left: 50%;
       transform: translateX(-115%) rotate(3deg);
-      width: 160px;
+      width: 136px;
       font-size: 16px;
       padding: 6px 10px;
     }
@@ -132,6 +132,7 @@
     }
 
     .mini-player .label span {
+      animation-name: colorShiftCool;
       font-size: 24px;
       display: inline-block;
       animation: shimmerColor 3s linear infinite;
@@ -185,7 +186,7 @@
       bottom: 130px;
       left: 50%;
       transform: translateX(-115%) rotate(3deg);
-      width: 160px;
+      width: 136px;
       font-size: 16px;
       padding: 6px 10px;
     }
@@ -330,7 +331,7 @@
 
   
   <div class="mini-player" id="atmos">
-    <div class="label gradient-text" id="atmosLabel">ATMOS</div>
+    <div class="label gradient-text" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
     <button class="btn-play" onclick="playAtmos()">> PLAY</button>
     <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
