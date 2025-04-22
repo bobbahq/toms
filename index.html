@@ -220,6 +220,7 @@
       pauseOther('music');
       musicAudio.src = musicTracks[musicIndex].file;
       musicAudio.play();
+      
       const trackTitle = musicTracks[musicIndex].title;
       nowPlaying.innerHTML = `<span class=\"scrolling\">${(trackTitle + '     ').repeat(50)}</span>`;
     }
