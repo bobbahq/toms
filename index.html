@@ -185,7 +185,6 @@
       <span class="handle">•••</span>
     </div>
     <div class="separator"></div>
-    <div class="now-playing" id="nowPlayingScroll"><span>Press PLAY to start</span></div>
     <div class="separator"></div>
     <button onclick="playMusic()"><span>> PLAY</span></button>
     <button onclick="pauseMusic()"><span>|| PAUSE</span></button>
@@ -214,21 +213,17 @@
     let musicIndex = 0;
     const musicAudio = document.getElementById("musicAudio");
     const atmosAudio = document.getElementById("atmosAudio");
-    const nowPlaying = document.getElementById("nowPlayingScroll");
-
+    
     function playMusic() {
       pauseOther('music');
       musicAudio.src = musicTracks[musicIndex].file;
       musicAudio.play();
       
-      const trackTitle = musicTracks[musicIndex].title;
-      nowPlaying.innerHTML = `<span class=\"scrolling\">${(trackTitle + '     ').repeat(50)}</span>`;
-    }
+          }
 
     function pauseMusic() {
       musicAudio.pause();
-      nowPlaying.innerHTML = "<span>Press PLAY to start</span>";
-    }
+          }
 
     function nextTrack() {
       musicIndex = (musicIndex + 1) % musicTracks.length;
