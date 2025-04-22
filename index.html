@@ -24,7 +24,7 @@
       height: 100vh;
       width: 100vw;
       z-index: -1;
-      background-image: url('tom_of_finland.jpeg');
+      background-image: url('tom_of_finland.jpeg'); /* fallback */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -188,13 +188,8 @@
 </head>
 <body>
 
-<!-- DEBUG: visible test image -->
-<img src="tom_of_finland.jpeg" style="position:fixed;top:0;left:0;width:150px;z-index:9999;border:2px solid red;" />
-
-<!-- background slideshow -->
 <div class="background-slideshow"></div>
 
-<!-- sleeve -->
 <div class="sleeve" id="sleeve">
   <div class="sleeve-content">
     <div class="info-line">Room name: <span>[18+] Tom's</span></div>
@@ -208,7 +203,6 @@
   </div>
 </div>
 
-<!-- music player -->
 <div class="mini-player" id="music-player">
   <div class="label warm">
     <span class="title"><span class="flowing-warm">MUSIC</span></span>
@@ -222,7 +216,6 @@
   <button onclick="nextTrack()"><span>>> SKIP</span></button>
 </div>
 
-<!-- atmos player -->
 <div class="mini-player" id="atmos-player">
   <div class="label cool">
     <span class="title"><span class="flowing-cool">ATMOS</span></span>
@@ -233,7 +226,6 @@
   <button onclick="pauseAtmos()"><span>|| PAUSE</span></button>
 </div>
 
-<!-- audio players -->
 <audio id="musicAudio" preload="auto"></audio>
 <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
 
@@ -287,11 +279,11 @@
     nextTrack();
   });
 
-  // draggable player behavior
   document.addEventListener('DOMContentLoaded', () => {
     const music = document.getElementById("music-player");
     const atmos = document.getElementById("atmos-player");
 
+    // Position players
     if (window.innerWidth > 600) {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -331,31 +323,29 @@
         });
 
         document.addEventListener('mouseup', () => {
-          if (isDragging) {
-            if (player.dataset.tilt) {
-              player.style.transform = `rotate(${player.dataset.tilt})`;
-            }
+          if (isDragging && player.dataset.tilt) {
+            player.style.transform = `rotate(${player.dataset.tilt})`;
           }
           isDragging = false;
         });
       });
     }
+
+    // ⬇️ Background Slideshow (AFTER DOM is ready)
+    const backgrounds = ['tom_of_finland.jpeg', 'crotch.jpg', 'haring.jpg'];
+    let currentBackground = 0;
+    const bg = document.querySelector('.background-slideshow');
+
+    function changeBackground() {
+      const file = backgrounds[currentBackground];
+      console.log("Changing background to:", file);
+      bg.style.backgroundImage = `url('${file}')`;
+      currentBackground = (currentBackground + 1) % backgrounds.length;
+    }
+
+    changeBackground(); // initial load
+    setInterval(changeBackground, 10000); // every 10s
   });
-
-  // Background image slideshow
-  const backgrounds = ['tom_of_finland.jpeg', 'crotch.jpg', 'haring.jpg'];
-  let currentBackground = 0;
-  const bg = document.querySelector('.background-slideshow');
-
-  function changeBackground() {
-    const file = backgrounds[currentBackground];
-    console.log("Changing background to:", file); // DEBUG
-    bg.style.backgroundImage = `url('${file}')`;
-    currentBackground = (currentBackground + 1) % backgrounds.length;
-  }
-
-  changeBackground();
-  setInterval(changeBackground, 10000);
 </script>
 </body>
 </html>
