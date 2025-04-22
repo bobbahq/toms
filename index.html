@@ -1,13 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tom's</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'VT323', monospace;
+      color: white;
+    }
+
+    .background-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .background-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .background-slide.visible {
+      opacity: 1;
+    }
+
     .sleeve {
       position: fixed;
-      top: -190px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 90vw;
@@ -16,14 +51,15 @@
       border-bottom-left-radius: 24px;
       border-bottom-right-radius: 24px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      cursor: grab;
       z-index: 1000;
       transition: top 0.3s ease;
       overflow: hidden;
     }
+
     .sleeve.expanded {
       top: 0;
     }
+
     .sleeve-content {
       padding: 40px 30px 20px 30px;
       display: flex;
@@ -31,1040 +67,59 @@
       align-items: center;
       gap: 14px;
     }
+
     .info-line {
       width: 100%;
       font-size: 20px;
     }
+
     .info-line span {
       display: inline-block;
       border-bottom: 2px solid white;
       padding: 0 6px;
       min-width: 150px;
     }
+
     .info-line a {
       color: white;
       text-decoration: underline;
     }
+
     .logo {
       margin-top: 17px;
       max-width: 70%;
       height: 80px;
       object-fit: contain;
     }
-    @media (max-width: 600px) {
-  .footer {
-    bottom: 10px;
-  }
-}
 
-.footer {
+    .footer {
       position: absolute;
       bottom: 20px;
       width: 100%;
       text-align: center;
       font-size: 20px;
     }
+
     .footer a {
       color: white;
       text-decoration: underline;
     }
-  .gradient-text span {
-  animation: colorShiftCool 3s linear infinite;
-}
 
-#atmos {
-      bottom: 130px;
-      left: 50%;
-      transform: translateX(-65%) rotate(3deg);
-      width: 136px;
-      font-size: 16px;
-      padding: 6px 10px;
+    @media (max-width: 600px) {
+      .footer {
+        position: fixed;
+        bottom: 6px;
+      }
     }
-
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      min-height: 100vh;
-      width: 100%;
-      overflow: hidden;
-      font-family: 'VT323', monospace;
-      color: white;
-    }
-    .background-wrapper {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-    }
-    .background-slide {
-      position: absolute;
-      width: 100%; height: 100%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-    }
-    .background-slide.visible { opacity: 1; }
-
-    .mini-player {
-      position: fixed;
-      background: black;
-      padding: 10px 16px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      font-family: 'VT323', monospace;
-      font-size: 18px;
-      z-index: 1001;
-      box-sizing: border-box;
-      overflow: hidden;
-      min-width: 240px;
-      max-width: 320px;
-    }
-    .gradient-text span {
-  animation: colorShiftCool 3s linear infinite;
-}
-
-#atmos {
-      width: 100px;
-      bottom: 210px;
-      left: 50%;
-      transform: translateX(-90%) rotate(-4deg);
-      font-size: 15px;
-      padding: 8px 12px;
-      width: 320px;
-    }
-    #music {
-      min-width: 240px;
-      max-width: 320px;
-      width: 256px;
-      bottom: 210px;
-      left: 50%;
-      transform: translateX(-15%) rotate(3deg);
-    }
-
-    .mini-player .label span {
-      animation-name: colorShiftCool;
-      font-size: 24px;
-      display: inline-block;
-      animation: shimmerColor 3s linear infinite;
-    }
-    .now-playing {
-      display: inline-block;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      margin: 4px 0;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 320px;
-      animation: scroll-text 8s linear infinite;
-    }
-    button {
-      background: none;
-      border: none;
-      color: white;
-      font-family: 'VT323', monospace;
-      font-size: 18px;
-      margin: 0 4px;
-      cursor: pointer;
-    }
-    @keyframes scroll-text {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    @keyframes shimmer {
-      0% { text-shadow: 0 0 0 white; }
-      50% { text-shadow: 0 0 8px white; }
-      100% { text-shadow: 0 0 0 white; }
-    }
-    @keyframes colorShiftWarm {
-      0% { color: red; }
-      25% { color: orange; }
-      50% { color: hotpink; }
-      75% { color: yellow; }
-      100% { color: red; }
-    }
-    @keyframes colorShiftCool {
-      0% { color: aqua; }
-      25% { color: mediumseagreen; }
-      50% { color: royalblue; }
-      75% { color: violet; }
-      100% { color: aqua; }
-    }
-    .shimmer {
-      animation: shimmer 1.5s ease-in-out infinite;
-    }
-  .gradient-text span {
-  animation: colorShiftCool 3s linear infinite;
-}
-
-#atmos {
-      bottom: 130px;
-      left: 50%;
-      transform: translateX(-65%) rotate(3deg);
-      width: 136px;
-      font-size: 16px;
-      padding: 6px 10px;
-    }
-
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-<style>
-  .mini-player {
-    position: fixed;
-    background: black;
-    padding: 10px 14px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    font-family: 'VT323', monospace;
-    color: white;
-    font-size: 18px;
-    z-index: 1001;
-    user-select: none;
-  }
-  #music-player {
-    bottom: 200px;
-    left: 50%;
-    transform: translateX(-60%) rotate(-3deg);
-  }
-  #atmos-player {
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-30%) rotate(3deg);
-  }
-  .mini-player .label {
-    font-size: 22px;
-    margin-bottom: 6px;
-    font-weight: bold;
-  }
-  .mini-player button {
-    background: none;
-    border: none;
-    color: white;
-    font-family: 'VT323', monospace;
-    font-size: 18px;
-    margin: 2px 6px;
-    cursor: pointer;
-  }
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  @keyframes colorShiftWarm {
-    0% { color: red; }
-    25% { color: hotpink; }
-    50% { color: orange; }
-    75% { color: yellow; }
-    100% { color: red; }
-  }
-
-  @keyframes colorShiftCool {
-    0% { color: aqua; }
-    25% { color: mediumseagreen; }
-    50% { color: royalblue; }
-    75% { color: violet; }
-    100% { color: aqua; }
-  }
-
-  .warm-animated span {
-    display: inline-block;
-    animation: colorShiftWarm 3s linear infinite;
-  }
-
-  .cool-animated span {
-    display: inline-block;
-    animation: colorShiftCool 3s linear infinite;
-  }
-
-  .mini-player button:hover {
-    animation: colorShiftCool 2s linear infinite;
-  }
-
-  #music-player button:hover {
-    animation-name: colorShiftWarm;
-  }
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
-
-<style>
-  .background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  .background-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
-  }
-
-  .background-slide.visible {
-    opacity: 1;
-  }
-</style>
-
-</style>
-
+  </style>
 </head>
 <body>
   <div class="background-wrapper">
-    
-    
-    
+    <div class="background-slide visible" style="background-image: url('https://via.placeholder.com/800x600/111111/ffffff?text=Background+1');"></div>
+    <div class="background-slide" style="background-image: url('https://via.placeholder.com/800x600/222222/ffffff?text=Background+2');"></div>
+    <div class="background-slide" style="background-image: url('https://via.placeholder.com/800x600/333333/ffffff?text=Background+3');"></div>
   </div>
 
-  
-  </div>
-
-  
-    
-    
-  </div>
-
-  <script>
-    function animateLabel(text, id, animation) {
-      const el = document.getElementById(id);
-      el.innerHTML = '';
-      [...text].forEach((char, i) => {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.style.animation = `${animation} 3s linear infinite`;
-        span.style.animationDelay = `${i * 0.15}s`;
-        el.appendChild(span);
-      });
-    }
-    animateLabel('MUSIC', 'musicLabel', 'colorShiftWarm');
-
-    
-    const atmosAudio = document.getElementById('atmosAudio');
-    function playAtmos() {
-      pauseOther('atmos');
-      atmosAudio.play();
-    }
-    function pauseAtmos() {
-      atmosAudio.pause();
-    }
-
-
-    const musicAudio = document.getElementById('musicAudio');
-    const nowPlaying = document.getElementById("nowPlaying");
-
-    
-    }
-    
-      playMusic();
-    }
-
-    setInterval(() => {
-      if (musicAudio.paused && !musicAudio.currentTime) {
-        nowPlaying.textContent = 'Press PLAY to PLAY';
-      }
-    }, 500);
-
-    loadTrack(musicIndex);
-
-    function randomShimmer() {
-      const buttons = document.querySelectorAll('.btn-play, .btn-pause, .btn-skip');
-      buttons.forEach(btn => btn.classList.remove('shimmer'));
-      const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
-      randomButton.classList.add('shimmer');
-    }
-    setInterval(randomShimmer, 5000);
-  </script>
-
-<div class="mini-player" id="music-player">
-  <div class="label warm-animated" id="musicLabel"><span style="animation-delay: 0.0s;">M</span><span style="animation-delay: 0.2s;">U</span><span style="animation-delay: 0.4s;">S</span><span style="animation-delay: 0.6000000000000001s;">I</span><span style="animation-delay: 0.8s;">C</span></div>
-  <button onclick="playMusic()">> PLAY</button>
-  <button onclick="pauseMusic()">|| PAUSE</button>
-  <button onclick="nextTrack()">>> SKIP</button>
-  <audio id="musicAudio" preload="auto"></audio>
-</div>
-
-<div class="mini-player" id="atmos-player">
-  <div class="label cool-animated" id="atmosLabel"><span style="animation-delay: 0.0s;">A</span><span style="animation-delay: 0.2s;">T</span><span style="animation-delay: 0.4s;">M</span><span style="animation-delay: 0.6000000000000001s;">O</span><span style="animation-delay: 0.8s;">S</span></div>
-  <button onclick="playAtmos()">> PLAY</button>
-  <button onclick="pauseAtmos()">|| PAUSE</button>
-  <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
-</div>
-
-
-<script>
-  const musicTracks = [
-    { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
-    { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
-    { title: "SOPHIE - VYZEE", file: "vy-bf-3.mp3" }
-  ];
-  let musicIndex = 0;
-  const musicAudio = document.getElementById("musicAudio");
-  const atmosAudio = document.getElementById("atmosAudio");
-
-  function playMusic() {
-    pauseOther('music');
-    musicAudio.src = musicTracks[musicIndex].file;
-    musicAudio.play();
-  }
-  function pauseMusic() {
-    musicAudio.pause();
-  }
-  function nextTrack() {
-    musicIndex = (musicIndex + 1) % musicTracks.length;
-    playMusic();
-  }
-
-  function playAtmos() {
-    pauseOther('atmos');
-    atmosAudio.play();
-  }
-  function pauseAtmos() {
-    atmosAudio.pause();
-  }
-
-  function pauseOther(current) {
-    if (current !== 'music') {
-      musicAudio.pause();
-      musicAudio.currentTime = 0;
-    }
-    if (current !== 'atmos') {
-      atmosAudio.pause();
-      atmosAudio.currentTime = 0;
-    }
-  }
-</script>
-
-
-<script>
-  const slides = document.querySelectorAll('.background-slide');
-  let current = 0;
-  setInterval(() => {
-    slides.forEach(slide => slide.classList.remove('visible'));
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('visible');
-  }, 15000);
-</script>
-
-</body>
-
-  <script>
-    // Background slideshow
-    const slides = document.querySelectorAll('.background-slide');
-    let current = 0;
-    setInterval(() => {
-      slides.forEach(slide => slide.classList.remove('visible'));
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('visible');
-    }, 15000);
-
-    // Ensure the sleeve expands on click
-    document.addEventListener('DOMContentLoaded', () => {
-      const sleeve = document.getElementById('sleeve');
-      sleeve.addEventListener('click', () => {
-        sleeve.classList.toggle('expanded');
-      });
-    });
-  </script>
-</html>
   <div class="sleeve expanded" id="sleeve">
     <div class="sleeve-content">
       <div class="info-line">Room name: <span>[18+] Tom's</span></div>
@@ -1080,18 +135,23 @@
     </div>
   </div>
 
-  
-  
-  
-  
-    
-  </div>
+  <div class="footer">powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a></div>
 
+  <script>
+    const slides = document.querySelectorAll('.background-slide');
+    let current = 0;
+    setInterval(() => {
+      slides.forEach(slide => slide.classList.remove('visible'));
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('visible');
+    }, 15000);
 
-    <span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
-    
-  </div>
-
-  <div class="footer">
-    powered by <a href="https://www.bobba.fm" target="_blank">bobba fm</a>
-  </div>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sleeve = document.getElementById('sleeve');
+      sleeve.addEventListener('click', () => {
+        sleeve.classList.toggle('expanded');
+      });
+    });
+  </script>
+</body>
+</html>
