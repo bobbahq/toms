@@ -63,8 +63,8 @@
       text-decoration: underline;
     }
   .gradient-text span {
-      animation: colorShiftCool 3s linear infinite;
-    }
+  animation: colorShiftCool 3s linear infinite;
+}
 
 #atmos {
       bottom: 130px;
@@ -118,8 +118,8 @@
       max-width: 320px;
     }
     .gradient-text span {
-      animation: colorShiftCool 3s linear infinite;
-    }
+  animation: colorShiftCool 3s linear infinite;
+}
 
 #atmos {
       width: 100px;
@@ -136,7 +136,7 @@
       width: 256px;
       bottom: 210px;
       left: 50%;
-      transform: translateX(-15%) rotate(-3deg);
+      transform: translateX(-15%) rotate(3deg);
     }
 
     .mini-player .label span {
@@ -191,8 +191,8 @@
       animation: shimmer 1.5s ease-in-out infinite;
     }
   .gradient-text span {
-      animation: colorShiftCool 3s linear infinite;
-    }
+  animation: colorShiftCool 3s linear infinite;
+}
 
 #atmos {
       bottom: 130px;
@@ -343,7 +343,10 @@
 
   
   <div class="mini-player" id="atmos">
-    <div class="label gradient-text" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
+    <div class="label gradient-text" id="atmosLabel"><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
+    <button class="btn-play" onclick="playAtmos()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
+    <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio><span>A</span><span>T</span><span>M</span><span>O</span><span>S</span></div>
     <button class="btn-play" onclick="playAtmos()">> PLAY</button>
     <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
     <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
