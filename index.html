@@ -9,11 +9,28 @@
     html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      width: 100%;
       font-family: 'VT323', monospace;
+      overflow: hidden;
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
+
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="bg_loop_1.mp4" type="video/mp4">
+  </video>
 
 </body>
 </html>
