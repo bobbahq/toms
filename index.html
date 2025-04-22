@@ -298,7 +298,7 @@ function playMusic() {
   pauseOther('music');
   musicAudio.src = musicTracks[musicIndex].file;
   musicAudio.play();
-  nowPlaying.textContent = musicTracks[musicIndex].title;
+  nowPlaying.innerHTML = `<span>${musicTracks[musicIndex].title}</span>`;
 }
 
 function pauseMusic() {
