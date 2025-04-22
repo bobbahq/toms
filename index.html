@@ -62,7 +62,16 @@
       color: white;
       text-decoration: underline;
     }
-  </style>
+  #atmos {
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 160px;
+      font-size: 16px;
+      padding: 6px 10px;
+    }
+
+</style>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -114,6 +123,8 @@
       width: 320px;
     }
     #music {
+      min-width: 240px;
+      max-width: 320px;
       width: 256px;
       bottom: 210px;
       left: 50%;
@@ -170,7 +181,16 @@
     .shimmer {
       animation: shimmer 1.5s ease-in-out infinite;
     }
-  </style>
+  #atmos {
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 160px;
+      font-size: 16px;
+      padding: 6px 10px;
+    }
+
+</style>
 </head>
 <body>
   <div class="background-wrapper">
@@ -179,6 +199,10 @@
     <div class="background-slide" style="background-image: url('./haring.jpg');"></div>
   </div>
 
+  <button class="btn-play" onclick="playAtmos()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
+    <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
+  </div>
 
   <div class="mini-player" id="music">
     <div class="label" id="musicLabel"></div>
@@ -201,10 +225,20 @@
         el.appendChild(span);
       });
     }
-    
     animateLabel('MUSIC', 'musicLabel', 'colorShiftWarm');
 
-        const musicAudio = document.getElementById('musicAudio');
+    animateLabel('ATMOS', 'atmosLabel', 'colorShiftCool');
+    const atmosAudio = document.getElementById('atmosAudio');
+    function playAtmos() {
+      pauseOther('atmos');
+      atmosAudio.play();
+    }
+    function pauseAtmos() {
+      atmosAudio.pause();
+    }
+
+
+    const musicAudio = document.getElementById('musicAudio');
     const nowPlaying = document.getElementById("nowPlaying");
 
     function pauseOther(current) {
@@ -213,7 +247,6 @@
         musicAudio.pause(); musicAudio.currentTime = 0;
       }
     }
-    
     const musicTracks = [
       { title: "Selena Gomez, benny blanco - Bluest Flame", file: "bf-toms-1.mp3" },
       { title: "Addison Rae, Arca - Aquamarine / Arcamarine", file: "aa-bf-2.mp3" },
@@ -293,6 +326,14 @@
       </div>
       <img src="./logo.png" alt="Tom's logo" class="logo" />
     </div>
+  </div>
+
+  
+  <div class="mini-player" id="atmos">
+    <div class="label" id="atmosLabel"></div>
+    <button class="btn-play" onclick="playAtmos()">> PLAY</button>
+    <button class="btn-pause" onclick="pauseAtmos()">|| PAUSE</button>
+    <audio id="atmosAudio" src="atmos_toms.mp3" preload="auto"></audio>
   </div>
 
   <div class="footer">
