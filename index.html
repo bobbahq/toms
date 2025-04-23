@@ -16,7 +16,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: url('BACKGROUND_IMAGE_URL') center/cover no-repeat;
+      background: url('https://mjtrends.b-cdn.net/images/product/1067/shiny-black-latex-sheeting_924x699.jpg') center/cover no-repeat;
       font-family: 'VT323', monospace;
       position: relative;
     }
@@ -80,10 +80,14 @@
     .widget {
       position: absolute;
       z-index: 2;
-      background: rgba(255,255,255,0.85);
+      background: white;
       padding: 1rem;
       border: 2px solid black;
+      box-shadow: 2px 2px 0 black;
       cursor: move;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: transform 0.1s ease;
     }
 
     .lang-toggle {
