@@ -2,175 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Tom's — bobba FM</title>
+  <title>bobba.fm</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: url('https://mjtrends.b-cdn.net/images/product/1067/shiny-black-latex-sheeting_924x699.jpg') center/cover no-repeat;
-      font-family: 'VT323', monospace;
-      position: relative;
-    }
-
-    .box-wrapper {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: black;
-      color: white;
-      padding: 2.5rem 2.2rem;
-      border: 2px solid black;
+      margin: 0;
+      background: url('background.jpg') center/cover no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1;
-      animation: boxRotate 4s ease-in-out infinite alternate;
+      height: 100vh;
+      font-family: sans-serif;
     }
 
-    @keyframes boxRotate {
-      0% { transform: translate(-50%, -50%) rotate(-2deg); }
-      100% { transform: translate(-50%, -50%) rotate(2deg); }
+    .box-wrapper {
+      position: relative;
+      display: inline-block;
+      background: black;
+      transform: rotate(-12deg);
+      padding: 1.2rem 0.8rem 0.8rem 1.4rem;
     }
 
     .symbol-container {
-      font-size: 3rem;
-      letter-spacing: 0.2rem;
       display: flex;
-      gap: 0.1em;
+      font-size: 4rem;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
     }
 
     .symbol {
-      animation: flicker 2s infinite;
-    }
-
-    .symbol:nth-child(2) { animation-delay: 0.2s; }
-    .symbol:nth-child(3) { animation-delay: 0.4s; }
-    .symbol:nth-child(4) { animation-delay: 0.6s; }
-    .symbol:nth-child(5) { animation-delay: 0.8s; }
-
-    @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.3;
-      }
+      display: inline-block;
     }
 
     .fm-tiny {
       position: absolute;
-      bottom: 4px;
-      right: 6px;
-      font-size: 0.6rem;
-      letter-spacing: 0.1rem;
-      color: white;
-      font-style: normal;
-    }
-
-    .widget {
-      position: absolute;
-      z-index: 2;
-      background: white;
-      padding: 1rem;
-      border: 2px solid black;
-      box-shadow: 2px 2px 0 black;
-      cursor: move;
-      border-radius: 8px;
+      top: -0.1rem;
+      right: -2rem;
       font-size: 1.1rem;
-      transition: transform 0.1s ease;
-    }
-
-    .lang-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      gap: 0.5rem;
-      z-index: 3;
-    }
-
-    .lang-toggle button {
-      background: black;
-      color: white;
-      padding: 0.3rem 0.8rem;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      color: black;
+      line-height: 1;
     }
   </style>
 </head>
 <body>
   <div class="box-wrapper">
     <div class="symbol-container">
-      <span class="symbol">b</span>
-      <span class="symbol">o</span>
-      <span class="symbol">b</span>
-      <span class="symbol">b</span>
-      <span class="symbol">a</span>
+      <span class="symbol" data-char="b">b</span>
+      <span class="symbol" data-char="o">o</span>
+      <span class="symbol" data-char="b">b</span>
+      <span class="symbol" data-char="b">b</span>
+      <span class="symbol" data-char="a">a</span>
     </div>
-    <span class="fm-tiny">FM</span>
+    <div class="fm-tiny">FM</div>
   </div>
-
-  <div class="lang-toggle">
-    <button onclick="setLang('en')">eng</button>
-    <button onclick="setLang('es')">esp</button>
-  </div>
-
-  <div id="music-widget" class="widget">MUSIC mini player</div>
-  <div id="atmos-widget" class="widget">ATMOS mini player</div>
-  <div id="info-widget" class="widget">Room info goes here</div>
 
   <script>
-    function setLang(lang) {
-      console.log("language set to", lang);
+    const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
+    const letters = document.querySelectorAll(".symbol");
+    var completedLetters = 0;
+
+    function flicker(el, target, prevSymbol, min = 6, max = 12) {
+      let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count >= cycles) {
+          el.textContent = target;
+          clearInterval(interval);
+          completedLetters++;
+          if (completedLetters === letters.length) {
+            setTimeout(animate, 6000);
+          }
+        } else {
+          let availableSymbols = symbols.filter(s => s !== prevSymbol());
+          let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
+          el.textContent = newSymbol;
+          count++;
+        }
+      }, 240 + Math.random() * 100);
     }
 
-    function randomizeWidgetPosition(widget) {
-      const padding = 60;
-      const x = Math.random() * (window.innerWidth - padding);
-      const y = Math.random() * (window.innerHeight - padding);
-      widget.style.left = `${x}px`;
-      widget.style.top = `${y}px`;
+    function shuffle(array) {
+      return array.map(v => ({ v, s: Math.random() }))
+                  .sort((a, b) => a.s - b.s)
+                  .map(obj => obj.v);
     }
 
-    function makeDraggable(el) {
-      let isDragging = false;
-      let offsetX = 0, offsetY = 0;
-
-      el.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - el.getBoundingClientRect().left;
-        offsetY = e.clientY - el.getBoundingClientRect().top;
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        el.style.left = `${e.clientX - offsetX}px`;
-        el.style.top = `${e.clientY - offsetY}px`;
-      });
-
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
+    function animate() {
+      completedLetters = 0;
+      const shuffled = shuffle(Array.from(letters));
+      shuffled.forEach((el, i) => {
+        setTimeout(() => flicker(el, el.dataset.char, () => {
+          let prev = el.previousElementSibling;
+          return prev ? prev.textContent : '';
+        }), i * 200 + Math.random() * 150);
       });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const widgetElements = document.querySelectorAll('.widget');
-      widgetElements.forEach(widget => {
-        randomizeWidgetPosition(widget);
-        makeDraggable(widget);
-      });
-    });
+    animate();
   </script>
 </body>
 </html>
