@@ -2,18 +2,121 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Tom's — bobba FM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bobba.fm</title>
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: url('BACKGROUND_IMAGE_URL') center/cover no-repeat;
       font-family: 'VT323', monospace;
+      position: relative;
+    }
+
+    #logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      animation: logoGlitch 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes logoGlitch {
+      0% { filter: hue-rotate(0deg); transform: translate(-50%, -50%) scale(1); }
+      100% { filter: hue-rotate(360deg); transform: translate(-50%, -50%) scale(1.02); }
+    }
+
+    .widget {
+      position: absolute;
+      z-index: 2;
+      background: rgba(255,255,255,0.85);
+      padding: 1rem;
+      border: 2px solid black;
+      cursor: move;
+    }
+
+    .lang-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 3;
+    }
+
+    .lang-toggle button {
+      background: black;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
+  <img id="logo" src="LOGO_IMAGE_URL" alt="bobba FM logo" />
 
+  <div class="lang-toggle">
+    <button onclick="setLang('en')">eng</button>
+    <button onclick="setLang('es')">esp</button>
+  </div>
+
+  <div id="music-widget" class="widget">MUSIC mini player</div>
+  <div id="atmos-widget" class="widget">ATMOS mini player</div>
+  <div id="info-widget" class="widget">Room info goes here</div>
+
+  <script>
+    function setLang(lang) {
+      // placeholder for future toggle logic
+      console.log("language set to", lang);
+    }
+
+    function randomizeWidgetPosition(widget) {
+      const padding = 60;
+      const x = Math.random() * (window.innerWidth - padding);
+      const y = Math.random() * (window.innerHeight - padding);
+      widget.style.left = `${x}px`;
+      widget.style.top = `${y}px`;
+    }
+
+    function makeDraggable(el) {
+      let isDragging = false;
+      let offsetX = 0, offsetY = 0;
+
+      el.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - el.getBoundingClientRect().left;
+        offsetY = e.clientY - el.getBoundingClientRect().top;
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        el.style.left = `${e.clientX - offsetX}px`;
+        el.style.top = `${e.clientY - offsetY}px`;
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const widgetElements = document.querySelectorAll('.widget');
+      widgetElements.forEach(widget => {
+        randomizeWidgetPosition(widget);
+        makeDraggable(widget);
+      });
+    });
+  </script>
 </body>
 </html>
